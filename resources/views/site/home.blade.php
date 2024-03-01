@@ -86,8 +86,8 @@
 @endsection
 @section('scripts')
 <script>
-
 const { createApp, ref } = Vue
+
 createApp({
 data() {
     return {

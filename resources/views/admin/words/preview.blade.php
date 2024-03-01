@@ -11,7 +11,7 @@
 <div class="card w-100" id="word_prev">
     <div class="card-header d-flex justify-content-between gap-3">
         <input type="text" name="search" id="search" class="form-control w-25" placeholder="Search" v-model="search" @input="getSearch(this.search)">
-        <a href="/admin/words/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
+        <a href="/moheb2/admin/words/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
             <i class="ti ti-plus"></i> Add Term
         </a>
     </div>
@@ -50,8 +50,8 @@
                 </td>
                 <td class="border-bottom-0">
                     <div class="d-flex gap-2">
-                        <a :href="`/admin/words/edit/${term.id}`" @click.prevent="toggleHide(term.id)" class="btn btn-secondary p-2"><h4 :class="term.hide == false ? 'ti-eye-off' : 'ti-eye'" class="ti text-light m-0 fw-semibold"></h4></a>
-                        <a :href="`/admin/words/edit/${term.id}`" class="btn btn-success p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
+                        <a :href="`/moheb2/admin/words/edit/${term.id}`" @click.prevent="toggleHide(term.id)" class="btn btn-secondary p-2"><h4 :class="term.hide == false ? 'ti-eye-off' : 'ti-eye'" class="ti text-light m-0 fw-semibold"></h4></a>
+                        <a :href="`/moheb2/admin/words/edit/${term.id}`" class="btn btn-success p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
                         <button class="btn btn-danger p-2" @click="this.delete_pop_up = true; getValues(term.id, term.name)"><h4 class="ti ti-trash text-light m-0 fw-semibold"></h4></button>
                     </div>
                 </td>
@@ -109,7 +109,7 @@ createApp({
         async update(lang_id, lang_symbol, lang_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/languages/edit`, {
+                const response = await axios.post(`/moheb2/admin/languages/edit`, {
                     lang_id: lang_id,
                     lang_symbol: lang_symbol,
                     lang_name: lang_name,
@@ -163,7 +163,7 @@ createApp({
         async deleteTerm(term_id) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/words/delete`, {
+                const response = await axios.post(`/moheb2/admin/words/delete`, {
                     term_id: term_id,
                 },
                 );
@@ -214,7 +214,7 @@ createApp({
         async getTerms() {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/words?page=${this.page}`, {
+                const response = await axios.post(`/moheb2/admin/words?page=${this.page}`, {
                 },
                 );
                 if (response.data.status === true) {
@@ -256,7 +256,7 @@ createApp({
         },
         async toggleHide(id) {
             try {
-                const response = await axios.post(`/admin/words/toggle-hide`, {
+                const response = await axios.post(`/moheb2/admin/words/toggle-hide`, {
                     id: id
                 },
                 );
@@ -296,7 +296,7 @@ createApp({
         },
         async getSearch(search_words) {
             try {
-                const response = await axios.post(`/admin/words/search?page=${this.page}`, {
+                const response = await axios.post(`/moheb2/admin/words/search?page=${this.page}`, {
                     search_words: search_words,
                 },
                 );

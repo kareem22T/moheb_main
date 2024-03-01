@@ -17,7 +17,7 @@ class guestAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guard('admin')->user())
-            return redirect('/admin');
+            return redirect('/moheb2/admin');
         return $next($request);
     }
 }

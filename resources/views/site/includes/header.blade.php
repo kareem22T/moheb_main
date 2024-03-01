@@ -17,7 +17,7 @@
             <div class="links">
                 <a href="">@{{ page_content ? page_content.header.about : "about" }}</a>
                 <a href="">@{{ page_content ? page_content.header.contact : "contact" }}</a>
-    </div>
+            </div>
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
                 <div class="profile" v-if="user">
                     <div class="text" @click="showProfileMore == true ? showProfileMore = false : showProfileMore = true">

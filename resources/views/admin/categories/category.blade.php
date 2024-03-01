@@ -14,7 +14,7 @@
         <p>
             {{ $category->description }}
         </p>
-        <a href="/admin/categories/edit/{{ $category->id }}" class="btn btn-success">Edit Category</a>
+        <a href="/moheb2/admin/categories/edit/{{ $category->id }}" class="btn btn-success">Edit Category</a>
     </div>
     <div class="img card p-2" style="max-height: 150px; max-width: 140px">
         <img src="{{$category->thumbnail_path ?  $category->thumbnail_path : '/dashboard/images/add_image.svg' }}" id="preview" alt="img logo" style="width: 100%; max-width: 100%;object-fit: contain;height: 100%;">                                                
@@ -63,7 +63,7 @@
                     </td>
                     <td class="border-bottom-0">
                         <div class="d-flex gap-2">
-                            <a href="/admin/categories/edit/{{ $cat->id }}" class="btn btn-secondary p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
+                            <a href="/moheb2/admin/categories/edit/{{ $cat->id }}" class="btn btn-secondary p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
                             <button class="btn btn-danger p-2" @click="this.delete_pop_up = true; getValues('{{ $cat->id }}', '{{ $cat->main_name }}')"><h4 class="ti ti-trash text-light m-0 fw-semibold"></h4></button>
                         </div>
                     </td>
@@ -115,7 +115,7 @@ createApp({
         async update(lang_id, lang_symbol, lang_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/languages/edit`, {
+                const response = await axios.post(`/moheb2/admin/languages/edit`, {
                     lang_id: lang_id,
                     lang_symbol: lang_symbol,
                     lang_name: lang_name,
@@ -169,7 +169,7 @@ createApp({
         async deletCat(cat_id) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/categories/delete`, {
+                const response = await axios.post(`/moheb2/admin/categories/delete`, {
                     cat_id: cat_id,
                 },
                 );
@@ -219,7 +219,7 @@ createApp({
         async getCategories() {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/categories`, {
+                const response = await axios.post(`/moheb2/admin/categories`, {
                 },
                 );
                 if (response.data.status === true) {
@@ -259,7 +259,7 @@ createApp({
         },
         async getSearch(search_words) {
             try {
-                const response = await axios.post(`/admin/categories/search`, {
+                const response = await axios.post(`/moheb2/admin/categories/search`, {
                     search_words: search_words,
                 },
                 );

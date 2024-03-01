@@ -153,7 +153,7 @@ createApp({
     async add(category_translations, main_name, description, cat_type, main_cat_id, thumbnail) {
       $('.loader').fadeIn().css('display', 'flex')
       try {
-        const response = await axios.post(`/admin/categories/add`, {
+        const response = await axios.post(`/moheb2/admin/categories/add`, {
           category_translations: category_translations,
           main_name: main_name,
           description: description,
@@ -176,7 +176,7 @@ createApp({
           $('#errors').fadeIn('slow')
           setTimeout(() => {
             $('#errors').fadeOut('slow')
-            window.location.href = '/admin/categories'
+            window.location.href = '/moheb2/admin/categories'
           }, 2000);
         } else {
           $('.loader').fadeOut()
@@ -213,7 +213,7 @@ createApp({
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/admin/categories/get-languages`, {
+            const response = await axios.post(`/moheb2/admin/categories/get-languages`, {
             },
             );
             if (response.data.status === true) {
@@ -254,7 +254,7 @@ createApp({
     async getCategories() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/admin/categories/main`, {
+            const response = await axios.post(`/moheb2/admin/categories/main`, {
             },
             );
             if (response.data.status === true) {
@@ -378,7 +378,7 @@ createApp({
     async getImages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.get(`/admin/images/get_images?page=${this.page}`
+            const response = await axios.get(`/moheb2/admin/images/get_images?page=${this.page}`
             );
             if (response.data.status === true) {
                 $('.loader').fadeOut()
@@ -419,7 +419,7 @@ createApp({
     },
     async getSearchImages(search_words) {
         try {
-            const response = await axios.post(`/admin/images/search?page=${this.page}`, {
+            const response = await axios.post(`/moheb2/admin/images/search?page=${this.page}`, {
                 search_words: search_words,
             },
             );
@@ -461,7 +461,7 @@ createApp({
     async uploadImage(image) {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/admin/images/upload`, {
+            const response = await axios.post(`/moheb2/admin/images/upload`, {
                 img: image,
             },
             {

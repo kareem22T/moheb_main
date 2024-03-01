@@ -108,7 +108,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="/admin" class="text-nowrap logo-img">
+          <a href="/moheb2/admin" class="text-nowrap logo-img">
             <h4>MOHEB | Dashboard</h4>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -123,7 +123,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('home_active')" href="/admin" aria-expanded="false">
+              <a class="sidebar-link @yield('home_active')" href="/moheb2/admin" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -135,7 +135,7 @@
               <span class="hide-menu">Languages</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('laguages_preview_active')" href="/admin/languages" aria-expanded="false">
+              <a class="sidebar-link @yield('laguages_preview_active')" href="/moheb2/admin/languages" aria-expanded="false">
                 <span>
                   <i class="ti ti-language"></i>
                 </span>
@@ -143,7 +143,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('laguages_add_active')" href="/admin/languages/add" aria-expanded="false">
+              <a class="sidebar-link @yield('laguages_add_active')" href="/moheb2/admin/languages/add" aria-expanded="false">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-world-plus" width="21" height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -160,7 +160,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('laguages_content_active')" href="/admin/languages/content" aria-expanded="false">
+              <a class="sidebar-link @yield('laguages_content_active')" href="/moheb2/admin/languages/content" aria-expanded="false">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code-dots" width="21" height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -179,7 +179,7 @@
               <span class="hide-menu">Categories</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('categories_preview_active')" href="/admin/categories" aria-expanded="false">
+              <a class="sidebar-link @yield('categories_preview_active')" href="/moheb2/admin/categories" aria-expanded="false">
                 <span>
                   <i class="ti ti-category"></i>
                 </span>
@@ -187,7 +187,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('categories_add_active')" href="/admin/categories/add" aria-expanded="false">
+              <a class="sidebar-link @yield('categories_add_active')" href="/moheb2/admin/categories/add" aria-expanded="false">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cube-plus" width="21" height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -207,7 +207,7 @@
               <span class="hide-menu">Words</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('words_preview_active')" href="/admin/words" aria-expanded="false">
+              <a class="sidebar-link @yield('words_preview_active')" href="/moheb2/admin/words" aria-expanded="false">
                 <span>
                   <i class="ti ti-clipboard-text"></i>
                 </span>
@@ -215,7 +215,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('words_add_active')" href="/admin/words/add" aria-expanded="false">
+              <a class="sidebar-link @yield('words_add_active')" href="/moheb2/admin/words/add" aria-expanded="false">
                 <span>
                   <i class="ti ti-text-plus"></i>
                 </span>
@@ -227,7 +227,7 @@
               <span class="hide-menu">Articles</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('articles_preview_active')" href="/admin/articles" aria-expanded="false">
+              <a class="sidebar-link @yield('articles_preview_active')" href="/moheb2/admin/articles" aria-expanded="false">
                 <span>
                   <i class="ti ti-file-text"></i>
                 </span>
@@ -235,7 +235,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('articles_add_active')" href="/admin/articles/add" aria-expanded="false">
+              <a class="sidebar-link @yield('articles_add_active')" href="/moheb2/admin/articles/add" aria-expanded="false">
                 <span>
                   <i class="ti ti-file-plus"></i>
                 </span>
@@ -247,7 +247,7 @@
               <span class="hide-menu">Tags</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('Tags_preview_active')" href="/admin/tags" aria-expanded="false">
+              <a class="sidebar-link @yield('Tags_preview_active')" href="/moheb2/admin/tags" aria-expanded="false">
                 <span>
                   <i class="ti ti-tags"></i>
                 </span>
@@ -255,7 +255,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link @yield('tags_add_active')" href="/admin/tags/add" aria-expanded="false">
+              <a class="sidebar-link @yield('tags_add_active')" href="/moheb2/admin/tags/add" aria-expanded="false">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag-plus" width="21" height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -306,7 +306,7 @@
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3">My Profile</p>
                     </a>
-                    <a href="/admin/logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                    <a href="/moheb2/admin/logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                   </div>
                 </div>
               </li>

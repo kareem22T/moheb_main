@@ -11,7 +11,7 @@ createApp({
         async login(username, password) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/login`, {
+                const response = await axios.post(`/moheb2/admin/login`, {
                     username: username,
                     password: password,
                 },
@@ -26,7 +26,7 @@ createApp({
                     setTimeout(() => {
                         $('.loader').fadeOut()
                         $('#errors').fadeOut('slow')
-                        window.location.href = '/admin'
+                        window.location.href = '/moheb2/admin'
                     }, 1300);
                 } else {
                     $('.loader').fadeOut()

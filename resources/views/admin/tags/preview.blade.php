@@ -11,7 +11,7 @@
 <div class="card w-100" id="Tag_prev">
     <div class="card-header d-flex justify-content-between gap-3">
         <input type="text" name="search" id="search" class="form-control w-25" placeholder="Search" v-model="search" @input="getSearch(this.search)">
-        <a href="/admin/tags/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
+        <a href="/moheb2/admin/tags/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
             <i class="ti ti-plus"></i> Add Tag
         </a>
     </div>
@@ -122,7 +122,7 @@ createApp({
         async update(tag_id, tag_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/tags/edit`, {
+                const response = await axios.post(`/moheb2/admin/tags/edit`, {
                     tag_id: tag_id,
                     tag_name: tag_name,
                 },
@@ -175,7 +175,7 @@ createApp({
         async deleteTag(tag_id) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/tags/delete`, {
+                const response = await axios.post(`/moheb2/admin/tags/delete`, {
                     tag_id: tag_id,
                 },
                 );
@@ -227,7 +227,7 @@ createApp({
         async getTags() {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/tags?page=${this.page}`, {
+                const response = await axios.post(`/moheb2/admin/tags?page=${this.page}`, {
                 },
                 );
                 if (response.data.status === true) {
@@ -269,7 +269,7 @@ createApp({
         },
         async getSearch(search_words) {
             try {
-                const response = await axios.post(`/admin/tags/search?page=${this.page}`, {
+                const response = await axios.post(`/moheb2/admin/tags/search?page=${this.page}`, {
                     search_words: search_words,
                 },
                 );

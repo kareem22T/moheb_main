@@ -38,7 +38,7 @@ createApp({
         async add(symbol, Tag_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/admin/tags/add`, {
+                const response = await axios.post(`/moheb2/admin/tags/add`, {
                     symbol: symbol,
                     name: Tag_name,
                 },
@@ -53,7 +53,7 @@ createApp({
                     setTimeout(() => {
                         $('.loader').fadeOut()
                         $('#errors').fadeOut('slow')
-                        window.location.href = '/admin/tags'
+                        window.location.href = '/moheb2/admin/tags'
                     }, 2000);
                 } else {
                     $('.loader').fadeOut()
