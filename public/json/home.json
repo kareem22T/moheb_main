@@ -1,0 +1,64 @@
+{
+    "EN": {
+        "nav": {
+            "link_1": "About",
+            "link_2": "Contact",
+            "welcome": "welcome"
+        },
+        "alert_bio": {
+            "welcome": "Welcome!",
+            "title": "Bio About Our Team And The word of the founder of our website",
+            "more": "More About Us >>"
+        },
+        "sections": {
+            "view_all": "View All",
+            "football": "Football",
+            "most_popular": "Most Popular Sports",
+            "last_difinations": "Last Updated Difinations",
+            "last_news": "Last News"
+        },
+        "header" : {
+            "about": "About",
+            "contact": "Contact"
+        },
+        "footer": {
+            "nav": {
+                "link_1": "Privacy Policy",
+                "link_2": "Cookie Policy",
+                "link_3": "Contact Us"
+            },
+            "copy": "Powerd by Center de Paris"
+        }
+    },
+    "AR": {
+        "nav": {
+            "link_1": "من نحن",
+            "link_2": "تواصل معنا",
+            "welcome": "مرحبا"
+        },
+        "alert_bio": {
+            "welcome": "مرحبا!",
+            "title": "Bio About Our Team And The word of the founder of our website",
+            "more": "More About Us >>"
+        },
+        "sections": {
+            "view_all": "عرض المزيد",
+            "football": "كرة القدم",
+            "most_popular": "الرياضات الاكثر شيوعا",
+            "last_difinations": "اخر الكلمات المضافة",
+            "last_news": "اخر الاخبار"
+        },
+        "header" : {
+            "about": "من نحن",
+            "contact": "تواصل معنا"
+        },
+        "footer": {
+            "nav": {
+                "link_1": "سياسة الخصوصية",
+                "link_2": "سياسة ملفات الارتباط",
+                "link_3": "تواصل معنا"
+            },
+            "copy": "مدعوم من مركز باريس"
+        }
+    }
+}
