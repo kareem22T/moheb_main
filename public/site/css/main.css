@@ -1116,8 +1116,8 @@ textarea:focus {
 @media (max-width: 992.98px) {
     .football .sub_categories .card h1 {
         position: absolute;
-        bottom: 1rem;
-        left: 50%;
+        bottom: .5rem;
+        left: .5rem;
         font-size: 1.5rem;
         white-space: nowrap;
         color: #fff;
@@ -1330,4 +1330,96 @@ textarea:focus {
     gap: 2rem;
     justify-content: space-between;
     flex-direction: row-reverse;
+  }
+
+  @media (max-width: 575px) {
+    header .bottom .categories a:not(:first-child, :nth-child(2), :nth-child(3)) {
+        display: none !important;
+    }
+    header .bottom .categories a {
+        font-size: 16px;
+        white-space: nowrap !important;
+    }
+    .AR .football .sub_categories .card h1 {
+        position: absolute;
+        bottom: .7rem;
+        left: .7rem;
+        font-size: 1.5rem;
+        white-space: nowrap;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.77);
+        font-weight: 500;
+        bottom: .5rem;
+        left: .5rem;
+        font-size: 13px;
+        white-space: nowrap;
+        color: #fff;
+        font-weight: 600;
+        z-index: 69999;
+        left: auto;
+        right: .5rem;
+    }
+    .football .sub_categories .card {
+        position: relative;
+        border-radius: 11px;
+        overflow: hidden;
+        max-height: 110px;
+        height: 150px;
+    }
+    #term article .head h1, #article article .head h1 {
+        font-size: 1.19rem;
+        margin: 0;
+    }
+    #term article .head .date, #article article .head .date {
+        margin: 0 0px 0 20px;
+      }
+      #term > .container, #article > .container {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 1.25rem;
+      }
+      #term article h2, #article article h2 {
+        font-size: 1rem;
+      }
+      #term article .thumbnail, #article article .thumbnail {
+        margin: 1rem 0 0;
+        overflow: hidden;
+        display: flex;
+        border-radius: 11px;
+      }
+      .latest-articles .article .thumbnail img {
+        width: 100%;
+        height: 100%;
+        max-height: 190px;
+        object-fit: cover;
+      }
+      footer .top a {
+        font-size: 12px;
+      }
+      .most-popular .sub_categories .card {
+        position: relative;
+        border-radius: 11px;
+        overflow: hidden;
+        height: 200px;
+        max-height: 125px;
+        font-size: 16px !important;
+      }
+      .most-popular .sub_categories .card h1 {
+        position: absolute;
+        bottom: .5rem;
+        left: .5rem;
+        font-size: 21px;
+        white-space: nowrap;
+        color: #fff;
+        font-weight: 600;
+        z-index: 69999;
+        left: auto !important;
+        right: .5rem;
+        font-size: 16px;
+      }
+      .latest-terms .term h2 {
+        font-size: 18px;
+        color: var(--main-color);
+        font-weight: 700;
+      }
   }
