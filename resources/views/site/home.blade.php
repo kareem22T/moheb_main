@@ -40,7 +40,7 @@
                     <h1><i class="fa-solid fa-list-ul"></i> @{{ page_content ? page_content.sections.last_difinations : "Last Updated Difinations" }}</h1>
                 </div>
                 <div class="terms">
-                    <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-')}/${term.id}`" target="_blanck"  class="term" v-for="(term, index) in terms" :key="index">
+                    <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-')}/${term.id}`" target="_blanck"  class="term" v-for="(term, index) in terms" :key="index">
                         <h2>@{{ term.name }}</h2>
                         <h4>@{{ term.category_name }}</h4>
                     </a>
