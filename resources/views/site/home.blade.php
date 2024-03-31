@@ -250,7 +250,7 @@ methods: {
     async getLatestTerms(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('term.getlatest') }}`, {
+            const response = await axios.post( `/latest-terms`, {
                 lang: lang
             },
             );
