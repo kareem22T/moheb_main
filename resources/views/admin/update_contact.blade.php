@@ -112,7 +112,7 @@ createApp({
     async add() {
       $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/add-contact`, {
+            const response = await axios.post(`/admin/add-contact`, {
                 phone: this.phone,
                 email: this.email,
                 facebook: this.facebook,
@@ -175,7 +175,7 @@ createApp({
     },
     async getContact() {
         try {
-            const response = await axios.get(`/get-contact`
+            const response = await axios.get(`/admin/get-contact`
             );
             if (response.data.status === true) {
                 this.phone = response.data.data.contact ? response.data.data.contact.phone : null
