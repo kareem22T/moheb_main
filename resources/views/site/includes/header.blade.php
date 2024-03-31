@@ -84,7 +84,7 @@
                 </div>
                 <div class="categories" v-if="all_categories && all_categories.length" style="display: flex;flex-direction: column">
                     <a :href="`/category/${cat.id}`" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>
-                </div>        
+                </div>
                     <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
                             <div class="lang">
                                 <select v-model="current_lang" v-if="languages_data && languages_data.length" @change="setLang">
@@ -102,7 +102,7 @@
     <div class="top">
         <div class="container">
             <div class="logo">
-                <img src="{{ asset('/site/imgs/logo.png') }}" alt="">
+                <img src="{{ asset('/site/imgs/logo.png') }}?V={{time()}}" alt="">
             </div>
             <div class="search">
                 <input type="text" name="search" id="search" placeholder="Search for Term">
