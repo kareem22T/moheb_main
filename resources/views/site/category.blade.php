@@ -50,14 +50,14 @@ data() {
         searchArticles: [],
         currentPage: 1,
         lastPage: null, // This value should be set based on your actual last page
-        maxVisiblePages: 5 // Set the maximum number of visible pages    
+        maxVisiblePages: 5 // Set the maximum number of visible pages
     }
 },
 methods: {
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`{{ route('languages.get') }}`, {
+            const response = await axios.post(`/admin/admin/categories/get-languages`, {
             },
             );
             if (response.data.status === true) {
@@ -98,7 +98,7 @@ methods: {
     async getAllCategories(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('categories.get') }}`, {
+            const response = await axios.post( `/get-categories`, {
                 lang: lang
             },
             );

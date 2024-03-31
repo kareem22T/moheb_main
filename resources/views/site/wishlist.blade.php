@@ -55,7 +55,7 @@ methods: {
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`{{ route('languages.get') }}`, {
+            const response = await axios.post(`/admin/admin/categories/get-languages`, {
             },
             );
             if (response.data.status === true) {
@@ -366,7 +366,7 @@ methods: {
     async getAllCategories(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('categories.get') }}`, {
+            const response = await axios.post( `/get-categories`, {
                 lang: lang
             },
             );

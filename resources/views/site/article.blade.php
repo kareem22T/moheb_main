@@ -114,7 +114,7 @@ methods: {
     async getarticle(id, lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `/article`, {
+            const response = await axios.post( `{{ route('site.getarticle') }}`, {
                 id: id,
                 lang: lang
             },
@@ -161,7 +161,7 @@ methods: {
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/admin/categories/get-languages`, {
+            const response = await axios.post(`/admin/admin/categories/get-languages`, {
             },
             );
             if (response.data.status === true) {
