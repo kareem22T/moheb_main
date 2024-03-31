@@ -18,7 +18,7 @@
                 @endphp
 
                 @if($contact->facebook)
-                <a target="_blank" href="mailto:{{$contact->facebook}}">
+                <a target="_blank" href="{{$contact->facebook}}">
                         <i class="fa-brands fa-facebook-f"></i></a>
                 @endif
                 @if($contact->instagram)
