@@ -220,6 +220,7 @@ methods: {
         this.getLatestTerms(this.current_lang)
         this.getLatestArticles(this.current_lang)
         this.getLatestCategories(this.current_lang)
+        this.getAllCategories(this.current_lang)
         if (this.current_lang.includes("AR")) {
             document.body.classList = 'AR'
         } else {
