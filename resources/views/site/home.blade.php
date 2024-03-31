@@ -230,7 +230,7 @@ methods: {
 
     },
     async getLang() {
-        fetch("/json/home.json . '?v=' . time() }}")
+        fetch("/json/home.json?v={{time()}}")
         .then((response) => response.json())
         .then((data) => {
         // Use the JSON data
