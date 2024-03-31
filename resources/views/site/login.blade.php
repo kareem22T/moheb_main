@@ -48,7 +48,7 @@ methods: {
     async login(phone, password) {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`{{ route('site.loginprocess') }}`, {
+            const response = await axios.post(`/login`, {
                 email: phone,
                 password: password,
             },
@@ -65,7 +65,7 @@ methods: {
                 setTimeout(() => {
                     $('.loader').fadeOut()
                     $('#errors').fadeOut('slow')
-                    window.location.href = '{{ route("site.home") }}'
+                    window.location.href = '/'
                 }, 1300);
             } else {
                 $('.loader').fadeOut()

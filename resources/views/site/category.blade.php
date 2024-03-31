@@ -176,7 +176,7 @@ methods: {
         if (user_token) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.get(`{{ route('site.get-user') }}`,
+                const response = await axios.get(`/get-user`,
                     {
                         headers: {
                             'AUTHORIZATION': `Bearer ${user_token}`
@@ -217,7 +217,7 @@ methods: {
 
     },
     async getLang() {
-        fetch("{{ asset('/json/home.json') . '?v=' . time() }}")
+        fetch("/json/home.json?v={{time()}}")
         .then((response) => response.json())
         .then((data) => {
         // Use the JSON data
@@ -254,7 +254,7 @@ methods: {
     async getCategory(){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('category.getbyid') }}`, {
+            const response = await axios.post( `/category`, {
                 page: this.currentPage,
                 lang: this.current_lang,
                 id: "{{request()->id}}"

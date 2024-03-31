@@ -9,7 +9,7 @@ export async function getUser() {
     if (user_token) {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.get(`{{ route('site.register') }}`,
+            const response = await axios.get(`/register`,
                 {
                     headers: {
                         'AUTHORIZATION': `Bearer ${user_token}`

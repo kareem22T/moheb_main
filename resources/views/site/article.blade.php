@@ -114,7 +114,7 @@ methods: {
     async getarticle(id, lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('site.getarticle') }}`, {
+            const response = await axios.post( `/article`, {
                 id: id,
                 lang: lang
             },
@@ -279,7 +279,7 @@ methods: {
         if (user_token) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.get(`{{ route('site.get-user') }}`,
+                const response = await axios.get(`/get-user`,
                     {
                         headers: {
                             'AUTHORIZATION': `Bearer ${user_token}`
@@ -327,7 +327,7 @@ methods: {
     },
     async handleSearch(lang){
         try {
-            const response = await axios.post( `{{ route('words.search') }}`, {
+            const response = await axios.post( `/search`, {
                 lang: lang,
                 search_words: this.search
             },

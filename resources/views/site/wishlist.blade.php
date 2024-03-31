@@ -128,7 +128,7 @@ methods: {
         if (user_token) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.get(`{{ route('site.get-user') }}`,
+                const response = await axios.get(`/get-user`,
                     {
                         headers: {
                             'AUTHORIZATION': `Bearer ${user_token}`
@@ -171,7 +171,7 @@ methods: {
 
     },
     async getLang() {
-        fetch("{{ asset('/json/home.json') . '?v=' . time() }}")
+        fetch("/json/home.json?v={{time()}}")
         .then((response) => response.json())
         .then((data) => {
         // Use the JSON data
@@ -191,7 +191,7 @@ methods: {
     async getLatestTerms(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('fav.terms') }}`, {
+            const response = await axios.post( `/my-favTerms`, {
                 lang: lang
             },
             );
@@ -236,7 +236,7 @@ methods: {
     async getFootball(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('categories.football') }}`, {
+            const response = await axios.post( `/get_football_cat`, {
                 lang: lang
             },
             );
@@ -280,7 +280,7 @@ methods: {
     },
     async handleFav(term_id){
         try {
-            const response = await axios.post( `{{ route('fav.addordelete') }}`, {
+            const response = await axios.post( `/fav-add-delete`, {
                 term_id: term_id
             },
             );
@@ -321,7 +321,7 @@ methods: {
     async getLatestCategories(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('categories.getlatest') }}`, {
+            const response = await axios.post( `/latest-categories`, {
                 lang: lang
             },
             );
@@ -411,7 +411,7 @@ methods: {
     async getLatestArticles(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('article.getlatest') }}`, {
+            const response = await axios.post( `/latest-articles`, {
                 lang: lang
             },
             );
@@ -455,7 +455,7 @@ methods: {
     },
     async handleSearch(lang){
         try {
-            const response = await axios.post( `{{ route('words.search') }}`, {
+            const response = await axios.post( `/search`, {
                 lang: lang,
                 search_words: this.search
             },
