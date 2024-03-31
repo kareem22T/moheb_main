@@ -721,7 +721,8 @@ textarea:focus {
     bottom: .5rem;
     left: .5rem;
     font-size: 18px;
-    white-space: nowrap;
+    max-width: 100%;
+    white-space: wrap;
     color: #fff;
     font-weight: 600;
     z-index: 69999;
@@ -887,6 +888,25 @@ textarea:focus {
     border-radius: 11px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.add_to_fav {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+.latest-terms .term i, .add_to_fav i{
+    font-size: 25px;
+    color: #1a3467;
+    transition: .3s ease-in all;
+    cursor: pointer;
+}
+
+.latest-terms .term i:hover, .latest-terms .term i.active, .add_to_fav i:hover, .add_to_fav i.active{
+    font-size: 25px;
+    color: #b10a0b;
 }
 
 .latest-terms .term::after {

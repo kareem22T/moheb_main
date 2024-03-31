@@ -14,12 +14,40 @@ use App\Models\Term_Title;
 use App\Models\Term_Content;
 use App\Models\Term_Sound;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Category_Name;
 use App\Traits\DataFormController;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     use DataFormController;
+
+    public function favTerms (Request $request) {
+        $lang = $request->lang ? Language::where("symbol", $request->lang)->first() : Language::where("symbol", "EN")->first();
+        $user = Auth::user() ? Auth::user() : false;
+
+        $favorites = Favorite::where("user_id", $user->id)->pluck("term_id")->all();
+        $terms = Term::with(["names" => function ($q) use ($lang) {
+            $q->where("language_id", $lang->id);
+        }])->whereIn('id', $favorites)->get();
+
+        foreach ($terms as $term) {
+            $category_name = Category_Name::where('category_id', $term->category_id)->where('language_id', $lang->id)->first();
+            $term->category_name = $category_name->name;
+        }
+        return $terms;
+    }
+
+    public function favIndex () {
+        $user = Auth::user() ? Auth::user() : false;
+
+        if ($user)
+            return view("site.wishlist");
+
+        return view("site.login");
+    }
 
     public function getTermIndex() {
         return view('site.term');
@@ -46,6 +74,10 @@ class HomeController extends Controller
         $term->content = $term_content->content;
         $term_sound = Term_Sound::where('language_id', $lang->id)->where('term_id', $term->id)->first();
         $term->sound = $term_sound ? $term_sound->sound : '';
+
+        $user = Auth::user() ? Auth::user() : ["id" => 0];
+
+        $term->isFav = $term->isFavoritedByUser($user->id);
 
         return $this->jsonData(true, true, '', [], $term);
     }
@@ -80,6 +112,12 @@ class HomeController extends Controller
             $term_sound = Term_Sound::where('language_id', $lang->id)->where('term_id', $term->id)->first();
             $term->sound = $term_sound ? $term_sound->sound : '';
         }
+
+        $user = Auth::user() ? Auth::user() : ["id" => 0];
+
+        $terms->each(function ($term) use ($user) {
+            $term->isFav = $term->isFavoritedByUser($user->id);
+        });
 
         return $this->jsonData(true, true, '', [], $terms);
     }
@@ -191,6 +229,10 @@ class HomeController extends Controller
 
         $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
         $category->name = $category_name->name;
+        
+        $terms = Term::with(['names' => function ($query) use ($lang) {
+            $query->where("language_id", $lang->id);
+        }])->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
 
         if (!$category) {
             // Handle category not found error (optional)
@@ -201,7 +243,7 @@ class HomeController extends Controller
         }
 
         // Return the data using your preferred method (e.g., JSON)
-        return $this->jsonData(true, true, '', [], $category);   
+        return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);   
      }
 
     public function getLatestLatest(Request $request) {
@@ -219,5 +261,58 @@ class HomeController extends Controller
         }
 
         return $this->jsonData(true, true, '', [], $articles);
+    }
+
+    public function search(Request $request) {
+        $lang = $request->lang;
+        $search = $request->search_words;
+
+        $terms = Term::with(["titles" => function ($q) use ($lang, $search) {
+            $q->where('title', 'like', '%' . $search . '%')
+              ->where('language_id', Language::where("symbol", $lang)->value('id'));
+        }, "names" => function ($q) use ($lang, $search) {                
+                $q->where('language_id', Language::where("symbol", $lang)->value('id'));
+        }])
+        ->whereHas("titles", function ($q) use ($lang, $search) {
+            $q->where('title', 'like', '%' . $search . '%')
+              ->where('language_id', Language::where("symbol", $lang)->value('id'));
+        })
+        ->paginate(30);
+            
+        return $this->jsonData(true, true, '', [], $terms);
+
+    }
+
+    public function addToFav(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'term_id' => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return $this->jsondata(false, null, 'Add to fav failed', [$validator->errors()->first()], []);
+        }
+        
+        $user = Auth::user();
+        
+        if (!$user)
+            return $this->jsondata(false, null, 'Add to fav failed', ["Login First"], []);
+
+        $favorite = Favorite::where("user_id", $user->id)->where("term_id", $request->term_id)->first();
+        
+        if ($favorite) :
+            $favorite->delete();
+        else :
+            $addfavorite = Favorite::create([
+                'user_id' => $user->id,
+                'term_id' => $request->term_id
+            ]);
+        endif;
+
+        return $this->jsondata(true, null, 'Success', [], []);
+
+    }
+
+    public function searchIndex() {
+        return view("site.search");
     }
 }

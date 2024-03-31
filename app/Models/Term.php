@@ -48,6 +48,14 @@ class Term extends Model
     return $this->belongsToMany('App\Models\Tag', 'term_tag', 'term_id', 'tag_id', 'id', 'id');
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 
+    public function isFavoritedByUser($userId)
+    {
+        return $this->favorites()->where('user_id', $userId)->exists();
+    }
 
 }

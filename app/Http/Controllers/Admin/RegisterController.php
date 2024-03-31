@@ -47,6 +47,6 @@ class RegisterController extends Controller
 
     public function logout() {
         Auth::guard('admin')->logout();
-        return redirect('/moheb2/admin/login');
+        return redirect('/admin/login');
     }
 }

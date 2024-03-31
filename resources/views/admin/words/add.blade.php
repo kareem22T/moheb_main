@@ -267,7 +267,7 @@ createApp({
     async add(main_name, term_translations, title_translations, content_translations, thumbnail, sounds_translations, cat_id, tags) {
       $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/moheb2/admin/words/add`, {
+            const response = await axios.post(`/admin/words/add`, {
                 main_name: main_name,
                 term_translations: term_translations,
                 title_translations: title_translations,
@@ -293,7 +293,7 @@ createApp({
             $('.loader').fadeOut()
             setTimeout(() => {
                 $('#errors').fadeOut('slow')
-                window.location.href = '/moheb2/admin/words'
+                window.location.href = '/admin/words'
             }, 2000);
             } else {
             $('.loader').fadeOut()
@@ -330,7 +330,7 @@ createApp({
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/moheb2/admin/words/get-languages`, {
+            const response = await axios.post(`/admin/words/get-languages`, {
             },
             );
             if (response.data.status === true) {
@@ -371,7 +371,7 @@ createApp({
     async getCategories() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/moheb2/admin/categories/main`, {
+            const response = await axios.post(`/admin/categories/main`, {
                 cat: 'cat'
             },
             );
@@ -413,7 +413,7 @@ createApp({
     async getSubCategories() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/moheb2/admin/categories/sub`, {
+            const response = await axios.post(`/admin/categories/sub`, {
                 cat_id: this.cat_id
             },
             );
@@ -460,7 +460,7 @@ createApp({
     },
     async getTagSearch(search_words) {
         try {
-            const response = await axios.post(`/moheb2/admin/tags/search`, {
+            const response = await axios.post(`/admin/tags/search`, {
                 search_words: search_words,
             },
             );
@@ -564,7 +564,7 @@ createApp({
     async getImages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.get(`/moheb2/admin/images/get_images?page=${this.page}`
+            const response = await axios.get(`/admin/images/get_images?page=${this.page}`
             );
             if (response.data.status === true) {
                 $('.loader').fadeOut()
@@ -606,7 +606,7 @@ createApp({
     async uploadImage(image) {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`/moheb2/admin/images/upload`, {
+            const response = await axios.post(`/admin/images/upload`, {
                 img: image,
             },
             {
@@ -663,7 +663,7 @@ createApp({
     },
     async getSearchImages(search_words) {
         try {
-            const response = await axios.post(`/moheb2/admin/images/search?page=${this.page}`, {
+            const response = await axios.post(`/admin/images/search?page=${this.page}`, {
                 search_words: search_words,
             },
             );

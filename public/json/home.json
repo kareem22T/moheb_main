@@ -12,6 +12,8 @@
         },
         "sections": {
             "view_all": "View All",
+            "empty_wish": "Your wishlist is empty",
+            "my_wishlist": "My Wishlist",
             "football": "Football",
             "most_popular": "Most Popular Sports",
             "last_difinations": "Last Updated Difinations",
@@ -42,6 +44,8 @@
             "more": "More About Us >>"
         },
         "sections": {
+            "my_wishlist": "المفضلة",
+            "empty_wish": "المفضلة فارغة",
             "view_all": "عرض المزيد",
             "football": "كرة القدم",
             "most_popular": "الرياضات الاكثر شيوعا",

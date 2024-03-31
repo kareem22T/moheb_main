@@ -38,3 +38,8 @@ Route::post('/latest-articles', [HomeController::class, 'getLatestLatest'])->nam
 Route::post('/latest-categories', [HomeController::class, 'getLatestCategories'])->name('categories.getlatest');
 Route::post('/get-categories', [HomeController::class, 'getCategories'])->name('categories.get');
 Route::post('/get_football_cat', [HomeController::class, 'getFootballCat'])->name('categories.football');
+Route::post('/search', [HomeController::class, 'search'])->name('words.search');
+Route::post('/fav-add-delete', [HomeController::class, 'addToFav'])->name('fav.addordelete');
+Route::get('/search/{word}', [HomeController::class, 'searchIndex'])->name('view.search');
+Route::get('/my-wishlist', [HomeController::class, 'favIndex'])->name('view.wishlist');
+Route::post('/my-favTerms', [HomeController::class, 'favTerms'])->name('fav.terms');

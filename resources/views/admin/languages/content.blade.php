@@ -87,7 +87,7 @@ createApp({
         async add(symbol, lang_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/moheb2/admin/languages/add`, {
+                const response = await axios.post(`/admin/languages/add`, {
                     symbol: symbol,
                     name: lang_name,
                 },
@@ -102,7 +102,7 @@ createApp({
                     setTimeout(() => {
                         $('.loader').fadeOut()
                         $('#errors').fadeOut('slow')
-                        window.location.href = '/moheb2/admin/languages'
+                        window.location.href = '/admin/languages'
                     }, 2000);
                 } else {
                     $('.loader').fadeOut()
@@ -139,7 +139,7 @@ createApp({
         async update(file, file_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/moheb2/admin/languages/content/update`, {
+                const response = await axios.post(`/admin/languages/content/update`, {
                     file: file,
                     file_name: file_name,
                 },

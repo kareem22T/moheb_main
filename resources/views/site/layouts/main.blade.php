@@ -74,6 +74,53 @@
             }
 
     </style>
+    <style>
+        .pagination label {
+            width: 40px;
+            height: 40px;
+            background: #1a3467;
+            display: block;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .pagination label.active {
+            background: white;
+            border: 2px solid #1a3467;
+            color: #1a3467;
+        }
+        .pagination .prev, .pagination .next {
+            width: 70px;
+            height: 40px;
+            background: #1a3467;
+            display: block;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .pagination button:disabled {
+            opacity: .5;
+        }
+        .pagination label input {
+            display: none
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 2rem
+        }
+    </style>
+    
     <title>Moheb | @yield('title')</title>
 </head>
 <body>

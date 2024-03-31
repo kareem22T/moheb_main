@@ -69,15 +69,20 @@
         <article>
             <div class="head">
                 <h1>@{{ term_data.title }}</h1>
-                <div>
-                    <span>By <b>Admin</b></span>
-                    <span class="date">
-                        <i class="fa-regular fa-calendar-days" style="font-size: 18px; margin: 0 7px;"></i> @{{ new Date(term_data.created_at).toLocaleString("en-US", {
+                <div style="display: flex;justify-content: space-between;">
+                    <div>
+                        <span>By <b>Admin</b></span>
+                        <span class="date">
+                            <i class="fa-regular fa-calendar-days" style="font-size: 18px; margin: 0 7px;"></i> @{{ new Date(term_data.created_at).toLocaleString("en-US", {
                                                                                     month: "long",
                                                                                     day: "numeric",
                                                                                     year: "numeric"
                                                                                     }) }}
-                    </span>
+                        </span>
+                    </div>
+                    <button class="add_to_fav">
+                        <i class="fa-regular fa-heart" :class="term_data.isFav ? 'active' : ''" @click="handleFav(term_id)"></i>
+                    </button>
                 </div>
             </div>
             <div class="thumbnail" v-if="term_data.thumbnail_path">
@@ -105,10 +110,52 @@ data() {
         languages_data: null,
         current_lang: "EN",
         all_categories: null,
+        search: null,
+        searchArticles: [],
         showProfileMore: false,
     }
 },
 methods: {
+    async handleFav(term_id){
+        try {
+            const response = await axios.post( `{{ route('fav.addordelete') }}`, {
+                term_id: term_id
+            },
+            );
+            $('.loader').fadeOut()
+            if (response.data.status === true) {
+                this.getTerm(this.term_id, this.current_lang)
+            } else {
+                document.getElementById('errors').innerHTML = ''
+                $.each(response.data.errors, function (key, value) {
+                    let error = document.createElement('div')
+                    error.classList = 'error'
+                    error.innerHTML = value
+                    document.getElementById('errors').append(error)
+                });
+                $('#errors').fadeIn('slow')
+                setTimeout(() => {
+                    $('input').css('outline', 'none')
+                    $('#errors').fadeOut('slow')
+                }, 3500);
+            }
+
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
     async getTerm(id, lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
@@ -264,7 +311,7 @@ methods: {
         this.setCookie('lang', this.current_lang, 30)
         this.getTerm(this.term_id, this.current_lang)
         this.getAllCategories(this.current_lang)
-        if (this.current_lang == 'AR') {
+        if (this.current_lang.includes("AR")) {
             document.body.classList = 'AR'
         } else {
             document.body.classList = ''
@@ -278,6 +325,49 @@ methods: {
             this.current_lang = sessionStorage.getItem('lang')
         }
     },
+    async handleSearch(lang){
+        try {
+            const response = await axios.post( `{{ route('words.search') }}`, {
+                lang: lang,
+                search_words: this.search
+            },
+            );
+            $('.loader').fadeOut()
+            if (response.data.status === true) {
+                document.getElementById('errors').innerHTML = ''
+                this.searchArticles = response.data.data.data
+            } else {
+                document.getElementById('errors').innerHTML = ''
+                $.each(response.data.errors, function (key, value) {
+                    let error = document.createElement('div')
+                    error.classList = 'error'
+                    error.innerHTML = value
+                    document.getElementById('errors').append(error)
+                });
+                $('#errors').fadeIn('slow')
+                setTimeout(() => {
+                    $('input').css('outline', 'none')
+                    $('#errors').fadeOut('slow')
+                }, 3500);
+            }
+
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
+
     async getAllCategories(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
@@ -328,7 +418,7 @@ created() {
     this.getLang().then(() => {
         this.getTerm(this.term_id, this.current_lang)
         this.getAllCategories(this.current_lang)
-        if (this.current_lang == 'AR') {
+        if (this.current_lang.includes("AR")) {
             document.body.classList = 'AR'
         } 
     })

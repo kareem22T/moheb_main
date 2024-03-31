@@ -5,24 +5,24 @@
 @section('content')
 <div id="home">
     @include('site.includes.header')
-    <section class="football" v-if="football" style="min-height: 80vh">
+    <section class="football" v-if="articles" style="min-height: 80vh">
         <div class="container">
             <div class="head">
-                <h1><i class="fa-solid fa-category"></i> @{{ football.name }}</h1>
+                <h1><i class="fa-solid fa-search"></i> {{ request()->word }}</h1>
             </div>
-            <div class="sub_categories" v-if="terms && terms.length">
-                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-')}/${term.id}`" v-for="term in terms" :key="term.id">
+            <div class="sub_categories" v-if="articles && articles.length">
+                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-')}/${term.id}`" v-for="term in articles" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
                     <h1>@{{ term.names[0].term }}</h1>
                 </a>
             </div>
-            <div class="pagination">
-                <button class="prev" @click="currentPage > 1 ? currentPage -= 1 : ''; getCategory()" :disabled="currentPage === 1">Previous</button>
+            <div class="pagination" >
+                <button class="prev" @click="currentPage > 1 ? currentPage -= 1 : ''; getSearch()" :disabled="currentPage === 1">Previous</button>
                 <label :class="currentPage == pageNumber ? 'active' : ''" v-for="pageNumber in visiblePages" :key="pageNumber">
-                  <input type="radio" v-model="currentPage" :value="pageNumber" @change="this.currentPage = pageNumber; getCategory()">
+                  <input type="radio" v-model="currentPage" :value="pageNumber" @change="this.currentPage = pageNumber; getSearch()">
                   @{{ pageNumber }}
                 </label>
-                <button class="next" @click="currentPage < lastPage ? currentPage += 1 : ''; getCategory()" :disabled="currentPage === lastPage">Next</button>
+                <button class="next" @click="currentPage < lastPage ? currentPage += 1 : ''; getSearch()" :disabled="currentPage === lastPage">Next</button>
             </div>
         </div>
     </section>
@@ -47,13 +47,74 @@ data() {
         page_translations: null,
         page_content: this.page_translations ? this.page_translations[this.current_lang] : '',
         showProfileMore: false,
+        search: null,
         searchArticles: [],
         currentPage: 1,
         lastPage: null, // This value should be set based on your actual last page
         maxVisiblePages: 5 // Set the maximum number of visible pages    
     }
 },
+computed: {
+    visiblePages() {
+      const totalPages = this.lastPage;
+      const currentPage = this.currentPage;
+      const maxVisiblePages = this.maxVisiblePages;
+
+      const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+      // Adjust startPage and endPage if not enough pages are available to fill maxVisiblePages
+      if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+      }
+
+      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    }
+},
 methods: {
+    async handleSearch(){
+        try {
+            const response = await axios.post( `{{ route('words.search') }}`, {
+                lang: this.current_lang,
+                search_words: this.search
+            },
+            );
+            $('.loader').fadeOut()
+            if (response.data.status === true) {
+                document.getElementById('errors').innerHTML = ''
+                this.searchArticles = response.data.data.data
+            } else {
+                document.getElementById('errors').innerHTML = ''
+                $.each(response.data.errors, function (key, value) {
+                    let error = document.createElement('div')
+                    error.classList = 'error'
+                    error.innerHTML = value
+                    document.getElementById('errors').append(error)
+                });
+                $('#errors').fadeIn('slow')
+                setTimeout(() => {
+                    $('input').css('outline', 'none')
+                    $('#errors').fadeOut('slow')
+                }, 3500);
+            }
+
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
+
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
@@ -206,7 +267,7 @@ methods: {
     },
     setLang() {
         this.setCookie('lang', this.current_lang, 30)
-        this.getCategory(this.current_lang)
+        this.getSearch(this.current_lang)
         this.getAllCategories(this.current_lang)
         if (this.current_lang.includes("AR")) {
             document.body.classList = 'AR'
@@ -234,42 +295,24 @@ methods: {
             this.current_lang = sessionStorage.getItem('lang')
         }
     },
-    computed: {
-        visiblePages() {
-        const totalPages = this.lastPage;
-        const currentPage = this.currentPage;
-        const maxVisiblePages = this.maxVisiblePages;
-
-        const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-        // Adjust startPage and endPage if not enough pages are available to fill maxVisiblePages
-        if (endPage - startPage + 1 < maxVisiblePages) {
-            startPage = Math.max(1, endPage - maxVisiblePages + 1);
-        }
-
-        return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
-        }
-    },
-    async getCategory(){
+    async getSearch(){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('category.getbyid') }}`, {
-                page: this.currentPage,
+            const response = await axios.post( `{{ route('words.search') }}`, {
                 lang: this.current_lang,
-                id: "{{request()->id}}"
+                page: this.currentPage,
+                search_words: "{{request()->word}}"
             },
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
+                this.currentPage = response.data.data.current_page
+                this.lastPage = response.data.data.last_page
                 document.getElementById('errors').innerHTML = ''
-                this.football = response.data.data.category
-                this.terms = response.data.data.terms.data
-                this.currentPage = response.data.data.terms.current_page
-                this.lastPage = response.data.data.terms.last_page
+                this.articles = response.data.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
-                }, 4000);
+                }, 2000);
             } else {
                 document.getElementById('errors').innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
@@ -304,7 +347,7 @@ methods: {
 },
 created() {
     this.getLang().then(() => {
-        this.getCategory(this.current_lang)
+        this.getSearch(this.current_lang)
         this.getAllCategories(this.current_lang)
         if (this.current_lang.includes("AR")) {
             document.body.classList = 'AR'

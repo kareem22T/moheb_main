@@ -11,7 +11,7 @@
 <div class="card w-100" id="lang_prev">
     <div class="card-header d-flex justify-content-between gap-3">
         <input type="text" name="search" id="search" class="form-control w-25" placeholder="Search" v-model="search" @input="getSearch(this.search)">
-        <a href="/moheb2/admin/categories/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
+        <a href="/admin/categories/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
             <i class="ti ti-plus"></i> Add Category
         </a>
     </div>
@@ -56,8 +56,8 @@
                 </td>
                 <td class="border-bottom-0">
                     <div class="d-flex gap-2">
-                        <a :href="`/moheb2/admin/category/${category.id}`" class="btn btn-success p-2 edit_lang_btn"><h4 class="ti ti-eye text-light m-0 fw-semibold"></h4></a>
-                        <a :href="`/moheb2/admin/categories/edit/${category.id}`" class="btn btn-secondary p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
+                        <a :href="`/admin/category/${category.id}`" class="btn btn-success p-2 edit_lang_btn"><h4 class="ti ti-eye text-light m-0 fw-semibold"></h4></a>
+                        <a :href="`/admin/categories/edit/${category.id}`" class="btn btn-secondary p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
                         <button class="btn btn-danger p-2" @click="this.delete_pop_up = true; getValues(category.id, category.main_name)"><h4 class="ti ti-trash text-light m-0 fw-semibold"></h4></button>
                     </div>
                 </td>
@@ -120,7 +120,7 @@ createApp({
         async update(lang_id, lang_symbol, lang_name) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/moheb2/admin/languages/edit`, {
+                const response = await axios.post(`/admin/languages/edit`, {
                     lang_id: lang_id,
                     lang_symbol: lang_symbol,
                     lang_name: lang_name,
@@ -174,7 +174,7 @@ createApp({
         async deletCat(cat_id) {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/moheb2/admin/categories/delete`, {
+                const response = await axios.post(`/admin/categories/delete`, {
                     cat_id: cat_id,
                 },
                 );
@@ -224,7 +224,7 @@ createApp({
         async getCategories() {
             $('.loader').fadeIn().css('display', 'flex')
             try {
-                const response = await axios.post(`/moheb2/admin/categories?page=${this.page}`, {
+                const response = await axios.post(`/admin/categories?page=${this.page}`, {
                 },
                 );
                 if (response.data.status === true) {
@@ -266,7 +266,7 @@ createApp({
         },
         async getSearch(search_words) {
             try {
-                const response = await axios.post(`/moheb2/admin/categories/search?page=${this.page}`, {
+                const response = await axios.post(`/admin/categories/search?page=${this.page}`, {
                     search_words: search_words,
                 },
                 );
