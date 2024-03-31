@@ -114,7 +114,7 @@ methods: {
     async getarticle(id, lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('site.getarticle') }}`, {
+            const response = await axios.post( `/article`, {
                 id: id,
                 lang: lang
             },
@@ -161,7 +161,7 @@ methods: {
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`{{ route('languages.get') }}`, {
+            const response = await axios.post(`/admin/categories/get-languages`, {
             },
             );
             if (response.data.status === true) {
@@ -218,7 +218,7 @@ methods: {
     async getAllCategories(lang){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('categories.get') }}`, {
+            const response = await axios.post( `/get-categories`, {
                 lang: lang
             },
             );
