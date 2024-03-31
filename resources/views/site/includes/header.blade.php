@@ -13,10 +13,28 @@
                 </div>
             </div>
             <div class="social">
-                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                <a href=""><i class="fa-brands fa-youtube"></i></a>
+                @php
+                    $contact = App\Models\Contact::first();
+                @endphp
+
+                @if($contact->facebook)
+                <a target="_blank" href="mailto:{{$contact->facebook}}">
+                        <i class="fa-brands fa-facebook-f"></i></a>
+                @endif
+                @if($contact->instagram)
+                <a target="_blank" href="{{$contact->instagram}}">
+                    <i class="fa-brands fa-instagram"></i></a>
+                @endif
+                @if($contact->x)
+                    <a target="_blank" href="{{$contact->x}}">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                @endif
+                @if($contact->youtube)
+                    <a target="_blank" href="{{$contact->youtube}}">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                @endif
             </div>
             <div class="links">
                 <a href="/about-us">@{{ page_content ? page_content.header.about : "about" }}</a>
