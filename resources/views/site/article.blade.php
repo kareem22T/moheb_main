@@ -374,7 +374,7 @@ created() {
         this.getAllCategories(this.current_lang)
         if (this.current_lang.includes("AR")) {
             document.body.classList = 'AR'
-        } 
+        }
     })
     this.getUser()
     this.getLanguages()
