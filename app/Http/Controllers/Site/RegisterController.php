@@ -113,15 +113,13 @@ class RegisterController extends Controller
     }
 
     public function logout(Request $request) {
-        $user = $request->user();
-        $token = $user->currentAccessToken();
-        $token->delete();
-
-        if ($user) {
-            return $this->jsonData(true, 0, 'Logged out successfully', [], []);
+        Auth::logout();
+    
+        // Check if the user is logged out
+        if (!Auth::check()) {
+            return redirect()->back();
         } else {
             return $this->jsonData(false, null, 'Could not logout', ['Server error try again later'], []);
         }
     }
-
 }

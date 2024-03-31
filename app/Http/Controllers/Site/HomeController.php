@@ -75,8 +75,9 @@ class HomeController extends Controller
         $term_sound = Term_Sound::where('language_id', $lang->id)->where('term_id', $term->id)->first();
         $term->sound = $term_sound ? $term_sound->sound : '';
 
-        $user = Auth::user() ? Auth::user() : ["id" => 0];
+        $user = Auth::user() ? Auth::user() : false;
 
+        if ($user)
         $term->isFav = $term->isFavoritedByUser($user->id);
 
         return $this->jsonData(true, true, '', [], $term);
@@ -113,11 +114,12 @@ class HomeController extends Controller
             $term->sound = $term_sound ? $term_sound->sound : '';
         }
 
-        $user = Auth::user() ? Auth::user() : ["id" => 0];
+        $user = Auth::user() ? Auth::user() : false;
 
-        $terms->each(function ($term) use ($user) {
-            $term->isFav = $term->isFavoritedByUser($user->id);
-        });
+        if ($user)
+            $terms->each(function ($term) use ($user) {
+                $term->isFav = $term->isFavoritedByUser($user->id);
+            });
 
         return $this->jsonData(true, true, '', [], $terms);
     }

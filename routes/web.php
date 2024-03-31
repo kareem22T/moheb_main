@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('site.home');
 })->name('site.home');
 
-Route::middleware('auth:sanctum')->post('/logout', [RegisterController::class, 'logout'])->name('site.logout');
+Route::get('/logout', [RegisterController::class, 'logout'])->name('site.logout');
 Route::post('/login', [RegisterController::class, 'login'])->name('site.loginprocess');
-Route::get('/logout', [RegisterController::class, 'logutIndex'])->name('site.logout');
+// Route::get('/logout', [RegisterController::class, 'logutIndex'])->name('site.logout');
 
 Route::get('/register', [RegisterController::class, 'getRegisterIndex'])->name('site.register');
 Route::get('/login', [RegisterController::class, 'getLoginIndex'])->name('site.login');

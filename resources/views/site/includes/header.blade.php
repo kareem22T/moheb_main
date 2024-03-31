@@ -23,7 +23,8 @@
                 <a href="">@{{ page_content ? page_content.header.contact : "contact" }}</a>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
-                <div class="profile" v-if="user">
+                @if(Auth::user())
+                <div class="profile" >
                     <div class="text" @click="showProfileMore == true ? showProfileMore = false : showProfileMore = true">
                         <p>Welcome</p>
                         <h4>@{{user.user.email}} <i class="fa fa-angle-down"></i></h4>
@@ -36,10 +37,13 @@
                         <a href="{{ route('site.logout') }}">Logot</a>
                     </div>
                 </div>
-                <div class="profile" v-if="!user">
+                @endif
+                @if(!Auth::user())
+                <div class="profile">
                     <a href="{{ route('site.login') }}">Login</a>
                     <a href="{{ route('site.register') }}">Register</a>
                 </div>
+                @endif
                 <div class="lang">
                     <select v-model="current_lang" v-if="languages_data && languages_data.length" @change="setLang">
                         <option :value="language.symbol" v-for="(language, index) in languages_data" :key="index">@{{ language.name }}</option>
