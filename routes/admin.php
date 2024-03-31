@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\Admin\ImagesController;
 use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\SettingsController;
 
 Route::middleware(['guest_admin'])->group(function () {
     Route::get('/login', [RegisterController::class, 'getLoginIndex']);
@@ -21,6 +22,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/', [RegisterController::class, 'ff']);
     Route::get('/logout', [RegisterController::class, 'logout']);
     Route::get('/get-excel', [MainController::class, 'getExcelData']);
+    Route::get('/get-contact', [SettingsController::class, 'getContact'])->name('contact.get');
 
     //languages
     Route::get('/languages', [LanguagesController::class, 'preview']);
@@ -99,5 +101,11 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/images/upload', [ImagesController::class, 'uploadeImg']);
     Route::get('/images/get_images', [ImagesController::class, 'getImages']);
     Route::post('/images/search', [ImagesController::class, 'search']);
+
+    Route::get('/update-contact', function() {
+        return view('admin.update_contact');
+    })->name('update.contact');
+    Route::post('/add-contact', [SettingsController::class, 'addContact'])->name('contact.put');
+
 });
 

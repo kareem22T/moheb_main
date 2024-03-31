@@ -42,4 +42,10 @@ Route::post('/search', [HomeController::class, 'search'])->name('words.search');
 Route::post('/fav-add-delete', [HomeController::class, 'addToFav'])->name('fav.addordelete');
 Route::get('/search/{word}', [HomeController::class, 'searchIndex'])->name('view.search');
 Route::get('/my-wishlist', [HomeController::class, 'favIndex'])->name('view.wishlist');
+Route::get('/contact-us', function () {
+    return view("site.contact");
+});
+Route::get('/about-us', function () {
+    return view("site.about");
+});
 Route::post('/my-favTerms', [HomeController::class, 'favTerms'])->name('fav.terms');

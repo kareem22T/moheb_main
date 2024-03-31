@@ -1,9 +1,22 @@
 {
     "EN": {
+        "contact": {
+            "head": "Send us A message",
+            "sub_head": "Waiting your suggestion or question!",
+            "name": "Name",
+            "address": "Address",
+            "email": "Email",
+            "message": "Message",
+            "send": "Send"
+        },
         "nav": {
             "link_1": "About",
             "link_2": "Contact",
             "welcome": "welcome"
+        },
+        "about": {
+            "head": "About Us",
+            "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         },
         "alert_bio": {
             "welcome": "Welcome!",
@@ -33,6 +46,19 @@
         }
     },
     "AR": {
+        "contact": {
+            "head": "ارسل لنا رسالة",
+            "sub_head": "ننتظر اقتراحك او استفسارك !",
+            "name": "الاسم",
+            "address": "عنوان",
+            "email": "بريد الكتروني",
+            "message": "الرسالة",
+            "send": "ارسال"
+        },
+        "about": {
+            "head": "من نحن",
+            "content": "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام هنا يوجد محتوى نصي، هنا يوجد محتوى نصي فتجعلها تبدو (أي الأحرف) وكأنها نص مقروء. العديد من برامح النشر المكتبي وبرامح تحرير صفحات الويب تستخدم لوريم في أي محرك بحث ستظهر العديد من المواقع الحديثة العهد في نتائج البحث. على مدى السنين ظهرت نسخ جديدة ومختلفة من نص لوريم إيبسوم، أحياناً عن طريق الصدفة، وأحياناً عن عمد كإدخال بعض العبارات الفكاهية إليها. "
+        },
         "nav": {
             "link_1": "من نحن",
             "link_2": "تواصل معنا",

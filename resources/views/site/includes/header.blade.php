@@ -19,8 +19,8 @@
                 <a href=""><i class="fa-brands fa-youtube"></i></a>
             </div>
             <div class="links">
-                <a href="">@{{ page_content ? page_content.header.about : "about" }}</a>
-                <a href="">@{{ page_content ? page_content.header.contact : "contact" }}</a>
+                <a href="/about-us">@{{ page_content ? page_content.header.about : "about" }}</a>
+                <a href="/contact-us">@{{ page_content ? page_content.header.contact : "contact" }}</a>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
                 @if(Auth::user())

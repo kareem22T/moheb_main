@@ -74,7 +74,7 @@
       height: 4px;
       border-radius: 50%;
       color: #365FA0;
-      box-shadow: 
+      box-shadow:
         calc(1*var(--d))      calc(0*var(--d))     0 0,
         calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
         calc(0*var(--d))      calc(1*var(--d))     0 2px,
@@ -268,6 +268,18 @@
                 <span class="hide-menu">Add</span>
               </a>
             </li>
+            <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Settings</span>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link @yield('contact_update_active')" href="{{ route('update.contact') }}" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-address-book"></i>
+                  </span>
+                  <span class="hide-menu">About Us</span>
+                </a>
+              </li>
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
