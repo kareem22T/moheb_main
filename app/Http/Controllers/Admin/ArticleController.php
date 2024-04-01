@@ -31,19 +31,19 @@ class ArticleController extends Controller
 
     public function getLanguages() {
         $languages = Language::all();
-        
+
         return $this->jsonData(true, true, '', [], $languages);
     }
 
     public function getMainCategories() {
         $categories = Category::with('sub_categories')->where('cat_type', 0)->get();
-        
+
         return $this->jsonData(true, true, '', [], $categories);
     }
 
     public function getArticles() {
         $Articles = Article::with('category')->paginate(10);
-        
+
         return $this->jsonData(true, true, '', [], $Articles);
     }
 
@@ -58,7 +58,7 @@ class ArticleController extends Controller
         $ArticlesPerContents = Article::with('category')->whereHas('contents', function ($query) use ($request) {
             $query->where('content', 'like', '%'.$request->search_Articles.'%');
         })->paginate(10);
-        
+
         return $this->jsonData(true, true, '', [], !$Articles->isEmpty() ? $Articles : (!$ArticlesPerTitles->isEmpty() ? $ArticlesPerTitles : $ArticlesPerContents));
 
     }
@@ -68,7 +68,7 @@ class ArticleController extends Controller
     }
 
     public function add(Request $request) {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         // add(category_translations)
         $validator = Validator::make($request->all(), [
@@ -84,7 +84,7 @@ class ArticleController extends Controller
 
         $missingTitleTranslations = array_diff($symbols, array_keys($request->title_translations));
 
-        if (!empty($missingTitleTranslations)) { 
+        if (!empty($missingTitleTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter Article title in (' . Language::where('symbol', reset($missingTitleTranslations))->first()->name . ')'], []);
         }
 
@@ -92,13 +92,13 @@ class ArticleController extends Controller
 
         $missingContentTranslations = array_diff($symbols, array_keys($request->content_translations ? $request->content_translations : $obj));
 
-        if (!empty($missingContentTranslations)) { 
+        if (!empty($missingContentTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter Article content in (' . Language::where('symbol', reset($missingContentTranslations))->first()->name . ')'], []);
         }
-        if (!$request->cat_id) { 
+        if (!$request->cat_id) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose category for your Article'], []);
         }
-        if (Category::find($request->cat_id)->sub_categories()->count() > 0) { 
+        if (Category::find($request->cat_id)->sub_categories()->count() > 0) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose sub category for your Article'], []);
         }
 
@@ -137,18 +137,18 @@ class ArticleController extends Controller
     public function editIndex ($cat_id) {
         $Article = Article::find($cat_id);
         return view('admin.articles.edit')->with(compact('Article'));
-    }    
+    }
 
     public function getArticleById(Request $request) {
         $Article = Article::with('category')->with('tags')->find($request->article_id);
-        
+
         return $this->jsonData(true, true, '', [], $Article);
     }
 
     public function getArticleTitles(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $Article_titles = Article::find($request->article_id)->titles;
         $Article_titles_key_value = [];
 
@@ -171,7 +171,7 @@ class ArticleController extends Controller
     public function getArticleContents(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $Article_contents = Article::find($request->article_id)->contents;
         $Article_contents_key_value = [];
 
@@ -192,7 +192,7 @@ class ArticleController extends Controller
     }
 
     public function editArticle(Request $request) {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         $Article = Article::find($request->article_id);
 
@@ -210,19 +210,19 @@ class ArticleController extends Controller
 
         $missingTitleTranslations = array_diff($symbols, array_keys($request->title_translations));
 
-        if (!empty($missingTitleTranslations)) { 
+        if (!empty($missingTitleTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter Article title in (' . Language::where('symbol', reset($missingTitleTranslations))->first()->name . ')'], []);
         }
 
         $missingContentTranslations = array_diff($symbols, array_keys($request->content_translations));
 
-        if (!empty($missingContentTranslations)) { 
+        if (!empty($missingContentTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter Article content in (' . Language::where('symbol', reset($missingContentTranslations))->first()->name . ')'], []);
         }
-        if (!$request->cat_id) { 
+        if (!$request->cat_id) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose category for your Article'], []);
         }
-        if (Category::find($request->cat_id)->sub_categories()->count() > 0) { 
+        if (Category::find($request->cat_id)->sub_categories()->count() > 0) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose sub category for your Article'], []);
         }
 

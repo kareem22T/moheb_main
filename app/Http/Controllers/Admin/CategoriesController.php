@@ -24,7 +24,7 @@ class CategoriesController extends Controller
     }
 
     public function getLanguages() {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
 
         return $this->jsonData(true, true, '', [], $languages);
     }

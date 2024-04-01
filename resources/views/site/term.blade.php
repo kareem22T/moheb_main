@@ -93,6 +93,50 @@
             <div class="thumbnail" v-if="term_data.thumbnail_path">
                 <img :src="term_data.thumbnail_path" alt="">
             </div>
+            <div class="content" style="margin-bottom: 0; padding-bottom: 0" v-if="current_lang == 'AR'">
+                @php
+                    $lang_egp = App\Models\Language::where("symbol", "AR (EGY)")->first();
+                    $term_egp = App\Models\Term::with(["names" => function ($q) use ($lang_egp) {
+                        $q->where("language_id", $lang_egp->id);
+                    }])->find(request()->id);
+                    $lang_AL = App\Models\Language::where("symbol", "AR (AL)")->first();
+                    $term_AL = App\Models\Term::with(["names" => function ($q) use ($lang_AL) {
+                        $q->where("language_id", $lang_AL->id);
+                    }])->find(request()->id);
+                    $lang_SA = App\Models\Language::where("symbol", "AR ( SA)")->first();
+                    $term_SA = App\Models\Term::with(["names" => function ($q) use ($lang_SA) {
+                        $q->where("language_id", $lang_SA->id);
+                    }])->find(request()->id);
+                    $lang_LA = App\Models\Language::where("symbol", "AR (LA)")->first();
+                    $term_LA = App\Models\Term::with(["names" => function ($q) use ($lang_LA) {
+                        $q->where("language_id", $lang_LA->id);
+                    }])->find(request()->id);
+                @endphp
+                @if ($term_egp->names)
+                    <h2 style="margin-top: 0">
+                        المصطلح بالهجة المصرية:
+                        {{ $term_egp->names[0]->term }}
+                    </h2>
+                @endif
+                @if ($term_SA->names)
+                    <h2 style="margin-top: 0">
+                        المصطلح بالهجة السورية:
+                        {{ $term_SA->names[0]->term }}
+                    </h2>
+                @endif
+                @if ($term_AL->names)
+                    <h2 style="margin-top: 0">
+                        المصطلح بالهجة الجزائرية:
+                        {{ $term_AL->names[0]->term }}
+                    </h2>
+                @endif
+                @if ($term_LA->names)
+                    <h2 style="margin-top: 0">
+                        المصطلح بالهجة اللبنانية:
+                        {{ $term_LA->names[0]->term }}
+                    </h2>
+                @endif
+            </div>
             <div class="content" v-html="term_data.content">
             </div>
             <div class="sound" v-html="term_data.sound">

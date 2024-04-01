@@ -33,19 +33,19 @@ class WordsController extends Controller
 
     public function getLanguages() {
         $languages = Language::all();
-        
+
         return $this->jsonData(true, true, '', [], $languages);
     }
 
     public function getMainCategories() {
         $categories = Category::with('sub_categories')->where('cat_type', 0)->get();
-        
+
         return $this->jsonData(true, true, '', [], $categories);
     }
 
     public function getTerms() {
         $terms = Term::with('category')->paginate(10);
-        
+
         return $this->jsonData(true, true, '', [], $terms);
     }
 
@@ -74,7 +74,7 @@ class WordsController extends Controller
         $termsPerContents = Term::with('category')->whereHas('contents', function ($query) use ($request) {
             $query->where('content', 'like', '%'.$request->search_words.'%');
         })->paginate(10);
-        
+
         return $this->jsonData(true, true, '', [], !$terms->isEmpty() ? $terms : (!$termsPerNames->isEmpty() ? $termsPerNames : (!$termsPerTitles->isEmpty() ? $termsPerTitles : $termsPerContents)));
 
     }
@@ -84,7 +84,7 @@ class WordsController extends Controller
     }
 
     public function add(Request $request) {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         // add(category_translations)
         $validator = Validator::make($request->all(), [
@@ -100,25 +100,25 @@ class WordsController extends Controller
 
         $missingTermsTranslations = array_diff($symbols, array_keys($request->term_translations));
 
-        if (!empty($missingTermsTranslations)) { 
+        if (!empty($missingTermsTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term name in (' . Language::where('symbol', reset($missingTermsTranslations))->first()->name . ')'], []);
         }
 
         $missingTitleTranslations = array_diff($symbols, array_keys($request->title_translations));
 
-        if (!empty($missingTitleTranslations)) { 
+        if (!empty($missingTitleTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term title in (' . Language::where('symbol', reset($missingTitleTranslations))->first()->name . ')'], []);
         }
 
         $missingContentTranslations = array_diff($symbols, array_keys($request->content_translations));
 
-        if (!empty($missingContentTranslations)) { 
+        if (!empty($missingContentTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term content in (' . Language::where('symbol', reset($missingContentTranslations))->first()->name . ')'], []);
         }
-        if (!$request->cat_id) { 
+        if (!$request->cat_id) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose category for your term'], []);
         }
-        if (Category::find($request->cat_id)->sub_categories()->count() > 0) { 
+        if (Category::find($request->cat_id)->sub_categories()->count() > 0) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose sub category for your term'], []);
         }
 
@@ -174,18 +174,18 @@ class WordsController extends Controller
     public function editIndex ($cat_id) {
         $term = Term::find($cat_id);
         return view('admin.words.edit')->with(compact('term'));
-    }    
+    }
 
     public function getWordById(Request $request) {
         $term = Term::with('category')->with('tags')->find($request->term_id);
-        
+
         return $this->jsonData(true, true, '', [], $term);
     }
 
     public function getWordNames(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $term_names = Term::find($request->term_id)->names;
         $term_names_key_value = [];
 
@@ -208,7 +208,7 @@ class WordsController extends Controller
     public function getWordTitles(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $term_titles = Term::find($request->term_id)->titles;
         $term_titles_key_value = [];
 
@@ -231,7 +231,7 @@ class WordsController extends Controller
     public function getWordContents(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $term_contents = Term::find($request->term_id)->contents;
         $term_contents_key_value = [];
 
@@ -254,7 +254,7 @@ class WordsController extends Controller
     public function getWordSounds(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $term_sounds = Term::find($request->term_id)->sounds;
         $term_sounds_key_value = [];
 
@@ -275,7 +275,7 @@ class WordsController extends Controller
     }
 
     public function editTerm(Request $request) {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         $term = Term::find($request->term_id);
 
@@ -293,25 +293,25 @@ class WordsController extends Controller
 
         $missingTermsTranslations = array_diff($symbols, array_keys($request->term_translations));
 
-        if (!empty($missingTermsTranslations)) { 
+        if (!empty($missingTermsTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term name in (' . Language::where('symbol', reset($missingTermsTranslations))->first()->name . ')'], []);
         }
 
         $missingTitleTranslations = array_diff($symbols, array_keys($request->title_translations));
 
-        if (!empty($missingTitleTranslations)) { 
+        if (!empty($missingTitleTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term title in (' . Language::where('symbol', reset($missingTitleTranslations))->first()->name . ')'], []);
         }
 
         $missingContentTranslations = array_diff($symbols, array_keys($request->content_translations));
 
-        if (!empty($missingContentTranslations)) { 
+        if (!empty($missingContentTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term content in (' . Language::where('symbol', reset($missingContentTranslations))->first()->name . ')'], []);
         }
-        if (!$request->cat_id) { 
+        if (!$request->cat_id) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose category for your term'], []);
         }
-        if (Category::find($request->cat_id)->sub_categories()->count() > 0) { 
+        if (Category::find($request->cat_id)->sub_categories()->count() > 0) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose sub category for your term'], []);
         }
 
@@ -325,7 +325,7 @@ class WordsController extends Controller
         if ($request->tags)
         foreach ($request->tags as $tagName) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $term->tags()->attach($tag->id); 
+            $term->tags()->attach($tag->id);
         }
 
         foreach ($request->term_translations as $lang => $term) {

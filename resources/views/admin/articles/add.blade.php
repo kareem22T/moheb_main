@@ -25,7 +25,7 @@
             </div>
             <!-- Swiper -->
             <div class="w-100 mb-4 pb-5 gap-2" style="display: grid; grid-template-columns: 1fr 1fr;">
-                <div class="w-100" v-for="(language, index) in languages_data" :key="index">
+                <div class="w-100" v-for="(language, index) in languages_data.slice(0, 7)" :key="index">
                     <div>
                         <label for="term_title" class="form-label">Title in @{{language.name}} *</label>
                         <input type="text" class="form-control" id="term_title" v-model="title_translations[language.symbol]">
@@ -35,7 +35,7 @@
 
             <!-- Swiper -->
             <div class="w-100 mb-4 pb-3">
-                <div class="w-100 p-3" v-for="(language, index) in languages_data" :key="index">
+                <div class="w-100 p-3" v-for="(language, index) in languages_data.slice(0, 7)" :key="index">
                     <div>
                         <label for="lang_name" class="form-label">Content in @{{language.name}} *</label>
                         <div class="card">
@@ -104,7 +104,7 @@
             <div class="mb-3 w-100 d-flex gap-3">
                 <div class="w-25">
                     <div @click="this.showImages = true; this.current_article_id = null" class="w-100 h-100 p-3 d-flex justify-content-center align-items-center form-control" style="max-height: 170px;">
-                        <img :src="preview_img ? preview_img : '/public/dashboard/images/add_image.svg'" id="preview" alt="img logo" style="width: 100%; max-width: 100%;object-fit: contain;height: 100%;">                                                
+                        <img :src="preview_img ? preview_img : '/public/dashboard/images/add_image.svg'" id="preview" alt="img logo" style="width: 100%; max-width: 100%;object-fit: contain;height: 100%;">
                     </div>
                 </div>
                 <div class="w-75">
@@ -172,7 +172,7 @@
         bottom: 0 !important;
         top: auto;
         z-index: 9999;
-        
+
     }
     .swiper-pagination {
         bottom: 0
@@ -301,7 +301,7 @@ createApp({
             if (response.data.status === true) {
                 if (search_words != '')
                     this.search_tags = response.data.data.data
-                else 
+                else
                     this.search_tags = []
             } else {
                 document.getElementById('errors').innerHTML = ''
