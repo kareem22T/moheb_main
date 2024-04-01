@@ -653,7 +653,7 @@ textarea:focus {
     font-weight: 500;
     justify-content: start;
     max-width: 100%;
-    white-space: nowrap;
+
 }
 
 .register_wrapper>.container form .sign img {
@@ -723,7 +723,7 @@ textarea:focus {
     bottom: .7rem;
     left: .7rem;
     font-size: 1.5rem;
-    white-space: nowrap;
+
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.77);
     font-weight: 500;
@@ -782,7 +782,7 @@ textarea:focus {
     bottom: .5rem;
     left: .5rem;
     font-size: 21px;
-    white-space: nowrap;
+
     color: #fff;
     font-weight: 600;
     z-index: 69999;
@@ -1034,7 +1034,7 @@ textarea:focus {
     display: flex;
     align-items: center;
     gap: 10px;
-    white-space: nowrap;
+
     margin-top: 2rem;
 }
 
@@ -1151,7 +1151,7 @@ textarea:focus {
         bottom: .5rem;
         left: .5rem;
         font-size: 1.5rem;
-        white-space: nowrap;
+
         color: #fff;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.77);
         font-weight: 600;
@@ -1270,19 +1270,21 @@ textarea:focus {
     bottom: .7rem;
     left: .7rem;
     font-size: 1.5rem;
-    white-space: nowrap;
+
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.77);
     font-weight: 500;
     bottom: .5rem;
     left: .5rem;
     font-size: 15px;
-    white-space: nowrap;
     color: #fff;
     font-weight: 600;
     z-index: 69999;
     left: auto;
     right: .5rem;
+    max-width: 100%;
+    white-space: wrap;
+    line-height: 29px;
   }
 
   .AR    .most-popular .sub_categories .card h1 {
@@ -1290,7 +1292,7 @@ textarea:focus {
     bottom: .5rem;
     left: .5rem;
     font-size: 21px;
-    white-space: nowrap;
+
     color: #fff;
     font-weight: 600;
     z-index: 69999;
@@ -1381,14 +1383,14 @@ textarea:focus {
         bottom: .7rem;
         left: .7rem;
         font-size: 1.5rem;
-        white-space: nowrap;
+
         color: #fff;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.77);
         font-weight: 500;
         bottom: .5rem;
         left: .5rem;
         font-size: 13px;
-        white-space: nowrap;
+
         color: #fff;
         font-weight: 600;
         z-index: 69999;
@@ -1445,7 +1447,7 @@ textarea:focus {
         bottom: .5rem;
         left: .5rem;
         font-size: 21px;
-        white-space: nowrap;
+
         color: #fff;
         font-weight: 600;
         z-index: 69999;
