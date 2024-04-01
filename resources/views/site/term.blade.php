@@ -40,7 +40,7 @@
                 <div class="categories">
                     @if ($top_categories->count() > 0)
                         @foreach ($top_categories as $cat)
-                            <div class="cat" style="position: relative">
+                            <a href="/category/{{$cat->id}}" class="cat" style="position: relative">
                                 <div class="after" style="  width: 100%;
                                 height: 100%;
                                 position: absolute;
@@ -50,7 +50,7 @@
                                 background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
                                 <img src="{{$cat->thumbnail_path}}">
                                 <h3>{{ $cat->names[0]->name }}</h3>
-                            </div>
+                            </a>
                         @endforeach
                     @endif
                 </div>
@@ -62,7 +62,7 @@
                 <div class="terms">
                     @if ($topTerms->count() > 0)
                         @foreach ($topTerms as $term)
-                            <a  class="term">
+                            <a href="/term/{{$term->name}}/{{$term->id}}" class="term">
                                 <h2>{{ $term->names[0]->term }}</h2>
                                 <h4>{{ $term->category->names[0]->name }}</h4>
                             </a>
@@ -112,25 +112,25 @@
                         $q->where("language_id", $lang_LA->id);
                     }])->find(request()->id);
                 @endphp
-                @if ($term_egp->names)
+                @if ($term_egp->names->count() > 0)
                     <h2 style="margin-top: 0">
                         المصطلح بالهجة المصرية:
                         {{ $term_egp->names[0]->term }}
                     </h2>
                 @endif
-                @if ($term_SA->names)
+                @if ($term_SA->names->count() > 0)
                     <h2 style="margin-top: 0">
                         المصطلح بالهجة السورية:
                         {{ $term_SA->names[0]->term }}
                     </h2>
                 @endif
-                @if ($term_AL->names)
+                @if ($term_AL->names->count() > 0)
                     <h2 style="margin-top: 0">
                         المصطلح بالهجة الجزائرية:
                         {{ $term_AL->names[0]->term }}
                     </h2>
                 @endif
-                @if ($term_LA->names)
+                @if ($term_LA->names->count() > 0)
                     <h2 style="margin-top: 0">
                         المصطلح بالهجة اللبنانية:
                         {{ $term_LA->names[0]->term }}

@@ -6,71 +6,71 @@
 <div id="article" v-if="article_data && article_data.length > 0">
     @include('site.includes.header')
     <div class="container">
-                <aside>
-                    <div class="top_cat">
-                        <h1 class="top_title">
-                            @{{page_content.top_cat}} <span class="line"></span>
-                        </h1>
-                        @php
-                          $lang = (isset($_COOKIE['lang'])) ? $_COOKIE['lang'] : null; // Check for cookie first
+        <aside>
+            <div class="top_cat">
+                <h1 class="top_title">
+                    @{{page_content.top_cat}} <span class="line"></span>
+                </h1>
+                @php
+                  $lang = (isset($_COOKIE['lang'])) ? $_COOKIE['lang'] : null; // Check for cookie first
 
-                            // If no cookie, check for session
-                            if (is_null($lang) && Session::has('lang')) {
-                            $lang = Session::get('lang');
-                            }
+                    // If no cookie, check for session
+                    if (is_null($lang) && Session::has('lang')) {
+                    $lang = Session::get('lang');
+                    }
 
-                            // Set default if neither cookie nor session is set
-                            $lang = $lang ?? 'EN'; // Use nullish coalescing operator (??=)
+                    // Set default if neither cookie nor session is set
+                    $lang = $lang ?? 'EN'; // Use nullish coalescing operator (??=)
 
-                            $language = App\Models\Language::where("symbol", $lang)->first();
-                            $top_categories = App\Models\Category::with(["names" => function ($q) use ($language) {
-                                $q->where("language_id", $language->id);
-                            }])->where("isTop", true)->get();
+                    $language = App\Models\Language::where("symbol", $lang)->first();
+                    $top_categories = App\Models\Category::with(["names" => function ($q) use ($language) {
+                        $q->where("language_id", $language->id);
+                    }])->where("isTop", true)->get();
 
-                            $topTerms = App\Models\Term::with(["category" => function ($q) use ($language) {
-                            $q->with(["names" => function ($Q) use ($language){
-                                $Q->where("language_id", $language->id);
-                            }]);
-                            }, "names" => function ($Qq) use ($language){
-                                $Qq->where("language_id", $language->id);
-                            }])->orderBy('vists', 'desc')
-                            ->limit(6)
-                            ->get();
-                        @endphp
-                        <div class="categories">
-                            @if ($top_categories->count() > 0)
-                                @foreach ($top_categories as $cat)
-                                    <div class="cat" style="position: relative">
-                                        <div class="after" style="  width: 100%;
-                                        height: 100%;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;
-                                        background: rgb(0,0,0);
-                                        background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
-                                        <img src="{{$cat->thumbnail_path}}">
-                                        <h3>{{ $cat->names[0]->name }}</h3>
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-                    <div class="top_words">
-                        <h1 class="top_title">
-                            @{{page_content.top_word}} <span class="line"></span>
-                        </h1>
-                        <div class="terms">
-                            @if ($topTerms->count() > 0)
-                                @foreach ($topTerms as $term)
-                                    <a  class="term">
-                                        <h2>{{ $term->names[0]->term }}</h2>
-                                        <h4>{{ $term->category->names[0]->name }}</h4>
-                                    </a>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-                </aside>
+                    $topTerms = App\Models\Term::with(["category" => function ($q) use ($language) {
+                    $q->with(["names" => function ($Q) use ($language){
+                        $Q->where("language_id", $language->id);
+                    }]);
+                    }, "names" => function ($Qq) use ($language){
+                        $Qq->where("language_id", $language->id);
+                    }])->orderBy('vists', 'desc')
+                    ->limit(6)
+                    ->get();
+                @endphp
+                <div class="categories">
+                    @if ($top_categories->count() > 0)
+                        @foreach ($top_categories as $cat)
+                            <a href="/category/{{$cat->id}}" class="cat" style="position: relative">
+                                <div class="after" style="  width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                background: rgb(0,0,0);
+                                background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
+                                <img src="{{$cat->thumbnail_path}}">
+                                <h3>{{ $cat->names[0]->name }}</h3>
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+            <div class="top_words">
+                <h1 class="top_title">
+                    @{{page_content.top_word}} <span class="line"></span>
+                </h1>
+                <div class="terms">
+                    @if ($topTerms->count() > 0)
+                        @foreach ($topTerms as $term)
+                            <a href="/term/{{$term->name}}/{{$term->id}}" class="term">
+                                <h2>{{ $term->names[0]->term }}</h2>
+                                <h4>{{ $term->category->names[0]->name }}</h4>
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        </aside>
         <article>
             <div class="head">
                 <h1>@{{ article_data.title }}</h1>
