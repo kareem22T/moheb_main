@@ -25,19 +25,19 @@ class CategoriesController extends Controller
 
     public function getLanguages() {
         $languages = Language::all();
-        
+
         return $this->jsonData(true, true, '', [], $languages);
     }
 
     public function getMainCategories() {
         $categories = Category::with('sub_categories')->where('cat_type', 0)->get();
-        
+
         return $this->jsonData(true, true, '', [], $categories);
     }
 
     public function getSubCategories(Request $request) {
         $categories = Category::find($request->cat_id)->sub_categories;
-        
+
         return $this->jsonData(true, true, '', [], $categories);
     }
 
@@ -49,7 +49,7 @@ class CategoriesController extends Controller
         $categories = Category::with('sub_categories')->whereHas('names', function ($query) use ($request) {
             $query->where('name', 'like', '%'.$request->search_words.'%');
         })->paginate(10);
-        
+
         return $this->jsonData(true, true, '', [], !$languages->isEmpty() ? $languages : $categories);
 
     }
@@ -108,18 +108,45 @@ class CategoriesController extends Controller
     public function editIndex ($cat_id) {
         $category = Category::find($cat_id);
         return view('admin.categories.edit')->with(compact('category'));
-    }    
+    }
+
+    public function makeTop(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'cat_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->jsondata(false, true, 'Add failed', [$validator->errors()->first()], []);
+        }
+
+        $category = Category::find($request->cat_id);
+        if (!$category)
+            return $this->jsondata(false, true, 'Add failed', ["Category not found"], []);
+
+
+        $top_categories = Category::where("isTop", true)->get();
+
+        if ($top_categories->count() == 6 && !$category->isTop)
+            return $this->jsondata(false, true, 'Add failed', ["Top categories is fill"], []);
+
+        $category->isTop = !$category->isTop;
+        $category->save();
+
+        if ($category)
+            return $this->jsondata(true, true, 'success', [], []);
+
+    }
 
     public function getCategoryById(Request $request) {
         $category = Category::find($request->category_id);
-        
+
         return $this->jsonData(true, true, '', [], $category);
     }
 
     public function getCategoryNames(Request $request) {
         $languages = Language::all();
         $symbols = $languages->pluck('symbol')->all();
-        
+
         $category_names = Category::find($request->category_id)->names;
         $category_names_key_value = [];
 

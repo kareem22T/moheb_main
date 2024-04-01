@@ -60,6 +60,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/categories/add', [CategoriesController::class, 'add']);
     Route::get('/categories/edit/', [CategoriesController::class, 'preview']);
     Route::post('/categories/edit', [CategoriesController::class, 'editCategory']);
+    Route::post('/categories/makeTop', [CategoriesController::class, 'makeTop']);
     Route::get('/categories/edit/{cat_id}', [CategoriesController::class, 'editIndex']);
 
     //words

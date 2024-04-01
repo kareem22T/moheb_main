@@ -65,6 +65,10 @@ class HomeController extends Controller
         $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
 
         $term = Term::find($request->id);
+        if ($term->vists) {
+            $term->vists = (int) $term->vists + 1;
+            $term->save();
+        }
 
         $term_name = Term_Name::where('language_id', $lang->id)->where('term_id', $term->id)->first();
         $term->name = $term_name->term;
@@ -73,7 +77,8 @@ class HomeController extends Controller
         $term_content = Term_Content::where('language_id', $lang->id)->where('term_id', $term->id)->first();
         $term->content = $term_content->content;
         $term_sound = Term_Sound::where('language_id', $lang->id)->where('term_id', $term->id)->first();
-        $term->sound = $term_sound ? $term_sound->sound : '';
+        $term->sound = $term_sound ? $term_sound->iframe : '';
+
 
         $user = Auth::user() ? Auth::user() : false;
 
@@ -149,14 +154,14 @@ class HomeController extends Controller
                         'message' => 'Language not found'
                     ], 404);
                 }
-        
+
                 $category = Category::all();
                 foreach ($category as $cat) {
                     $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                     $cat->name = $category_name->name;
                 }
-        
-        
+
+
                 if (!$category) {
                     // Handle category not found error (optional)
                     return response()->json([
@@ -164,9 +169,9 @@ class HomeController extends Controller
                         'message' => 'Category not found'
                     ], 404);
                 }
-                
+
                 // Return the data using your preferred method (e.g., JSON)
-                return $this->jsonData(true, true, '', [], $category);           
+                return $this->jsonData(true, true, '', [], $category);
     }
 
     public function getFootballCat(Request $request) {
@@ -205,7 +210,7 @@ class HomeController extends Controller
         $category->name = $category->names->first()->name ?? '';
 
         // Return the data using your preferred method (e.g., JSON)
-        return $this->jsonData(true, true, '', [], $category);   
+        return $this->jsonData(true, true, '', [], $category);
      }
 
     public function getCategoryById(Request $request) {
@@ -231,7 +236,7 @@ class HomeController extends Controller
 
         $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
         $category->name = $category_name->name;
-        
+
         $terms = Term::with(['names' => function ($query) use ($lang) {
             $query->where("language_id", $lang->id);
         }])->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
@@ -245,7 +250,7 @@ class HomeController extends Controller
         }
 
         // Return the data using your preferred method (e.g., JSON)
-        return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);   
+        return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);
      }
 
     public function getLatestLatest(Request $request) {
@@ -272,7 +277,7 @@ class HomeController extends Controller
         $terms = Term::with(["titles" => function ($q) use ($lang, $search) {
             $q->where('title', 'like', '%' . $search . '%')
               ->where('language_id', Language::where("symbol", $lang)->value('id'));
-        }, "names" => function ($q) use ($lang, $search) {                
+        }, "names" => function ($q) use ($lang, $search) {
                 $q->where('language_id', Language::where("symbol", $lang)->value('id'));
         }])
         ->whereHas("titles", function ($q) use ($lang, $search) {
@@ -280,7 +285,7 @@ class HomeController extends Controller
               ->where('language_id', Language::where("symbol", $lang)->value('id'));
         })
         ->paginate(30);
-            
+
         return $this->jsonData(true, true, '', [], $terms);
 
     }
@@ -293,14 +298,14 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return $this->jsondata(false, null, 'Add to fav failed', [$validator->errors()->first()], []);
         }
-        
+
         $user = Auth::user();
-        
+
         if (!$user)
             return $this->jsondata(false, null, 'Add to fav failed', ["Login First"], []);
 
         $favorite = Favorite::where("user_id", $user->id)->where("term_id", $request->term_id)->first();
-        
+
         if ($favorite) :
             $favorite->delete();
         else :

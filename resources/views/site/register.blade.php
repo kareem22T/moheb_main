@@ -6,6 +6,8 @@
 @section('content')
 <main class="register_wrapper" id="register">
     <div class="container">
+        <a href="/" class="fa fa-x" style="position: fixed;font-size: 30px;top: 20px; right: 20px;"></a>
+
         <form @submit.prevent>
             <div class="head">
                 <h1>

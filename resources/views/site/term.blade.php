@@ -11,27 +11,48 @@
                 <h1 class="top_title">
                     Top Categories <span class="line"></span>
                 </h1>
+                @php
+                  $lang = (isset($_COOKIE['lang'])) ? $_COOKIE['lang'] : null; // Check for cookie first
+
+                    // If no cookie, check for session
+                    if (is_null($lang) && Session::has('lang')) {
+                    $lang = Session::get('lang');
+                    }
+
+                    // Set default if neither cookie nor session is set
+                    $lang = $lang ?? 'EN'; // Use nullish coalescing operator (??=)
+
+                    $language = App\Models\Language::where("symbol", $lang)->first();
+                    $top_categories = App\Models\Category::with(["names" => function ($q) use ($language) {
+                        $q->where("language_id", $language->id);
+                    }])->where("isTop", true)->get();
+
+                    $topTerms = App\Models\Term::with(["category" => function ($q) use ($language) {
+                    $q->with(["names" => function ($Q) use ($language){
+                        $Q->where("language_id", $language->id);
+                    }]);
+                    }, "names" => function ($Qq) use ($language){
+                        $Qq->where("language_id", $language->id);
+                    }])->orderBy('vists', 'desc')
+                    ->limit(6)
+                    ->get();
+                @endphp
                 <div class="categories">
-                    <div class="cat">
-                        <img src="{{ asset('/site/imgs/top-basketball.jpg') }}">
-                        <h3>Basketball</h3>
-                    </div>
-                    <div class="cat">
-                        <img src="{{ asset('/site/imgs/top-basketball.jpg') }}">
-                        <h3>Basketball</h3>
-                    </div>
-                    <div class="cat">
-                        <img src="{{ asset('/site/imgs/top-basketball.jpg') }}">
-                        <h3>Basketball</h3>
-                    </div>
-                    <div class="cat">
-                        <img src="{{ asset('/site/imgs/top-basketball.jpg') }}">
-                        <h3>Basketball</h3>
-                    </div>
-                    <div class="cat">
-                        <img src="{{ asset('/site/imgs/top-basketball.jpg') }}">
-                        <h3>Basketball</h3>
-                    </div>
+                    @if ($top_categories->count() > 0)
+                        @foreach ($top_categories as $cat)
+                            <div class="cat" style="position: relative">
+                                <div class="after" style="  width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                background: rgb(0,0,0);
+                                background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
+                                <img src="{{$cat->thumbnail_path}}">
+                                <h3>{{ $cat->names[0]->name }}</h3>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div class="top_words">
@@ -39,30 +60,14 @@
                     Top Words <span class="line"></span>
                 </h1>
                 <div class="terms">
-                    <a  class="term">
-                        <h2>Off Side</h2>
-                        <h4>Football</h4>
-                    </a>
-                    <a  class="term">
-                        <h2>Off Side</h2>
-                        <h4>Football</h4>
-                    </a>
-                    <a  class="term">
-                        <h2>Off Side</h2>
-                        <h4>Football</h4>
-                    </a>
-                    <a  class="term">
-                        <h2>Off Side</h2>
-                        <h4>Football</h4>
-                    </a>
-                    <a  class="term">
-                        <h2>Off Side</h2>
-                        <h4>Football</h4>
-                    </a>
-                    <a  class="term">
-                        <h2>Off Side</h2>
-                        <h4>Football</h4>
-                    </a>
+                    @if ($topTerms->count() > 0)
+                        @foreach ($topTerms as $term)
+                            <a  class="term">
+                                <h2>{{ $term->names[0]->term }}</h2>
+                                <h4>{{ $term->category->names[0]->name }}</h4>
+                            </a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </aside>
@@ -109,10 +114,15 @@ data() {
         user: null,
         languages_data: null,
         current_lang: "EN",
+        page_translations: null,
+        page_content: this.page_translations ? this.page_translations[this.current_lang] : '',
         all_categories: null,
         search: null,
         searchArticles: [],
         showProfileMore: false,
+        page_translations: null,
+        page_content: this.page_translations ? this.page_translations[this.current_lang] : '',
+
     }
 },
 methods: {
@@ -309,16 +319,19 @@ methods: {
     },
     setLang() {
         this.setCookie('lang', this.current_lang, 30)
-        this.getTerm(this.term_id, this.current_lang)
-        this.getAllCategories(this.current_lang)
-        if (this.current_lang.includes("AR")) {
-            document.body.classList = 'AR'
-        } else {
-            document.body.classList = ''
-        }
-
+        window.location.reload()
     },
     async getLang() {
+        fetch("/json/home.json?v={{time()}}")
+        .then((response) => response.json())
+        .then((data) => {
+        // Use the JSON data
+            this.page_translations = data;
+            this.page_content = this.page_translations ? this.page_translations[this.current_lang] : ''
+        })
+        .catch((error) => {
+        console.log('Error:', error);
+        });
         var isLang = this.checkCookie('lang');
         if (isLang) {
             sessionStorage.setItem('lang', this.getCookie('lang'))

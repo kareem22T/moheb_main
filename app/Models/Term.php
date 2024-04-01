@@ -14,6 +14,7 @@ class Term extends Model
         'name',
         'hide',
         'thumbnail_path',
+        "vists",
         'category_id'
     ];
 

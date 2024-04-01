@@ -56,6 +56,14 @@
                 </td>
                 <td class="border-bottom-0">
                     <div class="d-flex gap-2">
+                        <svg v-if="!category.isTop" @click='makeTop(category.id)' xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;height: 40px;object-fit: contain;object-position: center;margin-right: 8px;" class="icon icon-tabler icon-tabler-star" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                        </svg>
+                        <svg v-if="category.isTop" xmlns="http://www.w3.org/2000/svg" @click='makeTop(category.id)' style="cursor: pointer;height: 40px;object-fit: contain;object-position: center;margin-right: 8px;" class="icon icon-tabler icon-tabler-star-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffec00" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" stroke-width="0" fill="currentColor" />
+                          </svg>
                         <a :href="`/admin/category/${category.id}`" class="btn btn-success p-2 edit_lang_btn"><h4 class="ti ti-eye text-light m-0 fw-semibold"></h4></a>
                         <a :href="`/admin/categories/edit/${category.id}`" class="btn btn-secondary p-2"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></a>
                         <button class="btn btn-danger p-2" @click="this.delete_pop_up = true; getValues(category.id, category.main_name)"><h4 class="ti ti-trash text-light m-0 fw-semibold"></h4></button>
@@ -274,6 +282,45 @@ createApp({
                     this.categories_data = response.data.data.data
                     this.total = response.data.data.total
                     this.last_page = response.data.data.last_page
+                } else {
+                    document.getElementById('errors').innerHTML = ''
+                    $.each(response.data.errors, function (key, value) {
+                        let error = document.createElement('div')
+                        error.classList = 'error'
+                        error.innerHTML = value
+                        document.getElementById('errors').append(error)
+                    });
+                    $('#errors').fadeIn('slow')
+                    setTimeout(() => {
+                        $('input').css('outline', 'none')
+                        $('#errors').fadeOut('slow')
+                    }, 5000);
+                }
+
+            } catch (error) {
+                document.getElementById('errors').innerHTML = ''
+                let err = document.createElement('div')
+                err.classList = 'error'
+                err.innerHTML = 'server error try again later'
+                document.getElementById('errors').append(err)
+                $('#errors').fadeIn('slow')
+                $('.loader').fadeOut()
+                this.languages_data = false
+                setTimeout(() => {
+                    $('#errors').fadeOut('slow')
+                }, 3500);
+
+                console.error(error);
+            }
+        },
+        async makeTop(cat_id) {
+            try {
+                const response = await axios.post(`/admin/categories/makeTop`, {
+                    cat_id: cat_id,
+                },
+                );
+                if (response.data.status === true) {
+                    this.getCategories()
                 } else {
                     document.getElementById('errors').innerHTML = ''
                     $.each(response.data.errors, function (key, value) {
