@@ -30,7 +30,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/languages/search', [LanguagesController::class, 'search']);
     Route::post('/languages/edit', [LanguagesController::class, 'editLang']);
     Route::post('/languages/delete', [LanguagesController::class, 'delete']);
-    Route::get('/languages/add', [LanguagesController::class, 'addIndex']);
+    // Route::get('/languages/add', [LanguagesController::class, 'addIndex']);
     Route::post('/languages/add', [LanguagesController::class, 'add']);
     Route::get('/languages/content', [LanguagesController::class, 'contentIndex']);
     Route::post('/languages/content/update', [LanguagesController::class, 'updateContentFile']);

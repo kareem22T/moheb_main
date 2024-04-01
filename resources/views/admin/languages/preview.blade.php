@@ -11,9 +11,9 @@
 <div class="card w-100" id="lang_prev">
     <div class="card-header d-flex justify-content-between gap-3">
         <input type="text" name="search" id="search" class="form-control w-25" placeholder="Search" v-model="search" @input="getSearch(this.search)">
-        <a href="/admin/languages/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
+        {{-- <a href="/admin/languages/add" class="btn btn-primary w-fit d-flex gap-2 align-items-center">
             <i class="ti ti-plus"></i> Add Language
-        </a>
+        </a> --}}
     </div>
     <div class="card-body p-4">
     <div class="table-responsive" v-if="languages_data && languages_data.data.length > 0">
