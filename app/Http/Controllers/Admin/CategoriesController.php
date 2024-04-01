@@ -127,7 +127,7 @@ class CategoriesController extends Controller
         $top_categories = Category::where("isTop", true)->get();
 
         if ($top_categories->count() == 6 && !$category->isTop)
-            return $this->jsondata(false, true, 'Add failed', ["Top categories is fill"], []);
+            return $this->jsondata(false, true, 'Add failed', ["@{{page_content.top_cat}} is fill"], []);
 
         $category->isTop = !$category->isTop;
         $category->save();

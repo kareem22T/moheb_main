@@ -1,5 +1,6 @@
 {
     "EN": {
+        "top_cat": "Top Category",
         "contact": {
             "head": "Send us A message",
             "sub_head": "Waiting your suggestion or question!",
@@ -36,6 +37,9 @@
             "about": "About",
             "contact": "Contact"
         },
+        "top_word": "Top Words",
+        "login": "Login",
+        "register": "Register",
         "footer": {
             "nav": {
                 "link_1": "Privacy Policy",
@@ -46,6 +50,10 @@
         }
     },
     "AR": {
+        "top_cat": "اشهر الاقسام",
+        "top_word": "اشهر المصطلحات",
+        "login": "دخول",
+        "register": "تسجيل",
         "contact": {
             "head": "ارسل لنا رسالة",
             "sub_head": "ننتظر اقتراحك او استفسارك !",

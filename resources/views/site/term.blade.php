@@ -9,7 +9,7 @@
         <aside>
             <div class="top_cat">
                 <h1 class="top_title">
-                    Top Categories <span class="line"></span>
+                    @{{page_content.top_cat}} <span class="line"></span>
                 </h1>
                 @php
                   $lang = (isset($_COOKIE['lang'])) ? $_COOKIE['lang'] : null; // Check for cookie first
@@ -57,7 +57,7 @@
             </div>
             <div class="top_words">
                 <h1 class="top_title">
-                    Top Words <span class="line"></span>
+                    @{{page_content.top_word}} <span class="line"></span>
                 </h1>
                 <div class="terms">
                     @if ($topTerms->count() > 0)

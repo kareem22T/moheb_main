@@ -58,8 +58,8 @@
                 @endif
                 @if(!Auth::user())
                 <div class="profile">
-                    <a href="{{ route('site.login') }}">Login</a>
-                    <a href="{{ route('site.register') }}">Register</a>
+                    <a href="{{ route('site.login') }}">@{{ page_content.login }}</a>
+                    <a href="{{ route('site.register') }}">@{{ page_content.register }}</a>
                 </div>
                 @endif
                 <div class="lang">

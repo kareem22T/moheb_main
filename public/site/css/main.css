@@ -379,7 +379,15 @@ header .bottom .more .fa-bars {
 footer {
     margin-top: 1rem;
 }
+.AR #term > .container, #article > .container {
+    flex-direction: row;
+}
 
+@media (max-width: 767.98px) {
+    .AR #term > .container, #article > .container {
+        flex-direction: column-reverse;
+    }
+}
 footer .top {
     background: var(--secondary-color);
     padding: .5rem;
@@ -986,6 +994,8 @@ textarea:focus {
     border-radius: 11px;
 }
 
+
+
 #term article .thumbnail img,
 #article article .thumbnail img {
     width: 100%;
@@ -1351,7 +1361,11 @@ textarea:focus {
     display: flex;
     gap: 2rem;
     justify-content: space-between;
-    flex-direction: row-reverse;
+    flex-direction: row;
+  }
+
+  .AR #term article .head .date, #article article .head .date {
+    margin-right: 0;
   }
 
   @media (max-width: 575px) {
@@ -1452,4 +1466,32 @@ h1 {
 
 h2 {
     font-size: 1.1rem !important;
+}
+
+
+.AR #term aside .top_title, #article aside .top_title {
+    flex-direction: row-reverse;
+}
+
+.AR #term aside .top_cat .categories .cat h3, #article aside .top_cat .categories .cat h3 {
+    right: .5rem;
+    left: auto;
+}
+
+.AR #term .top_words .term, #article .top_words .term {
+    text-align: right;
+}
+
+.AR header {
+    direction: rtl;
+}
+
+.AR header .top .container .search i, .mobile-menu .search i {
+    left: 1rem;
+    right: auto;
+}
+
+.AR header .top .container .links a:first-child {
+    border-right: none;
+    border-left: 1px solid #fff;
 }
