@@ -1030,6 +1030,7 @@ textarea:focus {
 #term aside .top_title,
 #article aside .top_title {
     font-size: 1.2rem;
+    white-space: nowrap;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
