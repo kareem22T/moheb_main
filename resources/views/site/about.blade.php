@@ -54,7 +54,7 @@
                         <path d="M11 12h1v4h1" />
                     </svg>
                     @{{ page_content.about.head }}</h1>
-                    <p style="line-height: 25px;margin-bottom: 0;">
+                    <p style="line-height: 25px;margin-bottom: 0;  font-size: 1rem;">
                         @{{page_content.about.content}}
                     </p>
                 </div>

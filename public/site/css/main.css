@@ -408,6 +408,7 @@ footer .bottom {
     color: white;
     background: var(--main-color);
     font-size: 1.25rem;
+    font-size: 0.9rem !important;
 }
 
 /* start register  */
@@ -1444,3 +1445,11 @@ textarea:focus {
         font-weight: 700;
       }
   }
+
+h1 {
+    font-size: 1.3rem !important;
+}
+
+h2 {
+    font-size: 1.1rem !important;
+}
