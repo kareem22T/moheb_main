@@ -90,7 +90,7 @@
                 <div class="bg" style="width: 100%;height: 100%;top: 0;left: 0;position: absolute;background: #040486;border-radius: 10px;opacity: 0.7;"></div>
                 <div class="social" style="position: relative;top: 0;left: 0;width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;gap: 10px;padding: 1rem;display: grid;grid-template-columns: 1fr 1fr;">
                 @if($contact->email)
-                    <a target="_blank" href="mailto:{{$contact->email}}" style="grid-column: span 2">
+                    <a  href="mailto:{{$contact->email}}" style="grid-column: span 2">
                         {{ $contact->email }}
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -100,7 +100,7 @@
                     </a>
                 @endif
                 @if($contact->phone)
-                    <a target="_blank" href="tel:{{$contact->phone}}" style="grid-column: span 2">
+                    <a  href="tel:{{$contact->phone}}" style="grid-column: span 2">
                         {{ $contact->phone }}
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-call" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -111,7 +111,7 @@
                     </a>
                 @endif
                     @if($contact->facebook)
-                        <a target="_blank" href="{{$contact->facebook}}">
+                        <a  href="{{$contact->facebook}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
@@ -119,7 +119,7 @@
                         </a>
                     @endif
                     @if($contact->instagram)
-                        <a target="_blank" href="{{$contact->instagram}}">
+                        <a  href="{{$contact->instagram}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
@@ -129,7 +129,7 @@
                         </a>
                     @endif
                     @if($contact->youtube)
-                        <a target="_blank" href="{{$contact->youtube}}">
+                        <a  href="{{$contact->youtube}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z" />
@@ -138,7 +138,7 @@
                         </a>
                     @endif
                     @if($contact->tiktok)
-                        <a target="_blank" href="{{$contact->tiktok}}">
+                        <a  href="{{$contact->tiktok}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-tiktok" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z" />
@@ -146,7 +146,7 @@
                         </a>
                     @endif
                     @if($contact->x)
-                        <a target="_blank" href="{{$contact->x}}">
+                        <a  href="{{$contact->x}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
@@ -155,7 +155,7 @@
                         </a>
                     @endif
                     @if($contact->spotify)
-                        <a target="_blank" href="{{$contact->spotify}}">
+                        <a  href="{{$contact->spotify}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-spotify" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
@@ -166,7 +166,7 @@
                         </a>
                     @endif
                     @if($contact->anghami)
-                        <a target="_blank" class="anghami" href="{{$contact->anghami}}">
+                        <a  class="anghami" href="{{$contact->anghami}}">
                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                             viewBox="0 0 612 611.29" style="enable-background:new 0 0 612 611.29;" xml:space="preserve">
 

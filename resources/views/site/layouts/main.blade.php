@@ -31,7 +31,7 @@
         height: 4px;
         border-radius: 50%;
         color: #ff3100;
-        box-shadow: 
+        box-shadow:
             calc(1*var(--d))      calc(0*var(--d))     0 0,
             calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
             calc(0*var(--d))      calc(1*var(--d))     0 2px,
@@ -120,7 +120,7 @@
             margin-top: 2rem
         }
     </style>
-    
+
     <title>Moheb | @yield('title')</title>
 </head>
 <body>
@@ -131,16 +131,17 @@
     @yield('content')
     <script src="{{ asset('/libs/vue.js') }}"></script>
     <script src="{{ asset('/libs/jquery.js') }}"></script>
-    <script src="{{ asset('/libs/axios.js') }}"></script>    
+    <script src="{{ asset('/libs/axios.js') }}"></script>
 
     @yield('scripts')
 
     <script>
-        $('.more .fa-bars').on('click', function () {
+
+        $(document).on('click', '.more .fa-bars', function () {
             $('.mobile-menu').fadeIn().css('display', 'flex')
         })
 
-        $('.close').on('click', function () {
+        $(document).on('click', '.close', function () {
             $('.mobile-menu').fadeOut()
         })
     </script>

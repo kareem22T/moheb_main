@@ -239,7 +239,7 @@ class HomeController extends Controller
 
         $terms = Term::with(['names' => function ($query) use ($lang) {
             $query->where("language_id", $lang->id);
-        }])->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
+        }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
 
         if (!$category) {
             // Handle category not found error (optional)

@@ -8,7 +8,7 @@
                 <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
                 <i class="fa fa-search" @click="handleSearch"></i>
                 <div class="suggestion" v-if="searchArticles.length && search" style="font-size: 17px;position: absolute;top: 100%;display: flex;flex-direction: column;background: white;width: 100%;border-radius: 10px;margin-top: 10px;">
-                    <a :href="`/term/${item.name}/${item.id}`" target="_blank" v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}</a>
+                    <a :href="`/term/${item.name}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}</a>
                     <a :href="`/search/${search}`" style="font-size: 16px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
                 </div>
             </div>
@@ -18,20 +18,20 @@
                 @endphp
 
                 @if($contact->facebook)
-                <a target="_blank" href="{{$contact->facebook}}">
+                <a  href="{{$contact->facebook}}">
                         <i class="fa-brands fa-facebook-f"></i></a>
                 @endif
                 @if($contact->instagram)
-                <a target="_blank" href="{{$contact->instagram}}">
+                <a  href="{{$contact->instagram}}">
                     <i class="fa-brands fa-instagram"></i></a>
                 @endif
                 @if($contact->x)
-                    <a target="_blank" href="{{$contact->x}}">
+                    <a  href="{{$contact->x}}">
                         <i class="fa-brands fa-twitter"></i>
                     </a>
                 @endif
                 @if($contact->youtube)
-                    <a target="_blank" href="{{$contact->youtube}}">
+                    <a  href="{{$contact->youtube}}">
                         <i class="fa-brands fa-youtube"></i>
                     </a>
                 @endif
@@ -86,7 +86,7 @@
                     <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
                     <i class="fa fa-search" @click="handleSearch"></i>
                     <div class="suggestion" v-if="searchArticles.length && search" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;position: absolute;top: 100%;display: flex;flex-direction: column;background: white;width: 100%;border-radius: 10px;margin-top: 10px;">
-                        <a :href="`/term/${item.name}/${item.id}`" target="_blank" v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}</a>
+                        <a :href="`/term/${item.name}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}</a>
                         <a :href="`/search/${search}`" style="font-size: 16px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
                     </div>
                 </div>
