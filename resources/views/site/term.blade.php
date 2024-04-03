@@ -93,7 +93,137 @@
             <div class="thumbnail" v-if="term_data.thumbnail_path">
                 <img :src="term_data.thumbnail_path" alt="">
             </div>
-            <div class="content" style="margin-bottom: 0; padding-bottom: 0" v-if="current_lang == 'AR'">
+            @php
+                $lang_FR = App\Models\Language::where('symbol', 'FR')->first();
+                $term_FR = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_FR) {
+                            $q->where("language_id", $lang_FR->id);
+                        },
+                        "contents" => function ($q) use ($lang_FR) {
+                            $q->where("language_id", $lang_FR->id);
+                        },
+                        "sounds" => function ($q) use ($lang_FR) {
+                            $q->where("language_id", $lang_FR->id);
+                        },
+                    ]
+                )->find(request()->id);
+                $lang_EN = App\Models\Language::where('symbol', 'EN')->first();
+                $term_EN = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_EN) {
+                            $q->where("language_id", $lang_EN->id);
+                        },
+                        "contents" => function ($q) use ($lang_EN) {
+                            $q->where("language_id", $lang_EN->id);
+                        },
+                        "sounds" => function ($q) use ($lang_EN) {
+                            $q->where("language_id", $lang_EN->id);
+                        },
+                    ]
+                )->find(request()->id);
+                $lang_ESP = App\Models\Language::where('symbol', 'ESP')->first();
+                $term_ESP = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_ESP) {
+                            $q->where("language_id", $lang_ESP->id);
+                        },
+                        "contents" => function ($q) use ($lang_ESP) {
+                            $q->where("language_id", $lang_ESP->id);
+                        },
+                        "sounds" => function ($q) use ($lang_ESP) {
+                            $q->where("language_id", $lang_ESP->id);
+                        },
+                    ]
+                )->find(request()->id);
+                $lang_ITA = App\Models\Language::where('symbol', 'ITA')->first();
+                $term_ITA = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_ITA) {
+                            $q->where("language_id", $lang_ITA->id);
+                        },
+                        "contents" => function ($q) use ($lang_ITA) {
+                            $q->where("language_id", $lang_ITA->id);
+                        },
+                        "sounds" => function ($q) use ($lang_ITA) {
+                            $q->where("language_id", $lang_ITA->id);
+                        },
+                    ]
+                )->find(request()->id);
+                $lang_DEU = App\Models\Language::where('symbol', 'DEU')->first();
+                $term_DEU = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_DEU) {
+                            $q->where("language_id", $lang_DEU->id);
+                        },
+                        "contents" => function ($q) use ($lang_DEU) {
+                            $q->where("language_id", $lang_DEU->id);
+                        },
+                        "sounds" => function ($q) use ($lang_DEU) {
+                            $q->where("language_id", $lang_DEU->id);
+                        },
+                    ]
+                )->find(request()->id);
+                $lang_PORT = App\Models\Language::where('symbol', '(PORT)')->first();
+                $term_PORT = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_PORT) {
+                            $q->where("language_id", $lang_PORT->id);
+                        },
+                        "contents" => function ($q) use ($lang_PORT) {
+                            $q->where("language_id", $lang_PORT->id);
+                        },
+                        "sounds" => function ($q) use ($lang_PORT) {
+                            $q->where("language_id", $lang_PORT->id);
+                        },
+                    ]
+                )->find(request()->id);
+                $lang_AR = App\Models\Language::where('symbol', 'AR')->first();
+                $term_AR = App\Models\Term::with(
+                    [
+                        "names" => function ($q) use ($lang_AR) {
+                            $q->where("language_id", $lang_AR->id);
+                        },
+                        "contents" => function ($q) use ($lang_AR) {
+                            $q->where("language_id", $lang_AR->id);
+                        },
+                        "sounds" => function ($q) use ($lang_AR) {
+                            $q->where("language_id", $lang_AR->id);
+                        },
+                    ]
+                )->find(request()->id);
+            @endphp
+            <div class="content" style="margin-bottom: 0;">
+                <h2>Terme en Français: {{ $term_FR->names[0]->term }}</h2>
+                {!! $term_FR->contents[0]->content !!}
+                {!! $term_FR->sounds->count() > 0 ?? $term_FR->sounds[0]->sound !!}
+            </div>
+            <div class="content" style="margin-bottom: 0;">
+                <h2>Term in English: {{ $term_EN->names[0]->term }}</h2>
+                {!! $term_EN->contents[0]->content !!}
+                {!! $term_EN->sounds->count() > 0 ?? $term_EN->sounds[0]->sound !!}
+            </div>
+            <div class="content" style="margin-bottom: 0;">
+                <h2>Termino en Español: {{ $term_ESP->names[0]->term }}</h2>
+                {!! $term_ESP->contents[0]->content !!}
+                {!! $term_ESP->sounds->count() > 0 ?? $term_ESP->sounds[0]->sound !!}
+            </div>
+            <div class="content" style="margin-bottom: 0;">
+                <h2>Termine in Italiano: {{ $term_ITA->names[0]->term }}</h2>
+                {!! $term_ITA->contents[0]->content !!}
+                {!! $term_ITA->sounds->count() > 0 ?? $term_ITA->sounds[0]->sound !!}
+            </div>
+            <div class="content" style="margin-bottom: 0;">
+                <h2>Termijn in het Nederlands: {{ $term_DEU->names[0]->term }}</h2>
+                {!! $term_DEU->contents[0]->content !!}
+                {!! $term_DEU->sounds->count() > 0 ?? $term_DEU->sounds[0]->sound !!}
+            </div>
+            <div class="content" style="margin-bottom: 0;">
+                <h2>Termo em Português: {{ $term_PORT->names[0]->term }}</h2>
+                {!! $term_PORT->contents[0]->content !!}
+                {!! $term_PORT->sounds->count() > 0 ?? $term_PORT->sounds[0]->sound !!}
+            </div>
+            <div dir="rtl"  class="content content_ar" style="margin-bottom: 0; padding-bottom: 0">
                 @php
                     $lang_egp = App\Models\Language::where("symbol", "AR (EGY)")->first();
                     $term_egp = App\Models\Term::with(["names" => function ($q) use ($lang_egp) {
@@ -112,34 +242,33 @@
                         $q->where("language_id", $lang_LA->id);
                     }])->find(request()->id);
                 @endphp
+                <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالفصحى: {{ $term_AR->names[0]->term }}</h2>
                 @if ($term_egp->names->count() > 0)
                     <h2 style="margin-top: 0">
                         المصطلح بالهجة المصرية:
                         {{ $term_egp->names[0]->term }}
                     </h2>
                 @endif
-                @if ($term_SA->names->count() > 0)
-                    <h2 style="margin-top: 0">
-                        المصطلح بالهجة السورية:
-                        {{ $term_SA->names[0]->term }}
-                    </h2>
-                @endif
                 @if ($term_AL->names->count() > 0)
                     <h2 style="margin-top: 0">
-                        المصطلح بالهجة الجزائرية:
+                        المصطلح بلهجة شمال افريقيا:
                         {{ $term_AL->names[0]->term }}
+                    </h2>
+                @endif
+                @if ($term_SA->names->count() > 0)
+                    <h2 style="margin-top: 0">
+                        المصطلح بالهجة الخليجية:
+                        {{ $term_SA->names[0]->term }}
                     </h2>
                 @endif
                 @if ($term_LA->names->count() > 0)
                     <h2 style="margin-top: 0">
-                        المصطلح بالهجة اللبنانية:
+                        المصطلح بالهجة الشامية:
                         {{ $term_LA->names[0]->term }}
                     </h2>
                 @endif
-            </div>
-            <div class="content" v-html="term_data.content">
-            </div>
-            <div class="sound" v-html="term_data.sound">
+                {!! $term_AR->contents[0]->content !!}
+                {!! $term_AR->sounds->count() > 0 ?? $term_AR->sounds[0]->sound !!}
             </div>
         </article>
     </div>
