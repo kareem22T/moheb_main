@@ -137,28 +137,15 @@
                         </div>
                     </div>
                     <!-- Swiper -->
-                    <div class="swiper mySwiper w-100 mb-3 pb-5">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" v-for="(language, index) in languages_data" :key="index">
+                    <div class="mb-3 pb-5">
+                        <div>
+                            <div  v-for="(language, index) in languages_data" :key="index">
                                 <div>
                                     <label for="sound_iframe" class="form-label">Sound in @{{language.name}} (iframe)</label>
                                     <input type="text" class="form-control" id="sound_iframe" v-model="sounds_translations[language.symbol]">
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-button-next btn btn-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M9 6l6 6l-6 6"></path>
-                            </svg>
-                        </div>
-                        <div class="swiper-button-prev btn btn-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M15 6l-6 6l6 6"></path>
-                            </svg>
-                        </div>
-                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
