@@ -196,32 +196,44 @@
             <div class="content" style="margin-bottom: 0;">
                 <h2>Terme en Français: {{ $term_FR->names[0]->term }}</h2>
                 {!! $term_FR->contents[0]->content !!}
-                {!! $term_FR->sounds->count() > 0 ?? $term_FR->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_FR->sounds->count() > 0 ? $term_FR->sounds[0]->iframe : '' !!}
+                </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
                 <h2>Term in English: {{ $term_EN->names[0]->term }}</h2>
                 {!! $term_EN->contents[0]->content !!}
-                {!! $term_EN->sounds->count() > 0 ?? $term_EN->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_EN->sounds->count() > 0 ? $term_EN->sounds[0]->iframe : '' !!}
+                </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
                 <h2>Termino en Español: {{ $term_ESP->names[0]->term }}</h2>
                 {!! $term_ESP->contents[0]->content !!}
-                {!! $term_ESP->sounds->count() > 0 ?? $term_ESP->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_ESP->sounds->count() > 0 ? $term_ESP->sounds[0]->iframe : '' !!}
+                </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
                 <h2>Termine in Italiano: {{ $term_ITA->names[0]->term }}</h2>
                 {!! $term_ITA->contents[0]->content !!}
-                {!! $term_ITA->sounds->count() > 0 ?? $term_ITA->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_ITA->sounds->count() > 0 ? $term_ITA->sounds[0]->iframe : '' !!}
+                </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
                 <h2>Termijn in het Nederlands: {{ $term_DEU->names[0]->term }}</h2>
                 {!! $term_DEU->contents[0]->content !!}
-                {!! $term_DEU->sounds->count() > 0 ?? $term_DEU->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_DEU->sounds->count() > 0 ? $term_DEU->sounds[0]->iframe : '' !!}
+                </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
                 <h2>Termo em Português: {{ $term_PORT->names[0]->term }}</h2>
                 {!! $term_PORT->contents[0]->content !!}
-                {!! $term_PORT->sounds->count() > 0 ?? $term_PORT->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_PORT->sounds->count() > 0 ? $term_PORT->sounds[0]->iframe : '' !!}
+                </div>
             </div>
             <div dir="rtl"  class="content content_ar" style="margin-bottom: 0; padding-bottom: 0">
                 @php
@@ -241,34 +253,36 @@
                     $term_LA = App\Models\Term::with(["names" => function ($q) use ($lang_LA) {
                         $q->where("language_id", $lang_LA->id);
                     }])->find(request()->id);
-                @endphp
+                    @endphp
                 <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالفصحى: {{ $term_AR->names[0]->term }}</h2>
                 @if ($term_egp->names->count() > 0)
-                    <h2 style="margin-top: 0">
-                        المصطلح بالهجة المصرية:
-                        {{ $term_egp->names[0]->term }}
-                    </h2>
+                <h2 style="margin-top: 0">
+                    المصطلح بالهجة المصرية:
+                    {{ $term_egp->names[0]->term }}
+                </h2>
                 @endif
                 @if ($term_AL->names->count() > 0)
-                    <h2 style="margin-top: 0">
-                        المصطلح بلهجة شمال افريقيا:
-                        {{ $term_AL->names[0]->term }}
-                    </h2>
+                <h2 style="margin-top: 0">
+                    المصطلح بلهجة شمال افريقيا:
+                    {{ $term_AL->names[0]->term }}
+                </h2>
                 @endif
                 @if ($term_SA->names->count() > 0)
-                    <h2 style="margin-top: 0">
-                        المصطلح بالهجة الخليجية:
-                        {{ $term_SA->names[0]->term }}
-                    </h2>
+                <h2 style="margin-top: 0">
+                    المصطلح بالهجة الخليجية:
+                    {{ $term_SA->names[0]->term }}
+                </h2>
                 @endif
                 @if ($term_LA->names->count() > 0)
-                    <h2 style="margin-top: 0">
-                        المصطلح بالهجة الشامية:
-                        {{ $term_LA->names[0]->term }}
-                    </h2>
+                <h2 style="margin-top: 0">
+                    المصطلح بالهجة الشامية:
+                    {{ $term_LA->names[0]->term }}
+                </h2>
                 @endif
                 {!! $term_AR->contents[0]->content !!}
-                {!! $term_AR->sounds->count() > 0 ?? $term_AR->sounds[0]->iframe !!}
+                <div style="margin-top: 10px">
+                    {!! $term_AR->sounds->count() > 0 ? $term_AR->sounds[0]->iframe : '' !!}
+                </div>
             </div>
         </article>
     </div>
