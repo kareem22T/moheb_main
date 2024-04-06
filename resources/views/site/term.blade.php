@@ -222,7 +222,7 @@
                 </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
-                <h2>Termijn in het Nederlands: {{ $term_DEU->names[0]->term }}</h2>
+                <h2>Begriff auf Deutsch: {{ $term_DEU->names[0]->term }}</h2>
                 {!! $term_DEU->contents[0]->content !!}
                 <div style="margin-top: 10px">
                     {!! $term_DEU->sounds->count() > 0 ? $term_DEU->sounds[0]->iframe : '' !!}
@@ -257,7 +257,7 @@
                 <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالفصحى: {{ $term_AR->names[0]->term }}</h2>
                 @if ($term_egp->names->count() > 0)
                 <h2 style="margin-top: 0">
-                    المصطلح بالهجة المصرية:
+                    المصطلح باللهجة المصرية:
                     {{ $term_egp->names[0]->term }}
                 </h2>
                 @endif
@@ -269,13 +269,13 @@
                 @endif
                 @if ($term_SA->names->count() > 0)
                 <h2 style="margin-top: 0">
-                    المصطلح بالهجة الخليجية:
+                    المصطلح باللهجة الخليجية:
                     {{ $term_SA->names[0]->term }}
                 </h2>
                 @endif
                 @if ($term_LA->names->count() > 0)
                 <h2 style="margin-top: 0">
-                    المصطلح بالهجة الشامية:
+                    المصطلح بلهجة دول الشام:
                     {{ $term_LA->names[0]->term }}
                 </h2>
                 @endif
