@@ -254,7 +254,7 @@
                         $q->where("language_id", $lang_LA->id);
                     }])->find(request()->id);
                     @endphp
-                <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالفصحى: {{ $term_AR->names[0]->term }}</h2>
+                <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالعربية الفصحى: {{ $term_AR->names[0]->term }}</h2>
                 @if ($term_egp->names->count() > 0)
                 <h2 style="margin-top: 0">
                     المصطلح باللهجة المصرية:
