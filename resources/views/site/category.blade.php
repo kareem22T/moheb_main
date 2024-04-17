@@ -234,23 +234,6 @@ methods: {
             this.current_lang = sessionStorage.getItem('lang')
         }
     },
-    computed: {
-        visiblePages() {
-        const totalPages = this.lastPage;
-        const currentPage = this.currentPage;
-        const maxVisiblePages = this.maxVisiblePages;
-
-        const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-        // Adjust startPage and endPage if not enough pages are available to fill maxVisiblePages
-        if (endPage - startPage + 1 < maxVisiblePages) {
-            startPage = Math.max(1, endPage - maxVisiblePages + 1);
-        }
-
-        return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
-        }
-    },
     async getCategory(){
         $('.loader').fadeIn().css('display', 'flex')
         try {
@@ -301,6 +284,24 @@ methods: {
             console.error(error);
         }
     },
+    computed: {
+        visiblePages() {
+        const totalPages = this.lastPage;
+        const currentPage = this.currentPage;
+        const maxVisiblePages = this.maxVisiblePages;
+
+        const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+        // Adjust startPage and endPage if not enough pages are available to fill maxVisiblePages
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+        }
+    },
+
 },
 created() {
     this.getLang().then(() => {

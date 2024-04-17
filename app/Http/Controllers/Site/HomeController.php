@@ -231,13 +231,13 @@ class HomeController extends Controller
             $lang = $lang;
             $q->with(['names' => function ($query) use ($lang) {
                 $query->where("language_id", $lang->id);
-            }])->where('hide', false)->orderBy('name');
+            }])->where('hide', false);
         }, "sub_categories"])->find($request->id);
 
         $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
         $category->name = $category_name->name;
 
-        $terms = Term::with(['names' => function ($query) use ($lang) {
+        $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
             $query->where("language_id", $lang->id);
         }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
 
