@@ -229,7 +229,7 @@ class HomeController extends Controller
         $category = Category::with(['terms' => function ($q) use ($lang) {
             // No need to fetch $lang here, use the captured $lang
             $lang = $lang;
-            $q->with(['names' => function ($query) use ($lang) {
+            $q->orderBy('name')->with(['names' => function ($query) use ($lang) {
                 $query->where("language_id", $lang->id);
             }])->where('hide', false);
         }, "sub_categories"])->find($request->id);
