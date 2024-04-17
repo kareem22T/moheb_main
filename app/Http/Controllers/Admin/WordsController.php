@@ -44,7 +44,7 @@ class WordsController extends Controller
     }
 
     public function getTerms() {
-        $terms = Term::with('category')->paginate(10);
+        $terms = Term::orderBy('name')->with('category')->paginate(10);
 
         return $this->jsonData(true, true, '', [], $terms);
     }
@@ -60,18 +60,18 @@ class WordsController extends Controller
     }
 
     public function search(Request $request) {
-        $terms = Term::with('category')->where('name', 'like', '%' . $request->search_words . '%')
+        $terms = Term::orderBy('name')->with('category')->where('name', 'like', '%' . $request->search_words . '%')
                                 ->paginate(10);
 
-        $termsPerNames = Term::with('category')->whereHas('names', function ($query) use ($request) {
+        $termsPerNames = Term::orderBy('name')->with('category')->whereHas('names', function ($query) use ($request) {
             $query->where('name', 'like', '%'.$request->search_words.'%');
         })->paginate(10);
 
-        $termsPerTitles = Term::with('category')->whereHas('titles', function ($query) use ($request) {
+        $termsPerTitles = Term::orderBy('name')->with('category')->whereHas('titles', function ($query) use ($request) {
             $query->where('title', 'like', '%'.$request->search_words.'%');
         })->paginate(10);
 
-        $termsPerContents = Term::with('category')->whereHas('contents', function ($query) use ($request) {
+        $termsPerContents = Term::orderBy('name')->with('category')->whereHas('contents', function ($query) use ($request) {
             $query->where('content', 'like', '%'.$request->search_words.'%');
         })->paginate(10);
 
