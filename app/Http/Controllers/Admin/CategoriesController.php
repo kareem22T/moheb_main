@@ -59,7 +59,7 @@ class CategoriesController extends Controller
     }
 
     public function add(Request $request) {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         // add(category_translations)
         $validator = Validator::make($request->all(), [
@@ -167,7 +167,7 @@ class CategoriesController extends Controller
     }
 
     public function editCategory(Request $request) {
-        $languages = Language::all();
+        $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         $category = Category::find($request->category_id);
 
