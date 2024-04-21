@@ -128,7 +128,7 @@
                         </div>
 
                         <div class="w-100" v-if="show_sub_categories">
-                            <label for="symbol" class="form-label">Sub Category *</label>
+                            <label for="symbol" class="form-label">Sub Category</label>
                             <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id">
                                 <option v-for="(category, index) in sub_categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
                                     @{{category.main_name}}

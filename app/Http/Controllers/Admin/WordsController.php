@@ -118,9 +118,6 @@ class WordsController extends Controller
         if (!$request->cat_id) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose category for your term'], []);
         }
-        if (Category::find($request->cat_id)->sub_categories()->count() > 0) {
-            return $this->jsondata(false, true, 'Add failed', ['Please choose sub category for your term'], []);
-        }
 
         $createTerm = Term::create([
             'name' => Str::ucfirst($request->main_name),
@@ -310,9 +307,6 @@ class WordsController extends Controller
         }
         if (!$request->cat_id) {
             return $this->jsondata(false, true, 'Add failed', ['Please choose category for your term'], []);
-        }
-        if (Category::find($request->cat_id)->sub_categories()->count() > 0) {
-            return $this->jsondata(false, true, 'Add failed', ['Please choose sub category for your term'], []);
         }
 
         $term->name = Str::ucfirst($request->main_name);
