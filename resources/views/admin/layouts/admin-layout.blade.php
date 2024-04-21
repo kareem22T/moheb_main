@@ -68,6 +68,9 @@
       backdrop-filter: blur(1px);
       display: flex
     }
+    .pagination {
+        flex-wrap: wrap !important;
+    }
     .custom-loader {
       --d:22px;
       width: 4px;
