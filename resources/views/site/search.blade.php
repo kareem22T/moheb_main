@@ -17,14 +17,6 @@
                     <span class="cat">@{{ term.category.names[0].name }}</span>
                 </a>
             </div>
-            <div class="pagination" >
-                <button class="prev" @click="currentPage > 1 ? currentPage -= 1 : ''; getSearch()" :disabled="currentPage === 1">Previous</button>
-                <label :class="currentPage == pageNumber ? 'active' : ''" v-for="pageNumber in visiblePages" :key="pageNumber">
-                  <input type="radio" v-model="currentPage" :value="pageNumber" @change="this.currentPage = pageNumber; getSearch()">
-                  @{{ pageNumber }}
-                </label>
-                <button class="next" @click="currentPage < lastPage ? currentPage += 1 : ''; getSearch()" :disabled="currentPage === lastPage">Next</button>
-            </div>
         </div>
     </section>
     @include('site.includes.footer')
@@ -56,21 +48,6 @@ data() {
     }
 },
 computed: {
-    visiblePages() {
-      const totalPages = this.lastPage;
-      const currentPage = this.currentPage;
-      const maxVisiblePages = this.maxVisiblePages;
-
-      const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-      // Adjust startPage and endPage if not enough pages are available to fill maxVisiblePages
-      if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-      }
-
-      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
-    }
 },
 methods: {
     async handleSearch(){
