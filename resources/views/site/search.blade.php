@@ -14,6 +14,7 @@
                 <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-')}/${term.id}`" v-for="term in articles" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
                     <h1>@{{ term.names[0].term }}</h1>
+                    <span class="cat">@{{ term.category.names[0].name }}</span>
                 </a>
             </div>
             <div class="pagination" >

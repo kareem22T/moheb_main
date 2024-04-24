@@ -119,6 +119,36 @@
             gap: 10px;
             margin-top: 2rem
         }
+        .suggestion a span{
+            font-size: 14px !important;
+            padding-left: 20px;
+            color: #b10a0b !important;
+            position: relative;
+        }
+        .suggestion a span::after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+            width: 9px;
+            height: 2px;
+            background: #b10a0b;
+        }
+        .sub_categories .card {
+            position: relative;
+        }
+        .sub_categories .card .cat {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #1a3467a6;
+            color: white;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-weight: 600
+        }
     </style>
 
     <title>Moheb | @yield('title')</title>

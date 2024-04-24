@@ -279,6 +279,10 @@ class HomeController extends Controller
               ->where('language_id', Language::where("symbol", $lang)->value('id'));
         }, "names" => function ($q) use ($lang, $search) {
                 $q->where('language_id', Language::where("symbol", $lang)->value('id'));
+        }, "category" => function ($q) use ($lang) {
+            $q->with(["names" => function ($Q) use ($lang) {
+                $Q->where('language_id', Language::where("symbol", $lang)->value('id'));
+            }]);
         }])
         ->whereHas("titles", function ($q) use ($lang, $search) {
             $q->where('title', 'like', '%' . $search . '%')
