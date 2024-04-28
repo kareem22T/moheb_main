@@ -192,7 +192,7 @@ class HomeController extends Controller
             $lang = $lang;
             $q->with(['names' => function ($query) use ($lang) {
                 $query->where("language_id", $lang->id);
-            }])->where('hide', false);
+            }])->where('hide', false)->take(12);
         }])->whereHas('names', function ($query) use ($request) {
             // No need to fetch $lang here, use the captured $lang
             $query->where('name', 'like', '%' . "football" . '%');
