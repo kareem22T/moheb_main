@@ -15,6 +15,6 @@ class redirectToCummingSoonPage
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return redirect('/sonn');
+        return redirect('/soon');
     }
 }
