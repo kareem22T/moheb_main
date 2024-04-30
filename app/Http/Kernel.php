@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'guest_admin' => \App\Http\Middleware\guestAdmin::class,
+        'retirect_to_cumming_soon' => \App\Http\Middleware\redirectToCummingSoonPage::class,
     ];
 }
