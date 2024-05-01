@@ -15,7 +15,7 @@ use App\Http\Controllers\Site\HomeController;
 |
 */
 
-Route::middleware('retirect_to_cumming_soon')->group(function () {
+// Route::middleware('retirect_to_cumming_soon')->group(function () {
 
 
     Route::get('/', function () {
@@ -52,4 +52,4 @@ Route::middleware('retirect_to_cumming_soon')->group(function () {
         return view("site.about");
     });
     Route::post('/my-favTerms', [HomeController::class, 'favTerms'])->name('fav.terms');
-});
+// });
