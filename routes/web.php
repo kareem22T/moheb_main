@@ -17,11 +17,6 @@ use App\Http\Controllers\Site\HomeController;
 
 // Route::middleware('retirect_to_cumming_soon')->group(function () {
 
-
-    Route::get('/', function () {
-        return view('site.home');
-    })->name('site.home');
-
     Route::get('/logout', [RegisterController::class, 'logout'])->name('site.logout');
     Route::post('/login', [RegisterController::class, 'login'])->name('site.loginprocess');
     // Route::get('/logout', [RegisterController::class, 'logutIndex'])->name('site.logout');
@@ -30,9 +25,6 @@ use App\Http\Controllers\Site\HomeController;
     Route::get('/login', [RegisterController::class, 'getLoginIndex'])->name('site.login');
     Route::middleware('auth:sanctum')->get('/get-user', [RegisterController::class, 'getUser'])->name('site.get-user');
     Route::post('/register', [RegisterController::class, 'register'])->name('site.register');
-    Route::get('/term/{name}/{id}', [HomeController::class, 'getTermIndex'])->name('term.get');
-    Route::get('/article/{id}', [HomeController::class, 'getArticleIndex'])->name('article.get');
-    Route::get('/category/{id}', [HomeController::class, 'getCategoryIndex'])->name('category.get');
     Route::post('/category', [HomeController::class, 'getCategoryById'])->name('category.getbyid');
     Route::post('/term', [HomeController::class, 'getTerm'])->name('site.getterm');
     Route::post('/article', [HomeController::class, 'getArticle'])->name('site.getarticle');
@@ -43,8 +35,6 @@ use App\Http\Controllers\Site\HomeController;
     Route::post('/get_football_cat', [HomeController::class, 'getFootballCat'])->name('categories.football');
     Route::post('/search', [HomeController::class, 'search'])->name('words.search');
     Route::post('/fav-add-delete', [HomeController::class, 'addToFav'])->name('fav.addordelete');
-    Route::get('/search/{word}', [HomeController::class, 'searchIndex'])->name('view.search');
-    Route::get('/my-wishlist', [HomeController::class, 'favIndex'])->name('view.wishlist');
     Route::get('/contact-us', function () {
         return view("site.contact");
     });
@@ -53,3 +43,16 @@ use App\Http\Controllers\Site\HomeController;
     });
     Route::post('/my-favTerms', [HomeController::class, 'favTerms'])->name('fav.terms');
 // });
+
+Route::prefix('kvc3CJxENmHap4H2ZQV5')->group(function () {
+    Route::get('/term/{name}/{id}', [HomeController::class, 'getTermIndex'])->name('term.get');
+    Route::get('/article/{id}', [HomeController::class, 'getArticleIndex'])->name('article.get');
+    Route::get('/category/{id}', [HomeController::class, 'getCategoryIndex'])->name('category.get');
+    Route::get('/search/{word}', [HomeController::class, 'searchIndex'])->name('view.search');
+    Route::get('/my-wishlist', [HomeController::class, 'favIndex'])->name('view.wishlist');
+
+    Route::get('/', function () {
+        return view('site.home');
+    })->name('site.home');
+
+});
