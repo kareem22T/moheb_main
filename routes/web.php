@@ -42,9 +42,6 @@ use App\Http\Controllers\Site\HomeController;
         return view("site.about");
     });
     Route::post('/my-favTerms', [HomeController::class, 'favTerms'])->name('fav.terms');
-// });
-
-Route::prefix('kvc3CJxENmHap4H2ZQV5')->group(function () {
     Route::get('/term/{name}/{id}', [HomeController::class, 'getTermIndex'])->name('term.get');
     Route::get('/article/{id}', [HomeController::class, 'getArticleIndex'])->name('article.get');
     Route::get('/category/{id}', [HomeController::class, 'getCategoryIndex'])->name('category.get');
@@ -55,4 +52,3 @@ Route::prefix('kvc3CJxENmHap4H2ZQV5')->group(function () {
         return view('site.home');
     })->name('site.home');
 
-});
