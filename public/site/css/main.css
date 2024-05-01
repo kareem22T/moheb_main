@@ -175,7 +175,8 @@ header .top .container .links a,
     font-size: 1.1rem;
     font-weight: 400;
     text-decoration: none;
-    padding: 0 1rem;
+    padding: 0 8px;
+    font-size: 15px;
 }
 
 
@@ -317,7 +318,7 @@ header .bottom .more .fa-bars {
     }
 
     header .top .container .search input {
-        width: 270px;
+        width: 220px;
     }
 
     header .top .container .logo img {
@@ -682,6 +683,7 @@ textarea:focus {
 
 .football {
     margin-top: 2rem;
+    margin-top: 3.5rem;
 }
 
 .AR .football {
@@ -1246,6 +1248,7 @@ textarea:focus {
     border: 1px solid #fff;
     border-radius: 4px;
     transition: all .3s ease-in;
+    font-size: 13px;
 }
 
 .profile a:hover {

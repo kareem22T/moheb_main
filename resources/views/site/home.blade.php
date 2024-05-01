@@ -14,7 +14,7 @@
             <div class="sub_categories" v-if="football.terms && football.terms.length">
                 <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-')}/${term.id}`" v-for="term in football.terms" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
-                    <h1>@{{ term.names[0].term }}</h1>
+                    <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                 </a>
             </div>
         </div>

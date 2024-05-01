@@ -13,7 +13,7 @@
             <div class="sub_categories" v-if="articles && articles.length">
                 <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-')}/${term.id}`" v-for="term in articles" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
-                    <h1>@{{ term.names[0].term }}</h1>
+                    <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                     <span class="cat">@{{ term.category.names[0].name }}</span>
                 </a>
             </div>
