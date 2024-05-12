@@ -64,7 +64,7 @@
                         @foreach ($topTerms as $term)
                             <a href="/term/{{$term->name}}/{{$term->id}}" class="term">
                                 <h2>{{ $term->names[0]->term }}</h2>
-                                <h4>{{ $term->category()->names->count() > 0 ? $term->category()->names[0]->name : $term->category()->name }}</h4>
+                                <h4>{{ $term->category?->names->count() > 0 ? $term->category?->names[0]->name : $term->category?->name }}</h4>
                             </a>
                         @endforeach
                     @endif
