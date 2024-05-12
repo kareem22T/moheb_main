@@ -49,7 +49,7 @@
                                 background: rgb(0,0,0);
                                 background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
                                 <img src="{{$cat->thumbnail_path}}">
-                                <h3>{{ $cat->names[0]->count() > 0 $cat->names[0]->name : $cat->name }}</h3>
+                                <h3>{{ $cat->names[0]->count() > 0 ? $cat->names[0]->name : $cat->name }}</h3>
                             </a>
                         @endforeach
                     @endif
