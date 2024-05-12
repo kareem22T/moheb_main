@@ -26,7 +26,7 @@ createApp({
                     setTimeout(() => {
                         $('.loader').fadeOut()
                         $('#errors').fadeOut('slow')
-                        window.location.href = '/admin'
+                        window.location.href = '/admin/dashboard'
                     }, 1300);
                 } else {
                     $('.loader').fadeOut()
