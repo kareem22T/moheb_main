@@ -49,7 +49,7 @@
                                 background: rgb(0,0,0);
                                 background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
                                 <img src="{{$cat->thumbnail_path}}">
-                                <h3>{{ $cat->names[0]->count() > 0 ? $cat->names[0]->name : $cat->name }}</h3>
+                                <h3>{{ $cat->names->count() > 0 ? $cat->names[0]->name : $cat->name }}</h3>
                             </a>
                         @endforeach
                     @endif
@@ -64,7 +64,7 @@
                         @foreach ($topTerms as $term)
                             <a href="/term/{{$term->name}}/{{$term->id}}" class="term">
                                 <h2>{{ $term->names[0]->term }}</h2>
-                                <h4>{{ $term->category->names[0]->count() > 0 ? $term->category->names[0]->name : $term->category->name }}</h4>
+                                <h4>{{ $term->category->names->count() > 0 ? $term->category->names[0]->name : $term->category->name }}</h4>
                             </a>
                         @endforeach
                     @endif
