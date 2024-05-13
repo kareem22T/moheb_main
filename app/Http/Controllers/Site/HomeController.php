@@ -301,7 +301,7 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::paginate(20);
+            $category = Category::orderBy('main_name')->all();
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;
@@ -331,7 +331,7 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::paginate(20);
+            $category = Category::orderBy('main_name')->all();
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;
