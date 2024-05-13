@@ -319,6 +319,48 @@ createApp({
             console.error(error);
         }
     },
+    async getCategories() {
+        $('.loader').fadeIn().css('display', 'flex')
+        try {
+            const response = await axios.post(`/admin/categories/main`, {
+                cat: 'cat'
+            },
+            );
+            if (response.data.status === true) {
+                $('.loader').fadeOut()
+                this.categories_data = response.data.data
+            } else {
+                $('.loader').fadeOut()
+                document.getElementById('errors').innerHTML = ''
+                $.each(response.data.errors, function (key, value) {
+                    let error = document.createElement('div')
+                    error.classList = 'error'
+                    error.innerHTML = value
+                    document.getElementById('errors').append(error)
+                });
+                $('#errors').fadeIn('slow')
+                setTimeout(() => {
+                    $('input').css('outline', 'none')
+                    $('#errors').fadeOut('slow')
+                }, 5000);
+            }
+
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+            this.languages_data = false
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
     addTag() {
       if (this.tagInput.trim() !== '') {
         this.tags.push(this.tagInput.trim());
@@ -597,47 +639,6 @@ createApp({
             if (response.data.status === true) {
                 $('.loader').fadeOut()
                 this.languages_data = response.data.data
-            } else {
-                $('.loader').fadeOut()
-                document.getElementById('errors').innerHTML = ''
-                $.each(response.data.errors, function (key, value) {
-                    let error = document.createElement('div')
-                    error.classList = 'error'
-                    error.innerHTML = value
-                    document.getElementById('errors').append(error)
-                });
-                $('#errors').fadeIn('slow')
-                setTimeout(() => {
-                    $('input').css('outline', 'none')
-                    $('#errors').fadeOut('slow')
-                }, 5000);
-            }
-
-        } catch (error) {
-            document.getElementById('errors').innerHTML = ''
-            let err = document.createElement('div')
-            err.classList = 'error'
-            err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
-            $('#errors').fadeIn('slow')
-            $('.loader').fadeOut()
-            this.languages_data = false
-            setTimeout(() => {
-                $('#errors').fadeOut('slow')
-            }, 3500);
-
-            console.error(error);
-        }
-    },
-    async getCategories() {
-        $('.loader').fadeIn().css('display', 'flex')
-        try {
-            const response = await axios.post(`/admin/categories/`, {
-            },
-            );
-            if (response.data.status === true) {
-                $('.loader').fadeOut()
-                this.categories_data = response.data.data
             } else {
                 $('.loader').fadeOut()
                 document.getElementById('errors').innerHTML = ''

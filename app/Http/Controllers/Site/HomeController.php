@@ -65,7 +65,7 @@ class HomeController extends Controller
         try {
             $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
 
-            $term = Term::find($request->id);
+            $term = Term::with("tags")->find($request->id);
             if ($term->vists) {
                 $term->vists = (int) $term->vists + 1;
                 $term->save();
@@ -237,7 +237,7 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::all();
+            $category = Category::where("is_in_nav", true)->get();
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;
@@ -267,7 +267,71 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::all();
+            $category = Category::where("is_in_nav", true)->get();
+            foreach ($category as $cat) {
+                $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
+                $cat->name = $category_name->name;
+            }
+
+
+            if (!$category) {
+                // Handle category not found error (optional)
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Category not found'
+                ], 404);
+            }
+
+            // Return the data using your preferred method (e.g., JSON)
+            return $this->jsonData(true, true, '', [], $category);
+        }
+    }
+
+    public function getAllCategories(Request $request) {
+        try {
+            // Fetch language once outside nested queries
+            $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
+
+            // If $lang is not found, handle the error (e.g., return an error response)
+            if (!$lang) {
+                // Handle language not found error
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Language not found'
+                ], 404);
+            }
+
+            $category = Category::paginate(20);
+            foreach ($category as $cat) {
+                $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
+                $cat->name = $category_name->name;
+            }
+
+
+            if (!$category) {
+                // Handle category not found error (optional)
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Category not found'
+                ], 404);
+            }
+
+            // Return the data using your preferred method (e.g., JSON)
+            return $this->jsonData(true, true, '', [], $category);
+        } catch (\Throwable $th) {
+            // Fetch language once outside nested queries
+            $lang = Language::where('symbol', 'like', '%' . "EN" . '%')->first();
+
+            // If $lang is not found, handle the error (e.g., return an error response)
+            if (!$lang) {
+                // Handle language not found error
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Language not found'
+                ], 404);
+            }
+
+            $category = Category::paginate(20);
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;

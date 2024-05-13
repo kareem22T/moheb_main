@@ -26,6 +26,7 @@ use App\Http\Controllers\Site\HomeController;
     Route::middleware('auth:sanctum')->get('/get-user', [RegisterController::class, 'getUser'])->name('site.get-user');
     Route::post('/register', [RegisterController::class, 'register'])->name('site.register');
     Route::post('/category', [HomeController::class, 'getCategoryById'])->name('category.getbyid');
+    Route::post('/category/get-all', [HomeController::class, 'getAllCategories']);
     Route::post('/term', [HomeController::class, 'getTerm'])->name('site.getterm');
     Route::post('/article', [HomeController::class, 'getArticle'])->name('site.getarticle');
     Route::post('/latest-terms', [HomeController::class, 'getLatestTerms'])->name('term.getlatest');
@@ -37,6 +38,9 @@ use App\Http\Controllers\Site\HomeController;
     Route::post('/fav-add-delete', [HomeController::class, 'addToFav'])->name('fav.addordelete');
     Route::get('/contact-us', function () {
         return view("site.contact");
+    });
+    Route::get('/all-sports', function () {
+        return view("site.all_categories");
     });
     Route::get('/about-us', function () {
         return view("site.about");

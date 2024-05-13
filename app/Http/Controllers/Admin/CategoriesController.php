@@ -137,6 +137,28 @@ class CategoriesController extends Controller
 
     }
 
+    public function makeAtNav(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'cat_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->jsondata(false, true, 'Add failed', [$validator->errors()->first()], []);
+        }
+
+        $category = Category::find($request->cat_id);
+        if (!$category)
+            return $this->jsondata(false, true, 'Add failed', ["Category not found"], []);
+
+
+        $category->is_in_nav = !$category->is_in_nav;
+        $category->save();
+
+        if ($category)
+            return $this->jsondata(true, true, 'success', [], []);
+
+    }
+
     public function getCategoryById(Request $request) {
         $category = Category::find($request->category_id);
 

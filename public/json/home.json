@@ -1,5 +1,6 @@
 {
     "EN": {
+        "all_sports": "All Sports",
         "top_cat": "Top Category",
         "contact": {
             "head": "Send us A message",
@@ -50,6 +51,7 @@
         }
     },
     "ESP": {
+        "all_sports": "Todos los deportes",
         "top_cat": "Categoría Principal",
         "contact": {
             "head": "Envíanos un mensaje",
@@ -100,6 +102,7 @@
         }
     },
     "ITA": {
+        "all_sports": "Tutti gli sport",
         "top_cat": "Categoria Principale",
         "contact": {
             "head": "Invia un messaggio",
@@ -149,57 +152,59 @@
             "copy": "Powered by Center de Paris"
         }
     },
-        "DEU": {
-            "top_cat": "Top-Kategorie",
-            "contact": {
-                "head": "Schicken Sie uns eine Nachricht",
-                "sub_head": "Wir warten auf Ihren Vorschlag oder Ihre Frage!",
-                "name": "Name",
-                "address": "Adresse",
-                "email": "E-Mail",
-                "message": "Nachricht",
-                "send": "Senden"
-            },
-            "nav": {
-                "link_1": "Über uns",
-                "link_2": "Kontakt",
-                "welcome": "Willkommen"
-            },
-            "about": {
-                "head": "Über uns",
-                "content": "Lorem Ipsum ist einfach Dummy-Text der Druck- und Satzindustrie. Lorem Ipsum ist seit dem 16. Jahrhundert der Standard-Dummy-Text der Branche, als ein unbekannter Drucker eine Galeere nahm und sie zu einem Musterbuch verstreute. Es hat nicht nur fünf Jahrhunderte überlebt, sondern auch den Sprung in den elektronischen Satz, unverändert. Es wurde in den 1960er Jahren mit der Veröffentlichung von Letraset-Blättern, die Lorem Ipsum-Passagen enthielten, und neuerdings mit Desktop-Publishing-Software wie Aldus PageMaker, einschließlich Versionen von Lorem Ipsum, popularisiert."
-            },
-            "alert_bio": {
-                "welcome": "Willkommen!",
-                "title": "Bio über unser Team und das Wort des Gründers unserer Website",
-                "more": "Mehr über uns >>"
-            },
-            "sections": {
-                "view_all": "Alle ansehen",
-                "empty_wish": "Ihre Wunschliste ist leer",
-                "my_wishlist": "Meine Wunschliste",
-                "football": "Fußball",
-                "most_popular": "Beliebteste Sportarten",
-                "last_difinations": "Letzte Aktualisierungen",
-                "last_news": "Letzte Neuigkeiten"
-            },
-            "header": {
-                "about": "Über uns",
-                "contact": "Kontakt"
-            },
-            "top_word": "Top-Wörter",
-            "login": "Anmelden",
-            "register": "Registrieren",
-            "footer": {
-                "nav": {
-                    "link_1": "Datenschutzbestimmungen",
-                    "link_2": "Cookie-Richtlinie",
-                    "link_3": "Kontaktieren Sie uns"
-                },
-                "copy": "Angetrieben von Center de Paris"
-            }
+    "DEU": {
+        "all_sports": "Alle Sportarten",
+        "top_cat": "Top-Kategorie",
+        "contact": {
+            "head": "Schicken Sie uns eine Nachricht",
+            "sub_head": "Wir warten auf Ihren Vorschlag oder Ihre Frage!",
+            "name": "Name",
+            "address": "Adresse",
+            "email": "E-Mail",
+            "message": "Nachricht",
+            "send": "Senden"
         },
+        "nav": {
+            "link_1": "Über uns",
+            "link_2": "Kontakt",
+            "welcome": "Willkommen"
+        },
+        "about": {
+            "head": "Über uns",
+            "content": "Lorem Ipsum ist einfach Dummy-Text der Druck- und Satzindustrie. Lorem Ipsum ist seit dem 16. Jahrhundert der Standard-Dummy-Text der Branche, als ein unbekannter Drucker eine Galeere nahm und sie zu einem Musterbuch verstreute. Es hat nicht nur fünf Jahrhunderte überlebt, sondern auch den Sprung in den elektronischen Satz, unverändert. Es wurde in den 1960er Jahren mit der Veröffentlichung von Letraset-Blättern, die Lorem Ipsum-Passagen enthielten, und neuerdings mit Desktop-Publishing-Software wie Aldus PageMaker, einschließlich Versionen von Lorem Ipsum, popularisiert."
+        },
+        "alert_bio": {
+            "welcome": "Willkommen!",
+            "title": "Bio über unser Team und das Wort des Gründers unserer Website",
+            "more": "Mehr über uns >>"
+        },
+        "sections": {
+            "view_all": "Alle ansehen",
+            "empty_wish": "Ihre Wunschliste ist leer",
+            "my_wishlist": "Meine Wunschliste",
+            "football": "Fußball",
+            "most_popular": "Beliebteste Sportarten",
+            "last_difinations": "Letzte Aktualisierungen",
+            "last_news": "Letzte Neuigkeiten"
+        },
+        "header": {
+            "about": "Über uns",
+            "contact": "Kontakt"
+        },
+        "top_word": "Top-Wörter",
+        "login": "Anmelden",
+        "register": "Registrieren",
+        "footer": {
+            "nav": {
+                "link_1": "Datenschutzbestimmungen",
+                "link_2": "Cookie-Richtlinie",
+                "link_3": "Kontaktieren Sie uns"
+            },
+            "copy": "Angetrieben von Center de Paris"
+        }
+    },
     "(PORT)": {
+        "all_sports": "Todos os esportes",
         "top_cat": "Categoria Principal",
         "contact": {
             "head": "Envie-nos uma mensagem",
@@ -250,6 +255,7 @@
         }
     },
     "FR": {
+        "all_sports": "Tous les sports",
         "top_cat": "Catégorie Principale",
         "contact": {
             "head": "Envoyez-nous un message",
@@ -300,6 +306,7 @@
         }
     },
     "AR": {
+        "all_sports": "جميع الألعاب الرياضية",
         "top_cat": "اشهر الاقسام",
         "top_word": "اشهر المصطلحات",
         "login": "دخول",

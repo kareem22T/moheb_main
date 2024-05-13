@@ -56,6 +56,12 @@
                 </td>
                 <td class="border-bottom-0">
                     <div class="d-flex gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" :stroke="category.is_in_nav ? '#13DEB9' : '#FA896B'" fill="none" stroke-linecap="round" stroke-linejoin="round"  style="cursor: pointer;height: 40px;object-fit: contain;object-position: center;margin-right: 8px;" @click="makeAtNav(category.id)">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 6l16 0" />
+                            <path d="M4 12l16 0" />
+                            <path d="M4 18l16 0" />
+                          </svg>
                         <svg v-if="!category.isTop" @click='makeTop(category.id)' xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;height: 40px;object-fit: contain;object-position: center;margin-right: 8px;" class="icon icon-tabler icon-tabler-star" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
@@ -316,6 +322,45 @@ createApp({
         async makeTop(cat_id) {
             try {
                 const response = await axios.post(`/admin/categories/makeTop`, {
+                    cat_id: cat_id,
+                },
+                );
+                if (response.data.status === true) {
+                    this.getCategories()
+                } else {
+                    document.getElementById('errors').innerHTML = ''
+                    $.each(response.data.errors, function (key, value) {
+                        let error = document.createElement('div')
+                        error.classList = 'error'
+                        error.innerHTML = value
+                        document.getElementById('errors').append(error)
+                    });
+                    $('#errors').fadeIn('slow')
+                    setTimeout(() => {
+                        $('input').css('outline', 'none')
+                        $('#errors').fadeOut('slow')
+                    }, 5000);
+                }
+
+            } catch (error) {
+                document.getElementById('errors').innerHTML = ''
+                let err = document.createElement('div')
+                err.classList = 'error'
+                err.innerHTML = 'server error try again later'
+                document.getElementById('errors').append(err)
+                $('#errors').fadeIn('slow')
+                $('.loader').fadeOut()
+                this.languages_data = false
+                setTimeout(() => {
+                    $('#errors').fadeOut('slow')
+                }, 3500);
+
+                console.error(error);
+            }
+        },
+        async makeAtNav(cat_id) {
+            try {
+                const response = await axios.post(`/admin/categories/make-at-nav`, {
                     cat_id: cat_id,
                 },
                 );

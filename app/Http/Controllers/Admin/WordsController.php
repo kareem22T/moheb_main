@@ -164,6 +164,56 @@ class WordsController extends Controller
                 ]);
             };
 
+        if ($request->additional_categories) {
+            foreach ($request->additional_categories as $cat) {
+
+        $createTerm = Term::create([
+            'name' => Str::ucfirst($request->main_name),
+            'thumbnail_path' => $request->thumbnail ? $request->thumbnail : null,
+            'category_id' => $cat['id']
+        ]);
+
+        if ($request->tags)
+        foreach ($request->tags as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
+            $createTerm->tags()->attach($tag->id); // Attach the tag to the term
+        }
+
+        foreach ($request->term_translations as $lang => $term) {
+            $addNames = Term_Name::create([
+                'term' => $term,
+                'term_id' => $createTerm->id,
+                'language_id' => Language::where('symbol', $lang)->first()->id,
+            ]);
+        };
+
+        foreach ($request->title_translations as $lang => $title) {
+            $addTitles = Term_Title::create([
+                'title' => $title,
+                'term_id' => $createTerm->id,
+                'language_id' => Language::where('symbol', $lang)->first()->id,
+            ]);
+        };
+
+        foreach ($request->content_translations as $lang => $content) {
+            $addContents = Term_Content::create([
+                'content' => $content,
+                'term_id' => $createTerm->id,
+                'language_id' => Language::where('symbol', $lang)->first()->id,
+            ]);
+        };
+
+        if ($request->sounds_translations)
+            foreach ($request->sounds_translations as $lang => $sound) {
+                $addSounds = Term_Sound::create([
+                    'iframe' => $sound,
+                    'term_id' => $createTerm->id,
+                    'language_id' => Language::where('symbol', $lang)->first()->id,
+                ]);
+            };
+
+            }
+        }
         if ($createTerm)
             return $this->jsonData(true, true, 'Term has been added successfuly', [], []);
     }

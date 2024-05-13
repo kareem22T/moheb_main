@@ -14,8 +14,10 @@ class Category extends Model
         'main_name',
         'description',
         'cat_type',
+        'isTop',
         'main_cat_id',
-        'thumbnail_path'
+        'thumbnail_path',
+        'is_in_nav',
     ];
 
     public $timestamps = false;

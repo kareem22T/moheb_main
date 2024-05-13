@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="w-75">
-                    <div class="w-100 mb-3 d-flex gap-3">
+                    <div class="w-100 mb-3 d-flex gap-3 align-items-end">
                         <div class="w-100" v-if="categories_data">
                             <label for="symbol" class="form-label">Category *</label>
                             <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id" @change="prevSubCat()">
@@ -135,6 +135,50 @@
                                 </option>
                             </select>
                         </div>
+
+                        <button class="btn btn-success" @click="show_additional_cat_pop_up = true">Copy</button>
+                    </div>
+                    <div class="hide-content" v-if="show_additional_cat_pop_up"></div>
+                    <div class="more_categories_pop_up" v-if="show_additional_cat_pop_up" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);background: white;padding: 24px;border-radius: 10px;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;width: 100%;max-width: 500px;z-index: 999999999;">
+                        <h3>Choose additional categories</h3>
+                        <div class="d-flex justify-content-center gap-2 align-items-end">
+                            <div class="w-100" v-if="categories_data">
+                                <label for="symbol" class="form-label">Category *</label>
+                                <select name="cat_type" id="cat_type" class="form-control" v-model="current_cat_id" @change="currprevSubCat()">
+                                    <option v-for="(category, index) in categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
+                                        @{{category.main_name}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="w-100" v-if="currshow_sub_categories">
+                                <label for="symbol" class="form-label">Sub Category</label>
+                                <select name="cat_type" id="cat_type" class="form-control" v-model="current_cat_id">
+                                    <option v-for="(category, index) in currsub_categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
+                                        @{{category.main_name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <button class="btn btn-secondary" @click="addAditionalCat">Add</button>
+                        </div>
+                        <div class="table_wrapper" v-if="additional_cat && additional_cat.length > 0" style="width: 100%;margin-top: 24px;border: 1px solid gray;padding: 16px;border-radius: 10px;">
+                            <table style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th style="padding: 8px">Categoy Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in additional_cat" :key="item.id">
+                                        <td style="padding: 8px;border-bottm: 1px solid gray">@{{item.main_name}}</td>
+                                        <td style="padding: 8px;border-bottm: 1px solid gray">
+                                            <button class="btn btn-danger" @click="removeAdditional_cat(index)">X</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-info w-100 mt-3" @click="show_additional_cat_pop_up = flase">Close</button>
                     </div>
                     <!-- Swiper -->
                     <div class="mb-3 pb-5">
@@ -218,11 +262,13 @@ createApp({
       languages_data: null,
       categories_data: null,
       sub_categories_data: null,
+      show_additional_cat_pop_up: false,
       thumbnail: null,
       term_translations: {},
       title_translations: {},
       content_translations: {},
       sounds_translations: {},
+      additional_cat: [],
       show_sub_categories: false,
       tagInput: '',
       tags: [],
@@ -230,12 +276,15 @@ createApp({
       images: null,
       showImages: false,
       showUploadPopUp: false,
+      currshow_sub_categories: false,
+      currsub_categories_data: null,
       image: null,
       choosed_img: null,
       current_article_id: null,
       search_tags: null,
       preview_img: null,
       search: null,
+      current_cat_id: null,
       page: 1,
       total: 0,
       last_page: 0,
@@ -261,6 +310,7 @@ createApp({
                 content_translations: content_translations,
                 thumbnail: thumbnail,
                 sounds_translations: sounds_translations,
+                additional_categories: this.additional_cat,
                 cat_id: cat_id,
                 tags: tags
             },
@@ -397,6 +447,19 @@ createApp({
             console.error(error);
         }
     },
+    addAditionalCat() {
+        let cat = this.categories_data.find(cat => cat.id == this.current_cat_id) ? this.categories_data.find(cat => cat.id == this.current_cat_id) : this.currsub_categories_data.find(cat => cat.id == this.current_cat_id)
+        if (cat) {
+            let arr = this.additional_cat
+            arr.push(cat)
+            this.additional_cat = arr
+        }
+    },
+    removeAdditional_cat(index) {
+        let arr = this.additional_cat
+        arr.splice(index, 1)
+        this.additional_cat = arr
+    },
     async getSubCategories() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
@@ -407,6 +470,48 @@ createApp({
             if (response.data.status === true) {
                 $('.loader').fadeOut()
                 this.sub_categories_data = response.data.data
+            } else {
+                $('.loader').fadeOut()
+                document.getElementById('errors').innerHTML = ''
+                $.each(response.data.errors, function (key, value) {
+                    let error = document.createElement('div')
+                    error.classList = 'error'
+                    error.innerHTML = value
+                    document.getElementById('errors').append(error)
+                });
+                $('#errors').fadeIn('slow')
+                setTimeout(() => {
+                    $('input').css('outline', 'none')
+                    $('#errors').fadeOut('slow')
+                }, 5000);
+            }
+
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+            this.languages_data = false
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
+    async currgetSubCategories() {
+        $('.loader').fadeIn().css('display', 'flex')
+        try {
+            const response = await axios.post(`/admin/categories/sub`, {
+                cat_id: this.current_cat_id
+            },
+            );
+            if (response.data.status === true) {
+                $('.loader').fadeOut()
+                this.currsub_categories_data = response.data.data
             } else {
                 $('.loader').fadeOut()
                 document.getElementById('errors').innerHTML = ''
@@ -491,6 +596,13 @@ createApp({
         this.getSubCategories().then(() => {
             if (this.sub_categories_data.length) {
                 this.show_sub_categories = true
+            }
+        })
+    },
+    currprevSubCat() {
+        this.currgetSubCategories().then(() => {
+            if (this.currsub_categories_data.length) {
+                this.currshow_sub_categories = true
             }
         })
     },
