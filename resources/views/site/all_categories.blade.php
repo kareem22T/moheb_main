@@ -16,14 +16,6 @@
                     <h1>@{{ term.name > 0 ? term.name : term.name }}</h1>
                 </a>
             </div>
-            <div class="pagination">
-                <button class="prev" @click="currentPage > 1 ? currentPage -= 1 : ''; getCategory()" :disabled="currentPage === 1">Previous</button>
-                <label :class="currentPage == pageNumber ? 'active' : ''" v-for="pageNumber in visiblePages" :key="pageNumber">
-                  <input type="radio" v-model="currentPage" :value="pageNumber" @change="this.currentPage = pageNumber; getCategory()">
-                  @{{ pageNumber }}
-                </label>
-                <button class="next" @click="currentPage < lastPage ? currentPage += 1 : ''; getCategory()" :disabled="currentPage === lastPage">Next</button>
-            </div>
         </div>
     </section>
     @include('site.includes.footer')
@@ -245,10 +237,7 @@ methods: {
             $('.loader').fadeOut()
             if (response.data.status === true) {
                 document.getElementById('errors').innerHTML = ''
-                this.football = response.data.data.category
-                this.terms = response.data.data.data
-                this.currentPage = response.data.current_page
-                this.lastPage = response.data.last_page
+                this.terms = response.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
                 }, 4000);
