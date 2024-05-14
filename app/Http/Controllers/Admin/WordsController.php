@@ -110,7 +110,7 @@ class WordsController extends Controller
             return $this->jsondata(false, true, 'Add failed', ['Please enter term title in (' . Language::where('symbol', reset($missingTitleTranslations))->first()->name . ')'], []);
         }
 
-        $missingContentTranslations = array_diff($symbols, array_keys($request->content_translations));
+        $missingContentTranslations = array_diff($symbols, array_keys($request->content_translations ? $request->content_translations : []));
 
         if (!empty($missingContentTranslations)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter term content in (' . Language::where('symbol', reset($missingContentTranslations))->first()->name . ')'], []);
