@@ -195,7 +195,7 @@
             @endphp
             <div class="content" style="margin-bottom: 0;">
                 <h2>Terme en Français: {{ $term_FR->names[0]->term }}</h2>
-                {!! $term_FR->contents[0]->content !!}
+                {!! $term_FR->contents[0] ? $term_FR->contents[0]->content : '' !!}
                 <div style="margin-top: 10px">
                     {!! $term_FR->sounds->count() > 0 ? $term_FR->sounds[0]->iframe : '' !!}
                 </div>
