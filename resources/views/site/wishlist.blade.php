@@ -13,7 +13,7 @@
                 </div>
                 <div class="terms">
                     <div class="term" v-for="(term, index) in terms" :key="index">
-                        <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-')}/${term.id}`" target="_blanck" >
+                        <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" target="_blanck" >
                             <h2>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h2>
                             <h4>@{{ term.category_name }}</h4>
                         </a>

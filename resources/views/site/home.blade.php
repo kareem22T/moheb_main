@@ -12,7 +12,7 @@
                 <a :href="`/category/${football.id}`" class="view-more"> @{{ page_content ? page_content.sections.view_all : "View All" }}</a>
             </div>
             <div class="sub_categories" v-if="football.terms && football.terms.length">
-                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-')}/${term.id}`" v-for="term in football.terms" :key="term.id">
+                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in football.terms" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
                     <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                 </a>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="terms">
                     <div class="term" v-for="(term, index) in terms" :key="index">
-                        <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-')}/${term.id}`" target="_blanck" >
+                        <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" target="_blanck" >
                             <h2>@{{ term.name }}</h2>
                             <h4>@{{ term.category_name }}</h4>
                         </a>
