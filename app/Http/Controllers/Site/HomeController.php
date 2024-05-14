@@ -550,7 +550,11 @@ class HomeController extends Controller
         $lang = $request->lang;
         $search = $request->search_words;
 
-        $terms = Term::with(["titles" => function ($q) use ($lang, $search) {
+        $terms = Term::
+        whereHas("titles", function ($q) use ($lang, $search) {
+            $q->where('title', 'like', '%' . $search . '%');
+        })->
+        with(["titles" => function ($q) use ($lang, $search) {
             $q->where('title', 'like', '%' . $search . '%')
               ->where('language_id', Language::where("symbol", $lang)->value('id'));
         }, "names" => function ($q) use ($lang, $search) {
@@ -560,10 +564,6 @@ class HomeController extends Controller
                 $Q->where('language_id', Language::where("symbol", $lang)->value('id'));
             }]);
         }])
-        ->whereHas("titles", function ($q) use ($lang, $search) {
-            $q->where('title', 'like', '%' . $search . '%')
-              ->where('language_id', Language::where("symbol", $lang)->value('id'));
-        })
         ->paginate(30);
 
         return $this->jsonData(true, true, '', [], $terms);
