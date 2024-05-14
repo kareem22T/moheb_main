@@ -49,7 +49,7 @@
                                 background: rgb(0,0,0);
                                 background: linear-gradient(180deg, rgba(0,0,0,0) 37%, rgba(0,0,0,1) 100%);"></div>
                                 <img src="{{$cat->thumbnail_path}}">
-                                <h3>{{ $cat->names->count() > 0 ? $cat->names[0]?->name : $cat->name }}</h3>
+                                <h3>{{ $cat->names->count() > 0 ? $cat->names?[0]->name : $cat->name }}</h3>
                             </a>
                         @endforeach
                     @endif
@@ -63,8 +63,8 @@
                     @if ($topTerms->count() > 0)
                         @foreach ($topTerms as $term)
                             <a href="/term/{{$term->name}}/{{$term->id}}" class="term">
-                                <h2>{{ $term->names[0]?->term }}</h2>
-                                <h4>{{ $term->category?->names->count() > 0 ? $term->category?->names[0]?->name : $term->category?->name }}</h4>
+                                <h2>{{ $term->names?[0]->term }}</h2>
+                                <h4>{{ $term->category?->names->count() > 0 ? $term->category?->names?[0]->name : $term->category?->name }}</h4>
                             </a>
                         @endforeach
                     @endif
@@ -194,45 +194,45 @@
                 )->find(request()->id);
             @endphp
             <div class="content" style="margin-bottom: 0;">
-                <h2>Terme en Français: {{ $term_FR->names[0]?->term }}</h2>
-                {!! $term_FR->contents[0]?->content !!}
+                <h2>Terme en Français: {{ $term_FR->names?[0]->term }}</h2>
+                {!! $term_FR->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_FR->sounds->count() > 0 ? $term_FR->sounds[0]?->iframe : '' !!}
+                    {!! $term_FR->sounds->count() > 0 ? $term_FR->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
-                <h2>Term in English: {{ $term_EN->names[0]?->term }}</h2>
-                {!! $term_EN->contents[0]?->content !!}
+                <h2>Term in English: {{ $term_EN->names?[0]->term }}</h2>
+                {!! $term_EN->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_EN->sounds->count() > 0 ? $term_EN->sounds[0]?->iframe : '' !!}
+                    {!! $term_EN->sounds->count() > 0 ? $term_EN->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
-                <h2>Termino en Español: {{ $term_ESP->names[0]?->term }}</h2>
-                {!! $term_ESP->contents[0]?->content !!}
+                <h2>Termino en Español: {{ $term_ESP->names?[0]->term }}</h2>
+                {!! $term_ESP->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_ESP->sounds->count() > 0 ? $term_ESP->sounds[0]?->iframe : '' !!}
+                    {!! $term_ESP->sounds->count() > 0 ? $term_ESP->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
-                <h2>Termine in Italiano: {{ $term_ITA->names[0]?->term }}</h2>
-                {!! $term_ITA->contents[0]?->content !!}
+                <h2>Termine in Italiano: {{ $term_ITA->names?[0]->term }}</h2>
+                {!! $term_ITA->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_ITA->sounds->count() > 0 ? $term_ITA->sounds[0]?->iframe : '' !!}
+                    {!! $term_ITA->sounds->count() > 0 ? $term_ITA->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
-                <h2>Begriff auf Deutsch: {{ $term_DEU->names[0]?->term }}</h2>
-                {!! $term_DEU->contents[0]?->content !!}
+                <h2>Begriff auf Deutsch: {{ $term_DEU->names?[0]->term }}</h2>
+                {!! $term_DEU->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_DEU->sounds->count() > 0 ? $term_DEU->sounds[0]?->iframe : '' !!}
+                    {!! $term_DEU->sounds->count() > 0 ? $term_DEU->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <div class="content" style="margin-bottom: 0;">
-                <h2>Termo em Português: {{ $term_PORT->names[0]?->term }}</h2>
-                {!! $term_PORT->contents[0]?->content !!}
+                <h2>Termo em Português: {{ $term_PORT->names?[0]->term }}</h2>
+                {!! $term_PORT->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_PORT->sounds->count() > 0 ? $term_PORT->sounds[0]?->iframe : '' !!}
+                    {!! $term_PORT->sounds->count() > 0 ? $term_PORT->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <div dir="rtl"  class="content content_ar" style="margin-bottom: 0; padding-bottom: 0">
@@ -254,34 +254,34 @@
                         $q->where("language_id", $lang_LA->id);
                     }])->find(request()->id);
                     @endphp
-                <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالعربية الفصحى: {{ $term_AR->names[0]?->term }}</h2>
+                <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالعربية الفصحى: {{ $term_AR->names?[0]->term }}</h2>
                 @if ($term_egp->names->count() > 0)
                 <h2 style="margin-top: 0">
                     المصطلح باللهجة المصرية:
-                    {{ $term_egp->names[0]?->term }}
+                    {{ $term_egp->names?[0]->term }}
                 </h2>
                 @endif
                 @if ($term_AL->names->count() > 0)
                 <h2 style="margin-top: 0">
                     المصطلح بلهجة شمال افريقيا:
-                    {{ $term_AL->names[0]?->term }}
+                    {{ $term_AL->names?[0]->term }}
                 </h2>
                 @endif
                 @if ($term_SA->names->count() > 0)
                 <h2 style="margin-top: 0">
                     المصطلح باللهجة الخليجية:
-                    {{ $term_SA->names[0]?->term }}
+                    {{ $term_SA->names?[0]->term }}
                 </h2>
                 @endif
                 @if ($term_LA->names->count() > 0)
                 <h2 style="margin-top: 0">
                     المصطلح بلهجة دول الشام:
-                    {{ $term_LA->names[0]?->term }}
+                    {{ $term_LA->names?[0]->term }}
                 </h2>
                 @endif
-                {!! $term_AR->contents[0]?->content !!}
+                {!! $term_AR->contents?[0]->content !!}
                 <div style="margin-top: 10px">
-                    {!! $term_AR->sounds->count() > 0 ? $term_AR->sounds[0]?->iframe : '' !!}
+                    {!! $term_AR->sounds->count() > 0 ? $term_AR->sounds?[0]->iframe : '' !!}
                 </div>
             </div>
             <hr style="height: 1px;border: none;background: rgba(0, 0, 0, .4);margin-top: 24px">
