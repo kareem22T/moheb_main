@@ -555,7 +555,7 @@ createApp({
             );
             if (response.data.status === true) {
                 $('.loader').fadeOut()
-                this.content_translations = response.data.data
+                this.content_translations = response.data.data ? response.data.data : {}
             } else {
                 $('.loader').fadeOut()
                 document.getElementById('errors').innerHTML = ''
