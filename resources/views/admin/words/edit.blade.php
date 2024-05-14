@@ -166,7 +166,7 @@
             <div  class="d-flex justify-content-between gap-4 align-items-end flex-wrap-wrap">
                 <div class="w-50">
                 </div>
-                <button type="submit" class="btn btn-primary w-50 form-control" style="height: fit-content" @click="getContentTranslations().then(() => { save(main_name, term_translations, title_translations, content_translations, preview_img, sounds_translations, cat_id, tags)})">Save</button>
+                <button type="submit" class="btn btn-primary w-50 form-control" style="height: fit-content" @click="getContentTranslations().then(() => { save()})">Save</button>
             </div>
         </div>
     </div>
@@ -255,19 +255,19 @@ createApp({
     }
   },
   methods: {
-    async save(main_name, term_translations, title_translations, content_translations, thumbnail, sounds_translations, cat_id, tags) {
+    async save() {
       $('.loader').fadeIn().css('display', 'flex')
         try {
             const response = await axios.post(`/admin/words/edit`, {
-                main_name: main_name,
-                term_translations: term_translations,
-                title_translations: title_translations,
-                content_translations: content_translations,
-                thumbnail: thumbnail,
-                sounds_translations: sounds_translations,
-                cat_id: cat_id,
+                main_name: this.main_name,
+                term_translations: this.term_translations,
+                title_translations: this.title_translations,
+                content_translations: this.content_translations,
+                thumbnail: this.thumbnail,
+                sounds_translations: this.sounds_translations,
+                cat_id: this.cat_id,
                 term_id: this.term_id,
-                tags: tags
+                tags: this.tags
             },
             {
                 headers: {
