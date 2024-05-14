@@ -555,13 +555,15 @@ class HomeController extends Controller
             $q->where('title', 'like', '%' . $search . '%');
         })->
         with(["titles" => function ($q) use ($lang, $search) {
-            $q->where('title', 'like', '%' . $search . '%')
-              ->where('language_id', Language::where("symbol", $lang)->value('id'));
+        $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+        $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
         }, "names" => function ($q) use ($lang, $search) {
-                $q->where('language_id', Language::where("symbol", $lang)->value('id'));
+            $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+            $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
         }, "category" => function ($q) use ($lang) {
             $q->with(["names" => function ($Q) use ($lang) {
-                $Q->where('language_id', Language::where("symbol", $lang)->value('id'));
+                $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+                $Q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
             }]);
         }])
         ->paginate(30);
