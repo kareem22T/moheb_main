@@ -8,7 +8,7 @@
                 <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
                 <i class="fa fa-search" @click="handleSearch"></i>
                 <div class="suggestion" v-if="searchArticles.length && search" style="font-size: 17px;position: absolute;top: 100%;display: flex;flex-direction: column;background: white;width: 100%;border-radius: 10px;margin-top: 10px;">
-                    <a :href="`/term/${item.name}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
+                    <a :href="`/term/${item.name.replace(/\//g, '').replace(/\s+/g, '-')}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
                     <a :href="`/search/${search}`" style="font-size: 16px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                     <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch" style="  padding-left: 3rem;">
                     <i class="fa fa-search" @click="handleSearch"></i>
                     <div class="suggestion" v-if="searchArticles.length && search" style="z-index: 999;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;position: absolute;top: 100%;display: flex;flex-direction: column;background: white;width: 100%;border-radius: 10px;margin-top: 10px;">
-                        <a :href="`/term/${item.name}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
+                        <a :href="`/term/${item.name.replace(/\//g, '').replace(/\s+/g, '-')}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
                         <a :href="`/search/${search}`" style="font-size: 16px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
                     </div>
                 </div>
@@ -98,8 +98,8 @@
                     <a href=""><i class="fa-brands fa-youtube"></i></a>
                 </div>
                 <div class="links">
-                    <a href="">@{{ page_content ? page_content.header.about : "about" }}</a>
-                    <a href="">@{{ page_content ? page_content.header.contact : "contact" }}</a>
+                    <a href="/about-us">@{{ page_content ? page_content.header.about : "about" }}</a>
+                    <a href="/contact-us">@{{ page_content ? page_content.header.contact : "contact" }}</a>
                 </div>
                 <div class="categories" v-if="all_categories && all_categories.length" style="display: flex;flex-direction: column">
                     <a :href="`/category/${cat.id}`" style="display: block !important" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>

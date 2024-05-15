@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class ImagesController extends Controller
-{    
+{
     use DataFormController;
     use SaveFileTrait;
 
@@ -54,14 +54,14 @@ class ImagesController extends Controller
     public function search(Request $request) {
         $images = Image::where('path', 'like', '%' . $request->search_words . '%')->orderby('id', 'desc')
                                 ->paginate(15);
-        
+
         return $this->jsonData(true, true, '', [], $images);
 
     }
 
 
     public function getImages() {
-        
+
         $get_images = Image::orderby('id', 'desc')->paginate(15);
 
         if ($get_images)
