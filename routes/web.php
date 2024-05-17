@@ -31,6 +31,7 @@ use App\Http\Controllers\Site\HomeController;
     Route::post('/article', [HomeController::class, 'getArticle'])->name('site.getarticle');
     Route::post('/latest-terms', [HomeController::class, 'getLatestTerms'])->name('term.getlatest');
     Route::post('/latest-articles', [HomeController::class, 'getLatestLatest'])->name('article.getlatest');
+    Route::post('/all-articles', [HomeController::class, 'getAllArticels'])->name('article.getAllArticels');
     Route::post('/latest-categories', [HomeController::class, 'getLatestCategories'])->name('categories.getlatest');
     Route::post('/get-categories', [HomeController::class, 'getCategories'])->name('categories.get');
     Route::post('/get_football_cat', [HomeController::class, 'getFootballCat'])->name('categories.football');
@@ -41,6 +42,9 @@ use App\Http\Controllers\Site\HomeController;
     });
     Route::get('/all-sports', function () {
         return view("site.all_categories");
+    });
+    Route::get('/blog', function () {
+        return view("site.blog");
     });
     Route::get('/about-us', function () {
         return view("site.about");

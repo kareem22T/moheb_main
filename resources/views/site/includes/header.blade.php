@@ -98,8 +98,9 @@
                     <a href=""><i class="fa-brands fa-youtube"></i></a>
                 </div>
                 <div class="links">
-                    <a href="/about-us">@{{ page_content ? page_content.header.about : "about" }}</a>
-                    <a href="/contact-us">@{{ page_content ? page_content.header.contact : "contact" }}</a>
+                    <a href="/about-us">@{{ page_content ? page_content.header.about : "About" }}</a>
+                    <a href="/contact-us">@{{ page_content ? page_content.header.contact : "Contact" }}</a>
+                    <a href="/blog">@{{ page_content ? page_content.header.blog : "Blog" }}</a>
                 </div>
                 <div class="categories" v-if="all_categories && all_categories.length" style="display: flex;flex-direction: column">
                     <a :href="`/category/${cat.id}`" style="display: block !important" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>

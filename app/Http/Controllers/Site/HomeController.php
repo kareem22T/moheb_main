@@ -546,6 +546,41 @@ class HomeController extends Controller
 
     }
 
+    public function getAllArticels(Request $request) {
+        try {
+
+            $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
+
+            $articles =  Article::with('category')->latest()->orderby('id', 'desc')->paginate(20);
+
+            foreach ($articles as $article) {
+                $category_name = Category_Name::where('category_id', $article->category->id)->where('language_id', $lang->id)->first();
+                $article->category_name = $category_name->name;
+                $article_title = Article_Title::where('language_id', $lang->id)->where('article_id', $article->id)->first();
+                $article->title = $article_title->title;
+                $articlecontent = Article_Content::where('language_id', $lang->id)->where('article_id', $article->id)->first();
+                $article->content = $articlecontent->content;
+            }
+            return $this->jsonData(true, true, '', [], $articles);
+        } catch (\Throwable $th) {
+            $lang = Language::where('symbol', 'like', '%' . "EN" . '%')->first();
+
+            $articles =  Article::with('category')->latest()->orderby('id', 'desc')->paginate(20);
+
+            foreach ($articles as $article) {
+                $category_name = Category_Name::where('category_id', $article->category->id)->where('language_id', $lang->id)->first();
+                $article->category_name = $category_name->name;
+                $article_title = Article_Title::where('language_id', $lang->id)->where('article_id', $article->id)->first();
+                $article->title = $article_title->title;
+                $articlecontent = Article_Content::where('language_id', $lang->id)->where('article_id', $article->id)->first();
+                $article->content = $articlecontent->content;
+            }
+            return $this->jsonData(true, true, '', [], $articles);
+
+        }
+
+    }
+
     public function search(Request $request) {
         $lang = $request->lang;
         $search = $request->search_words;

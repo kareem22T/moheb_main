@@ -75,7 +75,6 @@
             <div class="head">
                 <h1>@{{ article_data.title }}</h1>
                 <div>
-                    <span>By <b>Admin</b></span>
                     <span class="date">
                         <i class="fa-regular fa-calendar-days" style="font-size: 18px; margin: 0 7px;"></i> @{{ new Date(article_data.created_at).toLocaleString("en-US", {
                                                                                     month: "long",
@@ -110,6 +109,7 @@ data() {
         all_categories: null,
         languages_data: null,
         current_lang: "EN",
+        page_content: null,
         search: null,
         searchArticles: [],
         showProfileMore: false,

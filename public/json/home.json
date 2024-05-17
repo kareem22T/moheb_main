@@ -36,6 +36,7 @@
         },
         "header": {
             "about": "About",
+            "blog": "Blog",
             "contact": "Contact"
         },
         "top_word": "Top Words",
@@ -87,6 +88,7 @@
         },
         "header": {
             "about": "Acerca de",
+            "blog": "Blog",
             "contact": "Contacto"
         },
         "top_word": "Palabras Principales",
@@ -138,6 +140,7 @@
         },
         "header": {
             "about": "Informazioni",
+            "blog": "Blog",
             "contact": "Contatti"
         },
         "top_word": "Parole Chiave",
@@ -189,6 +192,7 @@
         },
         "header": {
             "about": "Über uns",
+            "blog": "Blog",
             "contact": "Kontakt"
         },
         "top_word": "Top-Wörter",
@@ -240,6 +244,7 @@
         },
         "header": {
             "about": "Sobre",
+            "blog": "Blogue",
             "contact": "Contato"
         },
         "top_word": "Palavras-chave",
@@ -273,6 +278,7 @@
         },
         "about": {
             "head": "À Propos de Nous",
+            "blog": "Blog",
             "content": "Lorem Ipsum est simplement un texte fictif de l'industrie de l'impression et de la composition typographique. Lorem Ipsum est le texte fictif standard de l'industrie depuis le XVIe siècle, lorsque l'imprimeur inconnu a pris une galère de caractères et l'a mélangée pour créer un livre d'exemples typographiques. Il a survécu non seulement à cinq siècles, mais aussi au passage à la composition typographique électronique, restant essentiellement inchangé. Il a été popularisé dans les années 1960 avec la publication de feuilles Letraset contenant des passages de Lorem Ipsum, et plus récemment avec des logiciels de publication assistée par ordinateur tels qu'Aldus PageMaker, incluant des versions de Lorem Ipsum."
         },
         "alert_bio": {
@@ -345,6 +351,7 @@
         },
         "header": {
             "about": "من نحن",
+            "blog": "المدونة",
             "contact": "تواصل معنا"
         },
         "footer": {
