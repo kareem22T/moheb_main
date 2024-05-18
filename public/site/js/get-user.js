@@ -12,7 +12,7 @@ export async function getUser() {
             const response = await axios.get(`/register`,
                 {
                     headers: {
-                        'AUTHORIZATION': `Bearer ${user_token}`
+
                     }
                 },
             );

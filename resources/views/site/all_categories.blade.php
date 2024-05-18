@@ -171,7 +171,7 @@ methods: {
                 const response = await axios.get(`/get-user`,
                     {
                         headers: {
-                            'AUTHORIZATION': `Bearer ${user_token}`
+
                         }
                     },
                 );
