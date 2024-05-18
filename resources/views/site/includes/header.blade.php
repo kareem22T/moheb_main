@@ -45,7 +45,7 @@
                 <div class="profile" >
                     <div class="text" @click="showProfileMore == true ? showProfileMore = false : showProfileMore = true">
                         <p>Welcome</p>
-                        <h4>@{{user.user.email}} <i class="fa fa-angle-down"></i></h4>
+                        <h4>@{{user.email}} <i class="fa fa-angle-down"></i></h4>
                     </div>
                     <div class="img" @click="showProfileMore == true ? showProfileMore = false : showProfileMore = true">
                         <img src="{{ asset('/site/imgs/profile.jpg') }}" alt="profile images">
@@ -143,7 +143,7 @@
                 <div class="profile" v-if="user">
                     <div class="text">
                         <p>Welcome</p>
-                        <h4>@{{user.user.email}} <i class="fa fa-angle-down"></i></h4>
+                        <h4>@{{user.email}} <i class="fa fa-angle-down"></i></h4>
                     </div>
                     <div class="img">
                         <img src="{{ asset('/site/imgs/profile.jpg') }}" alt="profile images">
