@@ -143,7 +143,7 @@
                 <div class="profile" v-if="user">
                     <div class="text">
                         <p>Welcome</p>
-                        <h4>{{Auth::user()->email}} <i class="fa fa-angle-down"></i></h4>
+                        <h4>{{Auth::user()?->email}} <i class="fa fa-angle-down"></i></h4>
                     </div>
                     <div class="img">
                         <img src="{{ asset('/site/imgs/profile.jpg') }}" alt="profile images">
