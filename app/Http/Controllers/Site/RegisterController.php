@@ -75,7 +75,7 @@ class RegisterController extends Controller
     public function getUser(Request $request)
     {
         if (Auth::user())
-            return $this->jsonData(true, Auth::user()->verify, '', [], ['user' => Auth::user()]);
+            return Auth::user();
         else
             return $this->jsonData(false, null, 'Account Not Found', [], []);
     }
