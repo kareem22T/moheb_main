@@ -23,7 +23,7 @@ use App\Http\Controllers\Site\HomeController;
 
     Route::get('/register', [RegisterController::class, 'getRegisterIndex'])->name('site.register');
     Route::get('/login', [RegisterController::class, 'getLoginIndex'])->name('site.login');
-    Route::middleware('auth:sanctum')->get('/get-user', [RegisterController::class, 'getUser'])->name('site.get-user');
+    Route::get('/get-user', [RegisterController::class, 'getUser'])->name('site.get-user');
     Route::post('/register', [RegisterController::class, 'register'])->name('site.register');
     Route::post('/category', [HomeController::class, 'getCategoryById'])->name('category.getbyid');
     Route::post('/category/get-all', [HomeController::class, 'getAllCategories']);

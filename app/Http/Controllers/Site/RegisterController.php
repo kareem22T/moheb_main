@@ -74,8 +74,8 @@ class RegisterController extends Controller
 
     public function getUser(Request $request)
     {
-        if ($request->user())
-            return $this->jsonData(true, $request->user()->verify, '', [], ['user' => $request->user()]);
+        if (Auth::user())
+            return $this->jsonData(true, Auth::user()->verify, '', [], ['user' => Auth::user()]);
         else
             return $this->jsonData(false, null, 'Account Not Found', [], []);
     }
@@ -114,7 +114,7 @@ class RegisterController extends Controller
 
     public function logout(Request $request) {
         Auth::logout();
-    
+
         // Check if the user is logged out
         if (!Auth::check()) {
             return redirect()->back();
