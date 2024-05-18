@@ -49,6 +49,8 @@ class RegisterController extends Controller
         ]);
 
         if ($createUser) :
+            $credentials = ['email' => $request->input('email'), 'password' => $request->input('password')];
+            Auth::attempt($credentials);
             $token = $createUser->createToken('token')->plainTextToken;
             return
                 $this->jsonData(
