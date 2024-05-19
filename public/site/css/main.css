@@ -111,17 +111,20 @@ header .top .container .search input,
     font-size: .9rem;
 }
 
-
 .mobile-menu .search input {
     width: 300px;
 }
 
-header .top .container .search i,
-.mobile-menu .search i {
+header .top .container .search >a,
+.mobile-menu .search >a {
     position: absolute;
     top: 50%;
     right: 1rem;
     transform: translateY(-50%);
+
+}
+header .top .container .search i,
+.mobile-menu .search i {
     color: var(--main-color);
     font-size: 1.25rem;
 }
@@ -1497,7 +1500,7 @@ h2 {
     direction: rtl;
 }
 
-.AR header .top .container .search i, .mobile-menu .search i {
+.AR header .top .container .search a, .mobile-menu .search a {
     left: 1rem;
     right: auto;
 }
