@@ -703,6 +703,7 @@ textarea:focus {
     position: relative;
     border-radius: 11px;
     overflow: hidden;
+    height: 200px;
 }
 
 .football .sub_categories .card::after {
