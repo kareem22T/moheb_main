@@ -2,7 +2,7 @@
     <div class="top">
         <div class="container">
             <a href="/" class="logo">
-                <img src="{{ asset('/site/imgs/logo.png') }}?v={{time()}}" alt="">
+                <img src="{{ asset('/site/imgs/logo-new.png') }}?V={{time()}}" alt="">
             </a>
             <div class="search">
                 <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
@@ -127,7 +127,7 @@
     <div class="top">
         <div class="container">
             <div class="logo">
-                <img src="{{ asset('/site/imgs/logo.png') }}?V={{time()}}" alt="">
+                <img src="{{ asset('/site/imgs/logo-new.jpg') }}?V={{time()}}" alt="">
             </div>
             <div class="search">
                 <input type="text" name="search" id="search" placeholder="Search for Term">
