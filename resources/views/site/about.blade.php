@@ -54,8 +54,8 @@
                         <path d="M11 12h1v4h1" />
                     </svg>
                     @{{ page_content.about.head }}</h1>
-                    <p style="line-height: 25px;margin-bottom: 0;  font-size: 1rem;">
-                        @{{page_content.about.content}}
+                    <p v-if="descriptions" style="line-height: 25px;margin-bottom: 0;  font-size: 1rem;">
+                        @{{descriptions[current_lang] ? descriptions[current_lang] : descriptions['EN']}}
                     </p>
                 </div>
             </div>
@@ -85,12 +85,34 @@
             page_content: this.page_translations ? this.page_translations[this.current_lang] : '',
             showProfileMore: false,
             searchArticles: [],
+            descriptions: [],
             currentPage: 1,
             lastPage: null, // This value should be set based on your actual last page
             maxVisiblePages: 5 // Set the maximum number of visible pages
         }
     },
     methods: {
+        async getAbout() {
+        try {
+            const response = await axios.get(`/admin/get-about`
+            );
+            this.descriptions = response.data
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+            this.Tags_data = false
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
         async getLanguages() {
             $('.loader').fadeIn().css('display', 'flex')
             try {
@@ -337,6 +359,7 @@
                 console.error(error);
             }
         },
+
     },
     created() {
         this.getLang().then(() => {
@@ -345,6 +368,7 @@
                 document.body.classList = 'AR'
             }
         })
+        this.getAbout()
         this.getUser()
         this.getLanguages()
     },

@@ -107,7 +107,12 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/update-contact', function() {
         return view('admin.update_contact');
     })->name('update.contact');
+    Route::get('/update-about', function() {
+        return view('admin.update_about');
+    })->name('update.about');
     Route::post('/add-contact', [SettingsController::class, 'addContact'])->name('contact.put');
+    Route::post('/add-about', [SettingsController::class, 'addAbout'])->name('about.put');
+    Route::get('/get-about', [SettingsController::class, 'getAboutDesc'])->name('about.get');
 
 });
 

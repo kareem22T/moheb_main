@@ -280,6 +280,12 @@
                   <span>
                     <i class="ti ti-address-book"></i>
                   </span>
+                  <span class="hide-menu">Contact Us</span>
+                </a>
+                <a class="sidebar-link @yield('about_update_active')" href="{{ route('update.about') }}" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-address-book"></i>
+                  </span>
                   <span class="hide-menu">About Us</span>
                 </a>
               </li>

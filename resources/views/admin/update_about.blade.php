@@ -1,12 +1,12 @@
 @extends('admin.layouts.admin-layout')
 
-@section('title', 'تعين محتوى من نحن')
+@section('title', 'Set about us')
 
 @section('about_update_active', 'active')
 
 @section('content')
 <h3 class="mb-5">
-    تعين تعريف من نحن
+    Set About us
 </h3>
 <style>
     .toolbar button {
@@ -19,20 +19,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     <div class="card-body" >
         <div>
-            <div class="w-100 mb-4 gap-2" style="display: grid; grid-template-columns: 1fr 1fr;">
-                <div class="w-100">
+            <div class="w-100 mb-3 pb-3 gap-2" v-if="languages_data.length > 0"  style="display: grid; grid-template-columns: 1fr 1fr;">
+                <div class="swiper-slide" v-for="(language, index) in languages_data.slice(0, 7)" :key="index">
                     <div>
-                        <label for="term_title" class="form-label">عنوان الصفحة *</label>
-                        <input type="text" class="form-control" id="term_title" v-model="title">
+                        <label for="term_trans" class="form-label">About in @{{language.name}} *</label>
+                        <textarea type="text" class="form-control" id="term_trans" v-model="descriptions[language.symbol]">
+                        </textarea>
                     </div>
-                </div>
-            </div>
-
-            <div class="w-100 mb-4">
-                <div class="form-group">
-                    <label for="description" class="form-label">الوصف *</label>
-                    <textarea type="text" class="form-control" id="description" v-model="description">
-                    </textarea>
                 </div>
             </div>
 
@@ -41,13 +34,13 @@
                 <div class="w-25">
                     <!-- Swiper -->
                     <div class="w-100 mb-3 pb-5">
-                        <button type="submit" class="btn btn-primary w-50 form-control" style="height: fit-content" @click="this.getContentArticle().then(() => {this.add()})"> تعين</button>
+                        <button type="submit" class="btn btn-primary w-50 form-control" style="height: fit-content" @click="this.getContentArticle().then(() => {this.add()})"> set now</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </div>
 @endsection
 
@@ -80,7 +73,8 @@ createApp({
       showCodePopUp: false,
       album_imgs: [],
       type: 'article',
-      description: null,
+      languages_data: null,
+      descriptions: {},
     }
   },
   methods: {
@@ -101,14 +95,8 @@ createApp({
       $('.loader').fadeIn().css('display', 'flex')
         try {
             const response = await axios.post(`{{ route('about.put') }}`, {
-                title: this.title,
-                about: this.description,
+                descriptions: this.descriptions,
             },
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
             );
             if (response.data.status === true) {
             document.getElementById('errors').innerHTML = ''
@@ -158,12 +146,7 @@ createApp({
         try {
             const response = await axios.get(`{{ route('about.get')}}`
             );
-            if (response.data.status === true) {
-                this.title = response.data.data.about ? response.data.data.about.title : null
-                this.description = response.data.data.about ? response.data.data.about.about : null
-            } else {
-            }
-
+            this.descriptions = response.data
         } catch (error) {
             document.getElementById('errors').innerHTML = ''
             let err = document.createElement('div')
@@ -180,127 +163,21 @@ createApp({
             console.error(error);
         }
     },
-    async getImages() {
-        $('.loader').fadeIn().css('display', 'flex')
-        try {
-            const response = await axios.get(`{{ route('lib.getImages') }}?page=${this.page}`
-            );
-            if (response.data.status === true) {
-                $('.loader').fadeOut()
-                this.images = response.data.data.data
-                this.total = response.data.data.total
-                this.last_page = response.data.data.last_page
-            } else {
-                $('.loader').fadeOut()
-                document.getElementById('errors').innerHTML = ''
-                $.each(response.data.errors, function (key, value) {
-                    let error = document.createElement('div')
-                    error.classList = 'error'
-                    error.innerHTML = value
-                    document.getElementById('errors').append(error)
-                });
-                $('#errors').fadeIn('slow')
-                setTimeout(() => {
-                    $('input').css('outline', 'none')
-                    $('#errors').fadeOut('slow')
-                }, 5000);
-            }
-
-        } catch (error) {
-            document.getElementById('errors').innerHTML = ''
-            let err = document.createElement('div')
-            err.classList = 'error'
-            err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
-            $('#errors').fadeIn('slow')
-            $('.loader').fadeOut()
-            this.languages_data = false
-            setTimeout(() => {
-                $('#errors').fadeOut('slow')
-            }, 3500);
-
-            console.error(error);
-        }
-    },
-    handleUploadImage() {
-        this.showImages = false;
-        window.open(`{{ route("add.imagetab") }}`, '_blank').focus();
-    },
     handleOpenImages() {
         this.getImages().then(() => {
-            this.showImages = true; 
+            this.showImages = true;
             this.current_article_id = null
         })
     },
-    async getSearchImages(search_words) {
-        try {
-            const response = await axios.post(`{{ route('lib.images.search')}}?page=${this.page}`, {
-                search_words: search_words,
-            },
-            );
-            if (response.data.status === true) {
-                this.images = response.data.data.data
-                this.total = response.data.data.total
-                this.last_page = response.data.data.last_page
-            } else {
-                document.getElementById('errors').innerHTML = ''
-                $.each(response.data.errors, function (key, value) {
-                    let error = document.createElement('div')
-                    error.classList = 'error'
-                    error.innerHTML = value
-                    document.getElementById('errors').append(error)
-                });
-                $('#errors').fadeIn('slow')
-                setTimeout(() => {
-                    $('input').css('outline', 'none')
-                    $('#errors').fadeOut('slow')
-                }, 5000);
-            }
-
-        } catch (error) {
-            document.getElementById('errors').innerHTML = ''
-            let err = document.createElement('div')
-            err.classList = 'error'
-            err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
-            $('#errors').fadeIn('slow')
-            $('.loader').fadeOut()
-            this.languages_data = false
-            setTimeout(() => {
-                $('#errors').fadeOut('slow')
-            }, 3500);
-
-            console.error(error);
-        }
-    },
-    async uploadImage(image) {
+    async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`{{ route('lib.image.uploade') }}`, {
-                img: image,
+            const response = await axios.post(`/admin/words/get-languages`, {
             },
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-
             );
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
-                let error = document.createElement('div')
-                error.classList = 'success'
-                error.innerHTML = response.data.message
-                document.getElementById('errors').append(error)
-                $('#errors').fadeIn('slow')
                 $('.loader').fadeOut()
-                this.showUploadPopUp = false;
-                this.showImages = false;
-                this.getImages()
-                setTimeout(() => {
-                    this.showImages = true;
-                    $('#errors').fadeOut('slow')
-                }, 3000);
+                this.languages_data = response.data.data
             } else {
                 $('.loader').fadeOut()
                 document.getElementById('errors').innerHTML = ''
@@ -345,7 +222,7 @@ createApp({
         if (this.slider_imgs.length > 3) {
             // Get the target element where you want to insert the content
             var targetElement = document.getElementById(element);
-            
+
             // Get the content from the 'slider' element
             var sliderContent = document.getElementById('slider').innerHTML;
             document.getElementById(element).focus();
@@ -370,7 +247,7 @@ createApp({
         if (this.album_imgs.length > 2) {
             // Get the target element where you want to insert the content
             var targetElement = document.getElementById(element);
-            
+
             // Get the content from the 'slider' element
             var sliderContent = document.getElementById('album').innerHTML;
             document.getElementById(element).focus();
@@ -494,7 +371,7 @@ createApp({
             this.chooseImage = null
             this.current_article_id = null
             this.showImages = null
-        } 
+        }
         else {
             this.previewThumbnail()
         }
@@ -507,9 +384,9 @@ createApp({
     },
   },
   created() {
-    this.getAbout().then(() => {
-        $(".loader").fadeOut()
-    })
+    this.getAbout()
+    this.getLanguages()
+    $(".loader").fadeOut()
   },
   mounted() {
     $(document).on('click', '.imgs .img', function () {
