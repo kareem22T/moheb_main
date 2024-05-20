@@ -1,6 +1,6 @@
 @extends('site.layouts.main')
 
-@section('title', 'About ud')
+@section('title', 'About us')
 @section('about_active', 'active')
 
 @section('content')
