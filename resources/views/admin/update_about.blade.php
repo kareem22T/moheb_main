@@ -146,7 +146,7 @@ createApp({
         try {
             const response = await axios.get(`{{ route('about.get')}}`
             );
-            this.descriptions = response.data : {}
+            this.descriptions = response.data
         } catch (error) {
             document.getElementById('errors').innerHTML = ''
             let err = document.createElement('div')
