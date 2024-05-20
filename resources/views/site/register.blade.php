@@ -67,7 +67,7 @@ methods: {
     async registerMethod(email, phone, dob, password, password_confirmation) {
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `{{ route('site.register') }}`, {
+            const response = await axios.post( `/register`, {
                 email: email,
                 phone: phone,
                 dob: dob,
