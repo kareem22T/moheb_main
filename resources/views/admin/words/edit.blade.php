@@ -32,7 +32,7 @@
             </div>
             <!-- Swiper -->
             <div class="w-100 mb-3 pb-3 gap-2"  style="display: grid; grid-template-columns: 1fr;">
-                <div class="swiper-slide" v-for="(language, index) in languages_data?.slice(0, 7)" :key="index">
+                <div class="swiper-slide" v-for="(language, index) in languages_data.slice(0, 7)" :key="index">
                     <div>
                         <label for="lang_name" class="form-label">Title in @{{language.name}} *</label>
                         <input type="text" class="form-control" id="lang_name" v-model="title_translations[language.symbol]">
@@ -42,7 +42,7 @@
 
             <!-- Swiper -->
             <div class="w-100 mb-4 pb-3">
-                <div class="w-100 p-3" v-for="(language, index) in languages_data?.slice(0, 7)" :key="index">
+                <div class="w-100 p-3" v-for="(language, index) in languages_data.slice(0, 7)" :key="index">
                     <div>
                         <label for="lang_name" class="form-label">Content in @{{language.name}} *</label>
                         <div class="card">
@@ -227,7 +227,7 @@ createApp({
     return {
       main_name: null,
       cat_id: null,
-      languages_data: null,
+      languages_data: [],
       categories_data: null,
       sub_categories_data: null,
       thumbnail: null,
