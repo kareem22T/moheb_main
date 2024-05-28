@@ -94,7 +94,7 @@ createApp({
     async add() {
       $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post(`{{ route('about.put') }}`, {
+            const response = await axios.post(`/admin/add-about`, {
                 descriptions: this.descriptions,
             },
             );
