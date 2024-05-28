@@ -120,12 +120,12 @@ methods: {
                 this.languages_data = response.data.data
             } else {
                 $('.loader').fadeOut()
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -135,11 +135,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
             this.languages_data = false
@@ -255,18 +255,18 @@ methods: {
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 this.terms = response.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
                 }, 4000);
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -276,11 +276,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
@@ -300,18 +300,18 @@ methods: {
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 this.football = response.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
                 }, 4000);
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -321,11 +321,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
@@ -346,12 +346,12 @@ methods: {
             if (response.data.status === true) {
                 this.getLatestTerms(this.current_lang)
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -361,11 +361,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
@@ -385,18 +385,18 @@ methods: {
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 this.categories = response.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
                 }, 4000);
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -406,11 +406,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
@@ -430,18 +430,18 @@ methods: {
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 this.all_categories = response.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
                 }, 4000);
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -451,11 +451,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
@@ -475,18 +475,18 @@ methods: {
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 this.articles = response.data.data
                 setTimeout(() => {
                     $('#errors').fadeOut('slow')
                 }, 4000);
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -496,11 +496,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
@@ -521,15 +521,15 @@ methods: {
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 this.searchArticles = response.data.data.data
             } else {
-                document.getElementById('errors').innerHTML = ''
+                document.getElementById('errors')?.innerHTML = ''
                 $.each(response.data.errors, function (key, value) {
                     let error = document.createElement('div')
                     error.classList = 'error'
                     error.innerHTML = value
-                    document.getElementById('errors').append(error)
+                    document.getElementById('errors')?.append(error)
                 });
                 $('#errors').fadeIn('slow')
                 setTimeout(() => {
@@ -539,11 +539,11 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
+            document.getElementById('errors')?.innerHTML = ''
             let err = document.createElement('div')
             err.classList = 'error'
             err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
+            document.getElementById('errors')?.append(err)
             $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
