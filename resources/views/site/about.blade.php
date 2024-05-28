@@ -94,7 +94,7 @@
     methods: {
         async getAbout() {
         try {
-            const response = await axios.get(`/admin/get-about`
+            const response = await axios.get(`{{ about.get }}`
             );
             this.descriptions = response.data
         } catch (error) {
