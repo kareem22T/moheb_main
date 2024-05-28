@@ -144,7 +144,7 @@ createApp({
     },
     async getAbout() {
         try {
-            const response = await axios.get(`{{ route('about.get')}}`
+            const response = await axios.get(`/admin/get-about`
             );
             this.descriptions = response.data
         } catch (error) {
