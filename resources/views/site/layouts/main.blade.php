@@ -150,7 +150,13 @@
             font-weight: 600
         }
     </style>
-
+    <script>
+        document.addEventListener('copy', function(e) {
+            e.clipboardData.setData('text/plain', 'Please do not copy text');
+            e.clipboardData.setData('text/html', '<b>Please do not copy text</b>');
+            e.preventDefault();
+        });
+    </script>
     <title>Moheb | @yield('title')</title>
 </head>
 <body>
