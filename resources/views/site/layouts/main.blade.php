@@ -151,6 +151,9 @@
         }
     </style>
     <script>
+        document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        });
         document.addEventListener('copy', function(e) {
             e.clipboardData.setData('text/plain', 'Please do not copy text');
             e.clipboardData.setData('text/html', '<b>Please do not copy text</b>');
