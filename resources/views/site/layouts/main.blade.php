@@ -174,6 +174,11 @@
         $(document).on('click', '.close', function () {
             $('.mobile-menu').fadeOut()
         })
+        $(function() {
+            $(this).bind("contextmenu", function(e) {
+                e.preventDefault();
+            });
+        });
     </script>
 </body>
 </html>
