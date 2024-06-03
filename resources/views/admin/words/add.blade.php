@@ -84,11 +84,17 @@
                     </div>
                 </div>
                 <div class="pagination w-100 d-flex gap-2 justify-content-center mt-3" v-if="last_page > 1">
-                    <div v-for="page_num in last_page" :key="page_num" >
-                        <label :for="`page_num_${page_num}`" class="btn btn-primary" :class="page_num == page ? 'active' : ''">@{{ page_num }}</label>
-                        <input type="radio" class="d-none" name="page_num" :id="`page_num_${page_num}`" v-model="page" :value="page_num" @change="!search ? getImages() : getSearchImages(this.search)">
+                    <button class="btn btn-primary" :disabled="page === 1" @click="goToFirstPage">First</button>
+                    <button class="btn btn-primary" :disabled="page === 1" @click="goToPreviousPage">Previous</button>
+
+                    <div v-for="page_num in visiblePages" :key="page_num">
+                      <label :for="`page_num_${page_num}`" class="btn btn-primary" :class="page_num === page ? 'active' : ''">@{{ page_num }}</label>
+                      <input type="radio" class="d-none" name="page_num" :id="`page_num_${page_num}`" v-model="page" :value="page_num" @change="pageChanged">
                     </div>
-                </div>
+
+                    <button class="btn btn-primary" :disabled="page === last_page" @click="goToNextPage">Next</button>
+                    <button class="btn btn-primary" :disabled="page === last_page" @click="goToLastPage">Last</button>
+                  </div>
                 <h1 v-if="images && !images.length && !search">There is not any image yet! (upload now)</h1>
                 <div class="foot" style="display: flex;width: 100%;justify-content: space-between;gap: 1rem;">
                     <button class="btn btn-primary" @click="this.showUploadPopUp = true">Upload Image</button>
@@ -290,7 +296,54 @@ createApp({
       last_page: 0,
     }
   },
+
+  computed: {
+    visiblePages() {
+      const range = 8;
+      let start = Math.max(this.page - Math.floor(range / 2), 1);
+      let end = start + range - 1;
+
+      if (end > this.last_page) {
+        end = this.last_page;
+        start = Math.max(end - range + 1, 1);
+      }
+
+      const pages = [];
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      return pages;
+    }
+  },
   methods: {
+    pageChanged() {
+      if (!this.search) {
+        this.getImages();
+      } else {
+        this.getSearchImages(this.search);
+      }
+    },
+    goToFirstPage() {
+      this.page = 1;
+      this.pageChanged();
+    },
+    goToPreviousPage() {
+      if (this.page > 1) {
+        this.page -= 1;
+        this.pageChanged();
+      }
+    },
+    goToNextPage() {
+      if (this.page < this.last_page) {
+        this.page += 1;
+        this.pageChanged();
+      }
+    },
+    goToLastPage() {
+      this.page = this.last_page;
+      this.pageChanged();
+    },
     addTag() {
       if (this.tagInput.trim() !== '') {
         this.tags.push(this.tagInput.trim());
