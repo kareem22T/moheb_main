@@ -94,7 +94,8 @@
 
                     <button class="btn btn-primary" :disabled="page === last_page" @click="goToNextPage">Next</button>
                     <button class="btn btn-primary" :disabled="page === last_page" @click="goToLastPage">Last</button>
-                  </div>
+                </div>
+
                 <h1 v-if="images && !images.length && !search">There is not any image yet! (upload now)</h1>
                 <div class="foot" style="display: flex;width: 100%;justify-content: space-between;gap: 1rem;">
                     <button class="btn btn-primary" @click="this.showUploadPopUp = true">Upload Image</button>
