@@ -196,6 +196,14 @@
                 return false;
             }
         });
+        $(document).ready(function() {
+            $('#search').keydown(function(event) {
+                if (event.keyCode === 13) { // Check if the Enter key is pressed
+                    event.preventDefault();  // Prevent the default action (if necessary)
+                    window.location.href = `/search/${$(this).val()}`
+                }
+            });
+        });
     </script>
 </body>
 </html>
