@@ -27,6 +27,7 @@
         },
         "sections": {
             "view_all": "View All",
+            "other_sports": "Other sports",
             "empty_wish": "Your wishlist is empty",
             "my_wishlist": "My Wishlist",
             "football": "Football",
@@ -79,6 +80,7 @@
         },
         "sections": {
             "view_all": "Ver Todo",
+            "other_sports": "Otros deportes",
             "empty_wish": "Tu lista de deseos está vacía",
             "my_wishlist": "Mi Lista de Deseos",
             "football": "Fútbol",
@@ -131,6 +133,7 @@
         },
         "sections": {
             "view_all": "Visualizza Tutto",
+            "other_sports": "Altri sport",
             "empty_wish": "La tua lista dei desideri è vuota",
             "my_wishlist": "La Mia Lista dei Desideri",
             "football": "Calcio",
@@ -183,6 +186,7 @@
         },
         "sections": {
             "view_all": "Alle ansehen",
+            "other_sports": "andere Sportarten",
             "empty_wish": "Ihre Wunschliste ist leer",
             "my_wishlist": "Meine Wunschliste",
             "football": "Fußball",
@@ -235,6 +239,7 @@
         },
         "sections": {
             "view_all": "Ver Tudo",
+            "other_sports": "outros esportes",
             "empty_wish": "Sua lista de desejos está vazia",
             "my_wishlist": "Minha Lista de Desejos",
             "football": "Futebol",
@@ -288,6 +293,7 @@
         },
         "sections": {
             "view_all": "Voir Tout",
+            "other_sports": "Autres sports",
             "empty_wish": "Votre liste de souhaits est vide",
             "my_wishlist": "Ma Liste de Souhaits",
             "football": "Football",
@@ -344,6 +350,7 @@
             "my_wishlist": "المفضلة",
             "empty_wish": "المفضلة فارغة",
             "view_all": "عرض المزيد",
+            "other_sports": "رياضات اخري",
             "football": "كرة القدم",
             "most_popular": "الرياضات الاكثر شيوعا",
             "last_difinations": "اخر الكلمات المضافة",

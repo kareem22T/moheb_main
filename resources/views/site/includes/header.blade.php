@@ -76,8 +76,8 @@
     <div class="bottom">
         <div class="container">
             <div class="categories" v-if="all_categories && all_categories.length">
+                <a :href="`/all-sports`">@{{ page_content.sections.other_sports }}</a>
                 <a :href="`/category/${cat.id}`" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>
-                <a :href="`/all-sports`">@{{ page_content.sections.view_all }}</a>
             </div>
             <div class="more">
                 <i class="fa fa-bars"></i>
@@ -107,8 +107,8 @@
                     <a href="/blog">@{{ page_content ? page_content.header.blog : "Blog" }}</a>
                 </div>
                 <div class="categories" v-if="all_categories && all_categories.length" style="display: flex;flex-direction: column">
+                    <a :href="`/all-sports`" style="display: block !important">@{{ page_content.sections.other_sports }}</a>
                     <a :href="`/category/${cat.id}`" style="display: block !important" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>
-                    <a :href="`/all-sports`" style="display: block !important">@{{ page_content.sections.view_all }}</a>
                 </div>
                     <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
                             <div class="lang">
