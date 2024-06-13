@@ -82,13 +82,17 @@ class WordsController extends Controller
     public function addIndex() {
         return view('admin.words.add');
     }
-
     public function add(Request $request) {
+        DB::beginTransaction();
+
+        try {
+
         $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
         // add(category_translations)
         $validator = Validator::make($request->all(), [
             'main_name' => ['required'],
+            'thumbnail' => ['required'],
         ], [
             'main_name.required' => 'Please write term main name',
             'main_cat' => 'Please choose category for your term'
@@ -125,10 +129,11 @@ class WordsController extends Controller
             'category_id' => $request->cat_id
         ]);
 
-        if ($request->tags)
-        foreach ($request->tags as $tagName) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
-            $createTerm->tags()->attach($tag->id); // Attach the tag to the term
+        if ($request->tags) {
+            foreach ($request->tags as $tagName) {
+                $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
+                $createTerm->tags()->attach($tag->id); // Attach the tag to the term
+            }
         }
 
         foreach ($request->term_translations as $lang => $term) {
@@ -155,67 +160,98 @@ class WordsController extends Controller
             ]);
         };
 
-        if ($request->sounds_translations)
+        if ($request->sounds_translations) {
             foreach ($request->sounds_translations as $lang => $sound) {
+                // Validate the file
+                $validator = Validator::make($request->all(), [
+                    "sounds_translations.$lang" => 'mimes:mp3', // Ensure it's an MP3 file and less than 10MB
+                ]);
+                if ($validator->fails()) {
+                    return $this->jsondata(false, true, 'Add failed', [$validator->errors()->first()], []);
+                }
+
+                // Store the file
+                $path = $this->saveFile($sound, 'dashboard/images/uploads');
+
                 $addSounds = Term_Sound::create([
-                    'iframe' => $sound,
+                    'iframe' => $path,
                     'term_id' => $createTerm->id,
                     'language_id' => Language::where('symbol', $lang)->first()->id,
                 ]);
-            };
+            }
+        }
 
         if ($request->additional_categories) {
             foreach ($request->additional_categories as $cat) {
 
-        $createTerm = Term::create([
-            'name' => Str::ucfirst($request->main_name),
-            'thumbnail_path' => $request->thumbnail ? $request->thumbnail : null,
-            'category_id' => $cat['id']
-        ]);
-
-        if ($request->tags)
-        foreach ($request->tags as $tagName) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
-            $createTerm->tags()->attach($tag->id); // Attach the tag to the term
-        }
-
-        foreach ($request->term_translations as $lang => $term) {
-            $addNames = Term_Name::create([
-                'term' => $term,
-                'term_id' => $createTerm->id,
-                'language_id' => Language::where('symbol', $lang)->first()->id,
-            ]);
-        };
-
-        foreach ($request->title_translations as $lang => $title) {
-            $addTitles = Term_Title::create([
-                'title' => $title,
-                'term_id' => $createTerm->id,
-                'language_id' => Language::where('symbol', $lang)->first()->id,
-            ]);
-        };
-
-        foreach ($request->content_translations as $lang => $content) {
-            $addContents = Term_Content::create([
-                'content' => $content,
-                'term_id' => $createTerm->id,
-                'language_id' => Language::where('symbol', $lang)->first()->id,
-            ]);
-        };
-
-        if ($request->sounds_translations)
-            foreach ($request->sounds_translations as $lang => $sound) {
-                $addSounds = Term_Sound::create([
-                    'iframe' => $sound,
-                    'term_id' => $createTerm->id,
-                    'language_id' => Language::where('symbol', $lang)->first()->id,
+                $createTerm = Term::create([
+                    'name' => Str::ucfirst($request->main_name),
+                    'thumbnail_path' => $request->thumbnail ? $request->thumbnail : null,
+                    'category_id' => $cat['id']
                 ]);
-            };
 
+                if ($request->tags) {
+                    foreach ($request->tags as $tagName) {
+                        $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
+                        $createTerm->tags()->attach($tag->id); // Attach the tag to the term
+                    }
+                }
+
+                foreach ($request->term_translations as $lang => $term) {
+                    $addNames = Term_Name::create([
+                        'term' => $term,
+                        'term_id' => $createTerm->id,
+                        'language_id' => Language::where('symbol', $lang)->first()->id,
+                    ]);
+                };
+
+                foreach ($request->title_translations as $lang => $title) {
+                    $addTitles = Term_Title::create([
+                        'title' => $title,
+                        'term_id' => $createTerm->id,
+                        'language_id' => Language::where('symbol', $lang)->first()->id,
+                    ]);
+                };
+
+                foreach ($request->content_translations as $lang => $content) {
+                    $addContents = Term_Content::create([
+                        'content' => $content,
+                        'term_id' => $createTerm->id,
+                        'language_id' => Language::where('symbol', $lang)->first()->id,
+                    ]);
+                };
+
+                if ($request->sounds_translations) {
+                    foreach ($request->sounds_translations as $lang => $sound) {
+                        // Validate the file
+                        $validator = Validator::make($request->all(), [
+                            "sounds_translations.$lang" => 'mimes:mp3', // Ensure it's an MP3 file and less than 10MB
+                        ]);
+                        if ($validator->fails()) {
+                            return $this->jsondata(false, true, 'Add failed', [$validator->errors()->first()], []);
+                        }
+
+                        // Store the file
+                        $path = $this->saveFile($sound, 'dashboard/images/uploads');
+
+                        $addSounds = Term_Sound::create([
+                            'iframe' => $path,
+                            'term_id' => $createTerm->id,
+                            'language_id' => Language::where('symbol', $lang)->first()->id,
+                        ]);
+                    }
+                }
             }
         }
-        if ($createTerm)
-            return $this->jsonData(true, true, 'Term has been added successfuly', [], []);
+
+        DB::commit();
+        return $this->jsonData(true, true, 'Term has been added successfully', [], []);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->jsonData(false, true, 'Faild to create', [$e->getMessage()], []);
+        }
+
     }
 
     public function editIndex ($cat_id) {
@@ -420,23 +456,36 @@ class WordsController extends Controller
             }
         };
 
-        if ($request->sounds_translations)
-            foreach ($request->sounds_translations as $lang => $sound) {
-                $lang_id = Language::where('symbol', $lang)->first()->id;
-                $term_sound = Term_Sound::where('term_id', $request->term_id)->where('language_id', $lang_id)->first();
 
-                if ($term_sound) {
-                    $term_sound->iframe = $sound;
-                    $term_sound->save();
-                } else {
-                    if ($sound)
-                        $addSounds = Term_Sound::create([
-                            'iframe' => $sound,
-                            'term_id' => $request->term_id,
-                            'language_id' => Language::where('symbol', $lang)->first()->id,
-                        ]);
+        if ($request->sounds_translations) {
+            foreach ($request->sounds_translations as $lang => $sound) {
+                // Validate the file
+                $validator = Validator::make($request->all(), [
+                    "sounds_translations.$lang" => 'mimes:mp3', // Ensure it's an MP3 file and less than 10MB
+                ]);
+                if ($validator->fails()) {
+                    return $this->jsondata(false, true, 'Add failed', [$validator->errors()->first()], []);
                 }
-            };
+
+                // Store the file
+                $path = $this->saveFile($sound, 'dashboard/images/uploads');
+                $lang_id = Language::where('symbol', $lang)->first()->id;
+
+                $Term_Sound = Term_Sound::where('term_id', $request->term_id)->where('language_id', $lang_id)->first();
+
+                if ($Term_Sound) {
+                    $Term_Sound->iframe = $path;
+                    $Term_Sound->save();
+                } else {
+                    $addSounds = Term_Sound::create([
+                        'iframe' => $path,
+                        'term_id' => $request->term_id,
+                        'language_id' => Language::where('symbol', $lang)->first()->id,
+                    ]);
+                }
+
+            }
+        }
 
         if ($term)
             return $this->jsonData(true, true, 'Term has been Updated successfuly', [], []);

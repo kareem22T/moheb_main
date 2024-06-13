@@ -193,7 +193,7 @@
                             <div  v-for="(language, index) in languages_data" :key="index">
                                 <div>
                                     <label for="sound_iframe" class="form-label">Sound in @{{language.name}} (iframe)</label>
-                                    <input type="text" class="form-control" id="sound_iframe" v-model="sounds_translations[language.symbol]">
+                                    <input type="file" class="form-control" id="sound_iframe" @change="handleFileChange($event, language.symbol)">
                                 </div>
                             </div>
                         </div>
@@ -318,6 +318,15 @@ createApp({
     }
   },
   methods: {
+    handleFileChange(event, key) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                // For simplicity, assuming a single file upload per language
+                console.log(files[0]);
+                this.sounds_translations[key] = files[0]
+                console.log(this.sounds_translations);
+            }
+    },
     pageChanged() {
       if (!this.search) {
         this.getImages();

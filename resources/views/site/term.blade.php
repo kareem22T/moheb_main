@@ -193,97 +193,197 @@
                     ]
                 )->find(request()->id);
             @endphp
-            <div class="content" style="margin-bottom: 0;">
-                <h2>Terme en Français: {{ $term_FR->names[0]->term }}</h2>
-                {!! $term_FR->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_FR->sounds->count() > 0 ? $term_FR->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
-            <div class="content" style="margin-bottom: 0;">
-                <h2>Term in English: {{ $term_EN->names[0]->term }}</h2>
-                {!! $term_EN->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_EN->sounds->count() > 0 ? $term_EN->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
-            <div class="content" style="margin-bottom: 0;">
-                <h2>Termino en Español: {{ $term_ESP->names[0]->term }}</h2>
-                {!! $term_ESP->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_ESP->sounds->count() > 0 ? $term_ESP->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
-            <div class="content" style="margin-bottom: 0;">
-                <h2>Termine in Italiano: {{ $term_ITA->names[0]->term }}</h2>
-                {!! $term_ITA->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_ITA->sounds->count() > 0 ? $term_ITA->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
-            <div class="content" style="margin-bottom: 0;">
-                <h2>Begriff auf Deutsch: {{ $term_DEU->names[0]->term }}</h2>
-                {!! $term_DEU->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_DEU->sounds->count() > 0 ? $term_DEU->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
-            <div class="content" style="margin-bottom: 0;">
-                <h2>Termo em Português: {{ $term_PORT->names[0]->term }}</h2>
-                {!! $term_PORT->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_PORT->sounds->count() > 0 ? $term_PORT->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
-            <div dir="rtl"  class="content content_ar" style="margin-bottom: 0; padding-bottom: 0">
-                @php
-                    $lang_egp = App\Models\Language::where("symbol", "AR (EGY)")->first();
-                    $term_egp = App\Models\Term::with(["names" => function ($q) use ($lang_egp) {
-                        $q->where("language_id", $lang_egp->id);
-                    }])->find(request()->id);
-                    $lang_AL = App\Models\Language::where("symbol", "AR (AL)")->first();
-                    $term_AL = App\Models\Term::with(["names" => function ($q) use ($lang_AL) {
-                        $q->where("language_id", $lang_AL->id);
-                    }])->find(request()->id);
-                    $lang_SA = App\Models\Language::where("symbol", "AR ( SA)")->first();
-                    $term_SA = App\Models\Term::with(["names" => function ($q) use ($lang_SA) {
-                        $q->where("language_id", $lang_SA->id);
-                    }])->find(request()->id);
-                    $lang_LA = App\Models\Language::where("symbol", "AR (LA)")->first();
-                    $term_LA = App\Models\Term::with(["names" => function ($q) use ($lang_LA) {
-                        $q->where("language_id", $lang_LA->id);
-                    }])->find(request()->id);
-                    @endphp
-                <h2 style='font-family: "Cairo", sans-serif !important;' >المصطلح بالعربية الفصحى: {{ $term_AR->names[0]->term }}</h2>
-                @if ($term_egp->names->count() > 0)
-                <h2 style="margin-top: 0">
-                    المصطلح باللهجة المصرية:
-                    {{ $term_egp->names[0]->term }}
-                </h2>
-                @endif
-                @if ($term_AL->names->count() > 0)
-                <h2 style="margin-top: 0">
-                    المصطلح بلهجة شمال افريقيا:
-                    {{ $term_AL->names[0]->term }}
-                </h2>
-                @endif
-                @if ($term_SA->names->count() > 0)
-                <h2 style="margin-top: 0">
-                    المصطلح باللهجة الخليجية:
-                    {{ $term_SA->names[0]->term }}
-                </h2>
-                @endif
-                @if ($term_LA->names->count() > 0)
-                <h2 style="margin-top: 0">
-                    المصطلح بلهجة دول الشام:
-                    {{ $term_LA->names[0]->term }}
-                </h2>
-                @endif
-                {!! $term_AR->contents[0]->content !!}
-                <div style="margin-top: 10px">
-                    {!! $term_AR->sounds->count() > 0 ? $term_AR->sounds[0]->iframe : '' !!}
-                </div>
-            </div>
+<div class="content" style="margin-bottom: 0;">
+    <h2>Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
+    {!! $term_FR->contents->count() > 0 ? $term_FR->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_FR->sounds->count() > 0)
+            @php
+                $iframeContent = $term_FR->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
+
+<div class="content" style="margin-bottom: 0;">
+    <h2>Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
+    {!! $term_EN->contents->count() > 0 ? $term_EN->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_EN->sounds->count() > 0)
+            @php
+                $iframeContent = $term_EN->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
+
+<div class="content" style="margin-bottom: 0;">
+    <h2>Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
+    {!! $term_ESP->contents->count() > 0 ? $term_ESP->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_ESP->sounds->count() > 0)
+            @php
+                $iframeContent = $term_ESP->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
+
+<div class="content" style="margin-bottom: 0;">
+    <h2>Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
+    {!! $term_ITA->contents->count() > 0 ? $term_ITA->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_ITA->sounds->count() > 0)
+            @php
+                $iframeContent = $term_ITA->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
+
+<div class="content" style="margin-bottom: 0;">
+    <h2>Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
+    {!! $term_DEU->contents->count() > 0 ? $term_DEU->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_DEU->sounds->count() > 0)
+            @php
+                $iframeContent = $term_DEU->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
+
+<div class="content" style="margin-bottom: 0;">
+    <h2>Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
+    {!! $term_PORT->contents->count() > 0 ? $term_PORT->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_PORT->sounds->count() > 0)
+            @php
+                $iframeContent = $term_PORT->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
+
+<div dir="rtl" class="content content_ar" style="margin-bottom: 0; padding-bottom: 0">
+    @php
+        $lang_egp = App\Models\Language::where("symbol", "AR (EGY)")->first();
+        $term_egp = App\Models\Term::with(["names" => function ($q) use ($lang_egp) {
+            $q->where("language_id", $lang_egp->id);
+        }])->find(request()->id);
+
+        $lang_AL = App\Models\Language::where("symbol", "AR (AL)")->first();
+        $term_AL = App\Models\Term::with(["names" => function ($q) use ($lang_AL) {
+            $q->where("language_id", $lang_AL->id);
+        }])->find(request()->id);
+
+        $lang_SA = App\Models\Language::where("symbol", "AR ( SA)")->first();
+        $term_SA = App\Models\Term::with(["names" => function ($q) use ($lang_SA) {
+            $q->where("language_id", $lang_SA->id);
+        }])->find(request()->id);
+
+        $lang_LA = App\Models\Language::where("symbol", "AR (LA)")->first();
+        $term_LA = App\Models\Term::with(["names" => function ($q) use ($lang_LA) {
+            $q->where("language_id", $lang_LA->id);
+        }])->find(request()->id);
+    @endphp
+    <h2 style='font-family: "Cairo", sans-serif !important;'>المصطلح بالعربية الفصحى: {{ $term_AR->names->count() > 0 ? $term_AR->names[0]->term : 'N/A' }}</h2>
+    @if ($term_egp && $term_egp->names->count() > 0)
+        <h2 style="margin-top: 0">
+            المصطلح باللهجة المصرية:
+            {{ $term_egp->names[0]->term }}
+        </h2>
+    @endif
+    @if ($term_AL && $term_AL->names->count() > 0)
+        <h2 style="margin-top: 0">
+            المصطلح بلهجة شمال افريقيا:
+            {{ $term_AL->names[0]->term }}
+        </h2>
+    @endif
+    @if ($term_SA && $term_SA->names->count() > 0)
+        <h2 style="margin-top: 0">
+            المصطلح باللهجة الخليجية:
+            {{ $term_SA->names[0]->term }}
+        </h2>
+    @endif
+    @if ($term_LA && $term_LA->names->count() > 0)
+        <h2 style="margin-top: 0">
+            المصطلح بلهجة دول الشام:
+            {{ $term_LA->names[0]->term }}
+        </h2>
+    @endif
+    {!! $term_AR->contents->count() > 0 ? $term_AR->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_AR->sounds->count() > 0)
+            @php
+                $iframeContent = $term_AR->sounds[0]->iframe;
+            @endphp
+
+            @if (strpos($iframeContent, '<iframe') !== false)
+                {!! $iframeContent !!}
+            @else
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContent }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            @endif
+        @endif
+    </div>
+</div>
             <hr style="height: 1px;border: none;background: rgba(0, 0, 0, .4);margin-top: 24px">
             <div class="tags_wrapper" style="
                 display: flex;
