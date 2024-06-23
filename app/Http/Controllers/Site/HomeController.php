@@ -65,10 +65,12 @@ class HomeController extends Controller
         try {
             $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
 
-            $term = Term::with(["tags", "category" => function ($q) {
-                $q->with("names")->when(isset($lang), function ($q) {
-                    $q->where("language_id", $lang->id);
-                });
+            $term = Term::with(["tags", "category" => function ($q) use ($lang){
+                $q->with(["names" =>function ($q) use ($lang) {
+                    $q->when(isset($lang), function ($q) use($lang){
+                        $q->where("language_id", $lang->id);
+                    });
+                }]);
             }])->find($request->id);
             if ($term->vists) {
                 $term->vists = (int) $term->vists + 1;
@@ -94,7 +96,15 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             $lang = Language::where('symbol', 'like', '%' . "EN" . '%')->first();
 
-            $term = Term::find($request->id);
+
+            $term = Term::with(["tags", "category" => function ($q) use ($lang){
+                $q->with(["names" =>function ($q) use ($lang) {
+                    $q->when(isset($lang), function ($q) use($lang){
+                        $q->where("language_id", $lang->id);
+                    });
+                }]);
+            }])->find($request->id);
+
             if ($term->vists) {
                 $term->vists = (int) $term->vists + 1;
                 $term->save();
