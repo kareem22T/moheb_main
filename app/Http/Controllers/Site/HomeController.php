@@ -65,7 +65,11 @@ class HomeController extends Controller
         try {
             $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
 
-            $term = Term::with("tags")->find($request->id);
+            $term = Term::with(["tags", "category" => function ($q) {
+                $q->with("names")->when(isset($lang), function ($q) {
+                    $q->where("language_id", $lang->id);
+                });
+            }])->find($request->id);
             if ($term->vists) {
                 $term->vists = (int) $term->vists + 1;
                 $term->save();

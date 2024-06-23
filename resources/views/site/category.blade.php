@@ -18,10 +18,10 @@
             </div>
             <div class="pagination">
                 <button class="prev" @click="currentPage > 1 ? currentPage -= 1 : ''; getCategory()" :disabled="currentPage === 1">Previous</button>
-                <label :class="currentPage == pageNumber ? 'active' : ''" v-for="pageNumber in visiblePages" :key="pageNumber">
-                  <input type="radio" v-model="currentPage" :value="pageNumber" @change="this.currentPage = pageNumber; getCategory()">
-                  @{{ pageNumber }}
-                </label>
+                    <div v-for="page_num in visiblePages" :key="page_num">
+                        <label :for="`page_num_${page_num}`" class="btn btn-primary" :class="page_num == currentPage ? 'active' : ''">@{{ page_num }}</label>
+                        <input type="radio" style="display: none" class="d-none" name="page_num" :id="`page_num_${page_num}`" v-model="page" :value="page_num" @change="currentPage = page_num; getCategory()">
+                      </div>
                 <button class="next" @click="currentPage < lastPage ? currentPage += 1 : ''; getCategory()" :disabled="currentPage === lastPage">Next</button>
             </div>
         </div>
@@ -54,6 +54,25 @@ data() {
         maxVisiblePages: 5 // Set the maximum number of visible pages
     }
 },
+computed: {
+    visiblePages() {
+      const range = 8;
+      let start = Math.max(this.currentPage - Math.floor(range / 2), 1);
+      let end = start + range - 1;
+
+      if (end > this.lastPage) {
+        end = this.lastPage;
+        start = Math.max(end - range + 1, 1);
+      }
+
+      const pages = [];
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      return pages;
+    }
+  },
 methods: {
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')

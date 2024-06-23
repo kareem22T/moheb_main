@@ -183,19 +183,6 @@
         $(document).on('click', '.close', function () {
             $('.mobile-menu').fadeOut()
         })
-        $(function() {
-            $(this).bind("contextmenu", function(e) {
-                e.preventDefault();
-            });
-        });
-        $(document).bind("contextmenu",function(e) {
-            e.preventDefault();
-            });
-            $(document).keydown(function(e){
-            if(e.which === 123){
-                return false;
-            }
-        });
         $(document).ready(function() {
             $('#search').keydown(function(event) {
                 if (event.keyCode === 13) { // Check if the Enter key is pressed
