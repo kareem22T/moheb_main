@@ -197,7 +197,15 @@
             }
         });
         $(document).ready(function() {
-        $('#search').on('keydown input', function(event) {
+            $('#searchForm').on('submit', function(event) {
+                event.preventDefault();  // Prevent the default action
+                $("#error").fadeOut()
+                window.location.href = `/search/${$('#search').val()}`;
+            });
+        });
+        $(document).ready(function() {
+            $('#search').on('keydown input', function(event) {
+            $("#error").fadeOut()
                 // Check if the Enter key is pressed
                 if (event.key === 'Enter' || event.keyCode === 13) {
                     event.preventDefault();  // Prevent the default action (if necessary)

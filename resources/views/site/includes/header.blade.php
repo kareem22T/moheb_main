@@ -85,16 +85,18 @@
                 <div class="close">
                     <i class="fa fa-close"></i>
                 </div>
-                <div class="search">
-                    <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch" style="  padding-left: 3rem;">
-                    <a :href="`/search/${search}`" >
-                        <i class="fa fa-search"></i>
-                    </a>
+                <form action="" id="serachForm">
+                    <div class="search">
+                        <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch" style="  padding-left: 3rem;">
+                        <a :href="`/search/${search}`" >
+                            <i class="fa fa-search"></i>
+                        </a>
                         <div class="suggestion" v-if="searchArticles.length && search" style="z-index: 999;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;position: absolute;top: 100%;display: flex;flex-direction: column;background: white;width: 100%;border-radius: 10px;margin-top: 10px;">
-                        <a :href="`/term/${item.name.replace(/\//g, '').replace(/\s+/g, '-')}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
-                        <a :href="`/search/${search}`" style="font-size: 16px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
+                            <a :href="`/term/${item.name.replace(/\//g, '').replace(/\s+/g, '-')}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
+                            <a :href="`/search/${search}`" style="font-size: 16px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="social">
                     <a href=""><i class="fa-brands fa-facebook-f"></i></a>
                     <a href=""><i class="fa-brands fa-instagram"></i></a>
@@ -129,10 +131,12 @@
             <div class="logo">
                 <img src="{{ asset('/site/imgs/logo-new.jpg') }}?V={{time()}}" alt="">
             </div>
-            <div class="search">
-                <input type="text" name="search" id="search" placeholder="Search for Term">
-                <i class="fa fa-search"></i>
-            </div>
+            <form action="" id="searchForm">
+                <div class="search">
+                    <input type="text" name="search" id="search" placeholder="Search for Term">
+                    <i class="fa fa-search"></i>
+                </div>
+            </form>
             <div class="social">
                 <a href=""><i class="fa-brands fa-facebook-f"></i></a>
                 <a href=""><i class="fa-brands fa-instagram"></i></a>
