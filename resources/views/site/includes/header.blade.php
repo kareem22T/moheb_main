@@ -85,7 +85,7 @@
                 <div class="close">
                     <i class="fa fa-close"></i>
                 </div>
-                <form action="" id="serachForm">
+                <form action="" id="searchForm">
                     <div class="search">
                         <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch" style="  padding-left: 3rem;">
                         <a :href="`/search/${search}`" >
@@ -131,7 +131,7 @@
             <div class="logo">
                 <img src="{{ asset('/site/imgs/logo-new.jpg') }}?V={{time()}}" alt="">
             </div>
-            <form action="" id="serachForm">
+            <form action="" id="searchForm">
                 <div class="search">
                     <input type="text" name="search" id="search" placeholder="Search for Term">
                     <i class="fa fa-search"></i>
