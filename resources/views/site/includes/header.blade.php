@@ -131,7 +131,7 @@
             <div class="logo">
                 <img src="{{ asset('/site/imgs/logo-new.jpg') }}?V={{time()}}" alt="">
             </div>
-            <form action="" id="searchForm">
+            <form action="" id="serachForm">
                 <div class="search">
                     <input type="text" name="search" id="search" placeholder="Search for Term">
                     <i class="fa fa-search"></i>
