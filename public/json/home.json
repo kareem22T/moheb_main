@@ -28,7 +28,7 @@
         },
         "sections": {
             "view_all": "View All",
-            "other_sports": "Other sports",
+            "other_sports": "All sports",
             "empty_wish": "Your wishlist is empty",
             "my_wishlist": "My Wishlist",
             "football": "Football",
@@ -351,7 +351,7 @@
             "my_wishlist": "المفضلة",
             "empty_wish": "المفضلة فارغة",
             "view_all": "عرض المزيد",
-            "other_sports": "رياضات اخري",
+            "other_sports": "كل الرياضات",
             "football": "كرة القدم",
             "most_popular": "الرياضات الاكثر شيوعا",
             "last_difinations": "اخر الكلمات المضافة",

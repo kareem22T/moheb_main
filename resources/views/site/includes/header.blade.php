@@ -2,7 +2,7 @@
     <div class="top">
         <div class="container">
             <a href="/" class="logo">
-                <img src="{{ asset('/site/imgs/logo-new.png') }}?V={{time()}}" alt="">
+                <img src="{{ asset('/site/imgs/logo-moheb.png') }}?V={{time()}}" alt="">
             </a>
             <div class="search">
                 <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
@@ -75,9 +75,9 @@
     </div>
     <div class="bottom">
         <div class="container">
-            <div class="categories" v-if="all_categories && all_categories.length">
-                <a :href="`/all-sports`">@{{ page_content.sections.other_sports }}</a>
-                <a :href="`/category/${cat.id}`" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>
+            <div class="categories" v-if="all_categories && all_categories.length" style=" max-width: 100%;overflow: auto;">
+                <a :href="`/all-sports`" >@{{ page_content.sections.other_sports }}</a>
+                <a :href="`/category/${cat.id}`" style="display: block !important;" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>
             </div>
             <div class="more">
                 <i class="fa fa-bars"></i>
@@ -129,7 +129,7 @@
     <div class="top">
         <div class="container">
             <div class="logo">
-                <img src="{{ asset('/site/imgs/logo-new.jpg') }}?V={{time()}}" alt="">
+                <img src="{{ asset('/site/imgs/logo-moheb.jpg') }}?V={{time()}}" alt="">
             </div>
             <form action="" id="searchForm">
                 <div class="search">
