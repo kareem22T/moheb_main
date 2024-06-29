@@ -38,10 +38,10 @@
                     </a>
                 @endif
             </div>
-            <div class="links">
+            {{-- <div class="links">
                 <a href="/about-us">@{{ page_content ? page_content.header.about : "about" }}</a>
                 <a href="/contact-us">@{{ page_content ? page_content.header.contact : "contact" }}</a>
-            </div>
+            </div> --}}
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
                 @if(Auth::user())
                 <div class="profile" >
@@ -103,11 +103,11 @@
                     <a href=""><i class="fa-brands fa-twitter"></i></a>
                     <a href=""><i class="fa-brands fa-youtube"></i></a>
                 </div>
-                {{-- <div class="links">
+                <div class="links">
                     <a href="/about-us">@{{ page_content ? page_content.header.about : "About" }}</a>
                     <a href="/contact-us">@{{ page_content ? page_content.header.contact : "Contact" }}</a>
                     <a href="/blog">@{{ page_content ? page_content.header.blog : "Blog" }}</a>
-                </div> --}}
+                </div>
                 <div class="categories" v-if="all_categories && all_categories.length" style="display: flex;flex-direction: column">
                     <a :href="`/all-sports`" style="display: block !important">@{{ page_content.sections.other_sports }}</a>
                     <a :href="`/category/${cat.id}`" style="display: block !important" v-for="cat in all_categories" :key="cat.id">@{{cat.name}}</a>
