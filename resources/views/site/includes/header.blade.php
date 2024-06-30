@@ -1,4 +1,4 @@
-<header>
+<header style="  flex-wrap: wrap;">
     <div class="top">
         <div class="container">
             <a href="/" class="logo">
