@@ -5,84 +5,96 @@
 @section('content')
 <div id="home">
     @include('site.includes.header')
-    <section class="football" v-if="football">
-        <div class="container">
-            <div class="head">
-                <h1><i class="fa-solid fa-futbol"></i> @{{ page_content ? page_content.sections.football : "Football" }}</h1>
-                <a :href="`/category/${football.id}`" class="view-more"> @{{ page_content ? page_content.sections.view_all : "View All" }}</a>
+    <div class="content-fluid">
+        <img src="/site/imgs/ad.png" alt="">
+        <div>
+            <div class="container">
+                <img src="/site/imgs/ad-2.png" alt="" class="ad">
             </div>
-            <div class="sub_categories" v-if="football.terms && football.terms.length">
-                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in football.terms" :key="term.id">
-                    <img :src="term.thumbnail_path" alt="">
-                    <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
-                </a>
-            </div>
-        </div>
-    </section>
-    <section class="most-popular"  v-if="categories && categories.length > 0">
-        <div class="container">
-            <div class="head">
-                <h1><i class="fa-solid fa-ranking-star"></i> @{{ page_content ? page_content.sections.most_popular : "Most Popular Sports" }}</h1>
-                {{-- <a href="" class="view-more">@{{ page_content ? page_content.sections.view_all : "View All" }}</a> --}}
-            </div>
-            <div class="sub_categories">
-                <a :href="`/category/${cat.id}`" class="card" v-for="cat in categories" :key="cat.id">
-                    <img :src="cat.thumbnail_path" alt="">
-                    <h1>@{{ cat.name }}</h1>
-                </a>
-            </div>
-        </div>
-    </section>
-    <section class="latest-terms"  v-if="terms && terms.length > 0">
-        <div class="container">
-            <div class="terms-wrapper">
-                <div class="head">
-                    <h1><i class="fa-solid fa-list-ul"></i> @{{ page_content ? page_content.sections.last_difinations : "Last Updated Difinations" }}</h1>
-                </div>
-                <div class="terms">
-                    <div class="term" v-for="(term, index) in terms" :key="index">
-                        <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" target="_blanck" >
-                            <h2>@{{ term.name }}</h2>
-                            <h4>@{{ term.category_name }}</h4>
+            <section class="football" v-if="football">
+                <div class="container">
+                    <div class="head">
+                        <h1><i class="fa-solid fa-futbol"></i> @{{ page_content ? page_content.sections.football : "Football" }}</h1>
+                        <a :href="`/category/${football.id}`" class="view-more"> @{{ page_content ? page_content.sections.view_all : "View All" }}</a>
+                    </div>
+                    <div class="sub_categories" v-if="football.terms && football.terms.length">
+                        <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in football.terms" :key="term.id">
+                            <img :src="term.thumbnail_path" alt="">
+                            <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                         </a>
-                        <i class="fa-regular fa-heart" :class="term.isFav ? 'active' : ''" @click="handleFav(term.id)"></i>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <section class="latest-articles" v-if="articles && articles.length > 0">
-        <div class="container">
-            <div class="head">
-                <h1><i class="fa-regular fa-newspaper"></i> @{{ page_content ? page_content.sections.last_news : "Latest News" }}</h1>
-                <a href="/blog" class="view-more">@{{ page_content ? page_content.sections.view_all : "View All" }}</a>
-            </div>
-            <div class="articles">
-                <a :href="`/article/${article.id}`" class="article" v-for="(article, index) in articles" :key="index" style="position: relative">
-                    <div class="thumbnail">
-                        <img :src="article.thumbnail_path">
+            </section>
+            <section class="most-popular"  v-if="categories && categories.length > 0">
+                <div class="container">
+                    <div class="head">
+                        <h1><i class="fa-solid fa-ranking-star"></i> @{{ page_content ? page_content.sections.most_popular : "Most Popular Sports" }}</h1>
+                        {{-- <a href="" class="view-more">@{{ page_content ? page_content.sections.view_all : "View All" }}</a> --}}
                     </div>
-                    <div class="text">
-                        <h1 class="title">
-                            @{{article.title}}
-                        </h1>
-                        <p v-html="article.content.length >= 70 ? article.content.slice(0, 70) + ' ...' : article.content">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nisi quidem dolore. Necessitatibus aliquam laudantium adipisci, nobis hic mollitia vero delectus illum quasi quo.
-                        </p>
-                        <div class="foot" dir="rtl" style="  position: absolute;
-                        top: 0;
-                        right: 16px;">
-                            <div class="time" style="background: #0000007a;color: white;padding: 4px;"><i class="fa-regular fa-clock"></i> @{{ new Date(article.created_at).toLocaleString("en-US", {
-                                                                                    month: "long",
-                                                                                    day: "numeric",
-                                                                                    year: "numeric"
-                                                                                    }) }}</div>
+                    <div class="sub_categories">
+                        <a :href="`/category/${cat.id}`" class="card" v-for="cat in categories" :key="cat.id">
+                            <img :src="cat.thumbnail_path" alt="">
+                            <h1>@{{ cat.name }}</h1>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section class="latest-terms"  v-if="terms && terms.length > 0">
+                <div class="container">
+                    <div class="terms-wrapper">
+                        <div class="head">
+                            <h1><i class="fa-solid fa-list-ul"></i> @{{ page_content ? page_content.sections.last_difinations : "Last Updated Difinations" }}</h1>
+                        </div>
+                        <div class="terms">
+                            <div class="term" v-for="(term, index) in terms" :key="index">
+                                <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" target="_blanck" >
+                                    <h2>@{{ term.name }}</h2>
+                                    <h4>@{{ term.category_name }}</h4>
+                                </a>
+                                <i class="fa-regular fa-heart" :class="term.isFav ? 'active' : ''" @click="handleFav(term.id)"></i>
+                            </div>
                         </div>
                     </div>
-                </a>
+                </div>
+            </section>
+            <section class="latest-articles" v-if="articles && articles.length > 0">
+                <div class="container">
+                    <div class="head">
+                        <h1><i class="fa-regular fa-newspaper"></i> @{{ page_content ? page_content.sections.last_news : "Latest News" }}</h1>
+                        <a href="/blog" class="view-more">@{{ page_content ? page_content.sections.view_all : "View All" }}</a>
+                    </div>
+                    <div class="articles">
+                        <a :href="`/article/${article.id}`" class="article" v-for="(article, index) in articles" :key="index" style="position: relative">
+                            <div class="thumbnail">
+                                <img :src="article.thumbnail_path">
+                            </div>
+                            <div class="text">
+                                <h1 class="title">
+                                    @{{article.title}}
+                                </h1>
+                                <p v-html="article.content.length >= 70 ? article.content.slice(0, 70) + ' ...' : article.content">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nisi quidem dolore. Necessitatibus aliquam laudantium adipisci, nobis hic mollitia vero delectus illum quasi quo.
+                                </p>
+                                <div class="foot" dir="rtl" style="  position: absolute;
+                                top: 0;
+                                right: 16px;">
+                                    <div class="time" style="background: #0000007a;color: white;padding: 4px;"><i class="fa-regular fa-clock"></i> @{{ new Date(article.created_at).toLocaleString("en-US", {
+                                                                                            month: "long",
+                                                                                            day: "numeric",
+                                                                                            year: "numeric"
+                                                                                            }) }}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <img src="/site/imgs/ad-2.png" alt="" class="ad">
             </div>
         </div>
-    </section>
+        <img src="/site/imgs/ad.png" alt="">
+    </div>
     @include('site.includes.footer')
 </div>
 @endsection

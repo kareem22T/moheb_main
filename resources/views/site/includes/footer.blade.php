@@ -5,6 +5,6 @@
         <a href="/contact-us">@{{ page_content ? page_content.footer.nav.link_3 : "Contact Us" }}</a>
     </div>
     <div class="bottom">
-        @{{ page_content ? page_content.footer.copy : "Powerd By Center De Paris" }}
+        Powerd by Centre de paris 2024
     </div>
 </footer>

@@ -149,6 +149,39 @@
             border-radius: 5px;
             font-weight: 600
         }
+        .content-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            gap: 16px
+        }
+        .content-fluid >div >*:not(.container) {
+            width: 100%
+        }
+        header .bottom {
+            width: 100%;
+            padding: .5rem 0;
+            background-color: var(--secondary-color);
+            white-space: nowrap;
+        }
+        .content-fluid >img {
+            max-width: 150px;
+            margin-top: 24px;
+            border-radius: 8px
+        }
+        .ad {
+            width: 100% !important;
+            max-width: 750px;
+            border-radius: 8px;
+            margin: auto;
+            display: block;
+            margin-top: 24px;
+        }
+        @media (max-width: 1481px) {
+            .content-fluid >img {
+                display: none
+            }
+        }
     </style>
     <script>
         document.addEventListener('contextmenu', function(e) {
@@ -188,31 +221,31 @@
                 e.preventDefault();
             });
         });
-        $(document).bind("contextmenu",function(e) {
-            e.preventDefault();
-            });
-            $(document).keydown(function(e){
-            if(e.which === 123){
-                return false;
-            }
-        });
-        $(document).ready(function() {
-            $('#searchForm').on('submit', function(event) {
-                event.preventDefault();  // Prevent the default action
-                $("#error").fadeOut()
-                window.location.href = `/search/${$('#search').val()}`;
-            });
-        });
-        $(document).ready(function() {
-            $('#search').on('keydown input', function(event) {
-            $("#error").fadeOut()
-                // Check if the Enter key is pressed
-                if (event.key === 'Enter' || event.keyCode === 13) {
-                    event.preventDefault();  // Prevent the default action (if necessary)
-                    window.location.href = `/search/${$(this).val()}`;
-                }
-            });
-        });
+        // $(document).bind("contextmenu",function(e) {
+        //     e.preventDefault();
+        //     });
+        //     $(document).keydown(function(e){
+        //     if(e.which === 123){
+        //         return false;
+        //     }
+        // });
+        // // $(document).ready(function() {
+        // //     $('#searchForm').on('submit', function(event) {
+        // //         event.preventDefault();  // Prevent the default action
+        // //         $("#error").fadeOut()
+        // //         window.location.href = `/search/${$('#search').val()}`;
+        // //     });
+        // // });
+        // // $(document).ready(function() {
+        // //     $('#search').on('keydown input', function(event) {
+        // //     $("#error").fadeOut()
+        // //         // Check if the Enter key is pressed
+        // //         if (event.key === 'Enter' || event.keyCode === 13) {
+        // //             event.preventDefault();  // Prevent the default action (if necessary)
+        // //             window.location.href = `/search/${$(this).val()}`;
+        // //         }
+        // //     });
+        // // });
     </script>
 </body>
 </html>
