@@ -8,6 +8,7 @@ use App\Models\Term;
 use App\Models\Article;
 use App\Models\Article_Title;
 use App\Models\Article_Content;
+use App\Models\Categories_description;
 use App\Models\Language;
 use App\Models\Term_Name;
 use App\Models\Term_Title;
@@ -469,6 +470,9 @@ class HomeController extends Controller
             $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
             $category->name = $category_name->name;
 
+            $category_desc = Categories_description::where('category_id', $category->id)->where('language_id', $lang->id)->first();
+            $category->description = $category_desc?->description;
+
             $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
                 $query->where("language_id", $lang->id);
             }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
@@ -507,6 +511,8 @@ class HomeController extends Controller
 
             $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
             $category->name = $category_name->name;
+            $category_desc = Categories_description::where('category_id', $category->id)->where('language_id', $lang->id)->first();
+            $category->description = $category_desc?->description;
 
             $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
                 $query->where("language_id", $lang->id);

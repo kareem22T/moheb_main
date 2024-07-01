@@ -30,6 +30,11 @@ class Category extends Model
         return $this->hasMany('App\Models\Category_Name', 'category_id');
     }
 
+    public function descriptions()
+    {
+        return $this->hasMany('App\Models\Categories_description', 'category_id');
+    }
+
     public function sub_categories()
     {
         return $this->hasMany('App\Models\Category', 'main_cat_id');

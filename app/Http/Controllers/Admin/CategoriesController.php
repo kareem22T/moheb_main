@@ -84,6 +84,11 @@ class CategoriesController extends Controller
         if (!empty($missingLanguages)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter category name in (' . Language::where('symbol', reset($missingLanguages))->first()->name . ')'], []);
         }
+        $missingLanguages2 = array_diff($symbols, array_keys($request->descriptions));
+
+        if (!empty($missingLanguages2)) {
+            return $this->jsondata(false, true, 'Add failed', ['Please enter category Description in (' . Language::where('symbol', reset($missingLanguages2))->first()->name . ')'], []);
+        }
 
         $createCategory = Category::create([
             'main_name' => Str::ucfirst($request->main_name),
@@ -97,6 +102,14 @@ class CategoriesController extends Controller
         foreach ($request->category_translations as $lang => $name) {
             $addNames = Category_Name::create([
                 'name' => $name,
+                'category_id' => $createCategory->id,
+                'language_id' => Language::where('symbol', $lang)->first()->id,
+            ]);
+        };
+
+        foreach ($request->descriptions as $lang => $name) {
+            $addNames = Categories_description::create([
+                'description' => $name,
                 'category_id' => $createCategory->id,
                 'language_id' => Language::where('symbol', $lang)->first()->id,
             ]);
@@ -189,6 +202,29 @@ class CategoriesController extends Controller
         return $this->jsonData(true, true, '', [], $category_names_key_value);
     }
 
+    public function getCategoryDescs(Request $request) {
+        $languages = Language::all();
+        $symbols = $languages->pluck('symbol')->all();
+
+        $category_names = Category::find($request->category_id)->descriptions;
+        $category_names_key_value = [];
+
+        if ($category_names)
+            foreach ($category_names as $key => $cat_name) {
+                $category_names_key_value[$cat_name->language->symbol] = $cat_name->description;
+            };
+
+        if ($category_names_key_value) :
+            $missingLanguages = array_diff($symbols, array_keys($category_names_key_value));
+            if ($missingLanguages)
+                foreach ($missingLanguages as $lang) {
+                    $category_names_key_value[$lang] = null;
+                }
+        endif;
+
+        return $this->jsonData(true, true, '', [], $category_names_key_value);
+    }
+
     public function editCategory(Request $request) {
         $languages = Language::take(7)->get();
         $symbols = $languages->pluck('symbol')->all();
@@ -234,7 +270,6 @@ class CategoriesController extends Controller
                 ]);
             }
         };
-
         foreach ($request->descriptions as $lang => $name) {
             $lang_id = Language::where('symbol', $lang)->first()->id;
             $cat_name = Categories_description::where('category_id', $category->id)->where('language_id', $lang_id)->first();
@@ -243,7 +278,7 @@ class CategoriesController extends Controller
                 $cat_name->save();
             } else {
                 $addNames = Categories_description::create([
-                    'descriptionss' => $name,
+                    'description' => $name,
                     'category_id' => $category->id,
                     'language_id' => Language::where('symbol', $lang)->first()->id,
                 ]);

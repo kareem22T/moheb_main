@@ -53,6 +53,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/category', [CategoriesController::class, 'getCategoryById']);
     Route::get('/category/{cat_id}', [CategoriesController::class, 'getCategoryIndex']);
     Route::post('/category/names', [CategoriesController::class, 'getCategoryNames']);
+    Route::post('/category/descriptions', [CategoriesController::class, 'getCategoryDescs']);
     Route::post('/categories/get-languages', [CategoriesController::class, 'getLanguages']);
     Route::post('/categories/search', [CategoriesController::class, 'search']);
     Route::post('/categories/delete', [CategoriesController::class, 'delete']);

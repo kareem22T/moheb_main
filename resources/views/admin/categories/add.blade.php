@@ -23,6 +23,12 @@
                         <input type="text" class="form-control" id="cat_name" v-model="category_translations[language.symbol]">
                     </div>
                 </div>
+                <div class="swiper-slide w-100" v-for="(language, index) in languages_data" :key="index">
+                    <div>
+                        <label for="cat_name" class="form-label">Description in @{{language.name}} *</label>
+                        <textarea class="form-control" id="cat_name" v-model="descriptions[language.symbol]"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="hide-content" v-if="showImages"></div>
             <div class="pop-up show-images-pop-up card" v-if="showImages" style="z-index: 2147483647; min-width: 90vw; height: 90vh; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;max-width: 100vw;">
@@ -66,7 +72,6 @@
                 </div>
             </div>
             <div class="w-100 mb-3 d-flex gap-2">
-                <textarea name="description" id="description" cols="30" rows="10" class="form-control w-75" placeholder="Description" v-model="description"></textarea>
                 <div class="w-25">
                     <div for="thumbnail" class="w-100 h-100 p-3 d-flex justify-content-center align-items-center form-control" style="max-height: 170px;" @click="this.showImages = true">
                         <img :src="preview_img ? preview_img :'/public/dashboard/images/add_image.svg'" id="preview" alt="img logo" style="width: 100%; max-width: 100%;object-fit: contain;height: 100%;">
@@ -138,10 +143,11 @@ createApp({
       main_name: null,
       cat_type: null,
       main_cat_id: null,
-      description: null,
+      description: "N/A",
       languages_data: null,
       categories_data: null,
       category_translations: {},
+      descriptions: {},
       show_main_categories: false,
       thumbnail: null,
       images: null,
@@ -210,6 +216,7 @@ createApp({
           category_translations: category_translations,
           main_name: main_name,
           description: description,
+          descriptions: this.descriptions,
           cat_type: cat_type,
           main_cat_id: main_cat_id,
           thumbnail: thumbnail,

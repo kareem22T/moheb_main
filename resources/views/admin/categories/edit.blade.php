@@ -23,6 +23,12 @@
                         <input type="text" class="form-control" id="lang_name" v-model="category_translations[language.symbol]">
                     </div>
                 </div>
+                <div class="swiper-slide w-100" v-for="(language, index) in languages_data" :key="index">
+                    <div>
+                        <label for="cat_name" class="form-label">Description in @{{language.name}} *</label>
+                        <textarea class="form-control" id="cat_name" v-model="descriptions[language.symbol]"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="hide-content" v-if="showImages"></div>
             <div class="pop-up show-images-pop-up card" v-if="showImages" style="z-index: 2147483647; min-width: 90vw; height: 90vh; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;max-width: 100vw;">
@@ -67,7 +73,6 @@
             </div>
 
             <div class="w-100 mb-3 d-flex gap-2">
-                <textarea name="description" id="description" cols="30" rows="10" class="form-control w-75" placeholder="Description" v-model="description"></textarea>
                 <div class="w-25">
                     <div class="w-100 h-100 p-3 d-flex justify-content-center align-items-center form-control" style="max-height: 170px;"  @click="this.showImages = true">
                         <img :src="preview_img ?  preview_img : (thumbnail_path ? thumbnail_path : '/dashboard/images/add_image.svg')" id="preview" alt="img logo" style="width: 100%; max-width: 100%;object-fit: contain;height: 100%;">
@@ -147,12 +152,13 @@ createApp({
     return {
       main_name: null,
       main_cat_id: null,
-      description: null,
+      description: "n/a",
       languages_data: null,
       categories_data: null,
       category_data: null,
       category_names: null,
       category_translations: {},
+      descriptions: {},
       show_main_categories: false,
       category_id: undefined,
       thumbnail_path: null,
@@ -222,6 +228,7 @@ createApp({
           category_translations: category_translations,
           main_name: main_name,
           description: description,
+          descriptions: this.descriptions,
           category_id: this.category_data.id,
           thumbnail: thumbnail
         },
@@ -414,6 +421,51 @@ createApp({
                 this.category_names = response.data.data
                 Object.entries(this.category_names).forEach(([key, value]) => {
                     this.category_translations[key] = value
+                });
+            } else {
+                $('.loader').fadeOut()
+                document.getElementById('errors').innerHTML = ''
+                $.each(response.data.errors, function (key, value) {
+                    let error = document.createElement('div')
+                    error.classList = 'error'
+                    error.innerHTML = value
+                    document.getElementById('errors').append(error)
+                });
+                $('#errors').fadeIn('slow')
+                setTimeout(() => {
+                    $('input').css('outline', 'none')
+                    $('#errors').fadeOut('slow')
+                }, 5000);
+            }
+
+        } catch (error) {
+            document.getElementById('errors').innerHTML = ''
+            let err = document.createElement('div')
+            err.classList = 'error'
+            err.innerHTML = 'server error try again later'
+            document.getElementById('errors').append(err)
+            $('#errors').fadeIn('slow')
+            $('.loader').fadeOut()
+            this.languages_data = false
+            setTimeout(() => {
+                $('#errors').fadeOut('slow')
+            }, 3500);
+
+            console.error(error);
+        }
+    },
+    async getDescs() {
+        $('.loader').fadeIn().css('display', 'flex')
+        try {
+            const response = await axios.post(`/admin/category/descriptions`, {
+                category_id: this.category_id
+            },
+            );
+            if (response.data.status === true) {
+                $('.loader').fadeOut()
+                this.descriptions = response.data.data.length > 0 ? response.data.data : {}
+                Object.entries(this.descriptions).forEach(([key, value]) => {
+                    this.descriptions[key] = value
                 });
             } else {
                 $('.loader').fadeOut()
@@ -673,11 +725,13 @@ createApp({
   },
   created() {
     this.getLanguages()
+    this.getLanguages()
     this.getImages()
-  },
-  mounted() {
+},
+mounted() {
     this.category_id = document.getElementById('category_id').value ? document.getElementById('category_id').value : undefined;
     this.getCategory()
+    this.getDescs()
     this.getNameTranslations()
         $("#thumbnail").change(function () {
         // check if file is valid image

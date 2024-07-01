@@ -7,9 +7,10 @@
     @include('site.includes.header')
     <section class="football" v-if="football" style="min-height: 80vh">
         <div class="container">
-            <div class="head">
+            <div class="head" style="margin-bottom: 4px">
                 <h1><i class="fa-solid fa-category"></i> @{{ football.name }}</h1>
             </div>
+            <p style="padding: 4px 8px;margin-bottom: 16px;"> @{{ football.description }}</p>
             <div class="sub_categories" v-if="terms && terms.length">
                 <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in terms" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
