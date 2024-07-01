@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categories_description;
 use Illuminate\Http\Request;
 use App\Traits\DataFormController;
 use App\Traits\SaveFileTrait;
@@ -208,6 +209,11 @@ class CategoriesController extends Controller
         if (!empty($missingLanguages)) {
             return $this->jsondata(false, true, 'Add failed', ['Please enter category name in (' . Language::where('symbol', reset($missingLanguages))->first()->name . ')'], []);
         }
+        $missingLanguagesdesc = array_diff($symbols, array_keys($request->descriptions));
+
+        if (!empty($missingLanguagesdesc)) {
+            return $this->jsondata(false, true, 'Add failed', ['Please enter category Descriptions in (' . Language::where('symbol', reset($missingLanguagesdesc))->first()->name . ')'], []);
+        }
         $category->main_name = Str::ucfirst($request->main_name);
         if ($request->thumbnail)
             $category->thumbnail_path = $request->thumbnail;
@@ -223,6 +229,21 @@ class CategoriesController extends Controller
             } else {
                 $addNames = Category_Name::create([
                     'name' => $name,
+                    'category_id' => $category->id,
+                    'language_id' => Language::where('symbol', $lang)->first()->id,
+                ]);
+            }
+        };
+
+        foreach ($request->descriptions as $lang => $name) {
+            $lang_id = Language::where('symbol', $lang)->first()->id;
+            $cat_name = Categories_description::where('category_id', $category->id)->where('language_id', $lang_id)->first();
+            if ($cat_name) {
+                $cat_name->description = $name;
+                $cat_name->save();
+            } else {
+                $addNames = Categories_description::create([
+                    'descriptionss' => $name,
                     'category_id' => $category->id,
                     'language_id' => Language::where('symbol', $lang)->first()->id,
                 ]);
