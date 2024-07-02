@@ -464,6 +464,8 @@
         المصطلح باللهجة المصرية:
         {{ $term_egp->names[0]->term }}
     </h2>
+    @if($term_egp->sounds->count() > 0)
+
     @php
         $iframeContenteg = $term_egp->sounds[0]->iframe;
     @endphp
@@ -489,6 +491,7 @@
             </button>
         </div>
     @endif
+    @endif
 @endif
 
 @if ($term_AL && $term_AL->names->count() > 0)
@@ -496,6 +499,8 @@
         المصطلح بلهجة شمال افريقيا:
         {{ $term_AL->names[0]->term }}
     </h2>
+    @if($term_AL->sounds->count() > 0)
+
     @php
         $iframeContental = $term_AL->sounds[0]->iframe;
     @endphp
@@ -521,6 +526,7 @@
             </button>
         </div>
     @endif
+    @endif
 @endif
 
 @if ($term_SA && $term_SA->names->count() > 0)
@@ -528,6 +534,8 @@
         المصطلح باللهجة الخليجية:
         {{ $term_SA->names[0]->term }}
     </h2>
+    @if($term_SA->sounds->count() > 0)
+
     @php
         $iframeContentsa = $term_SA->sounds[0]->iframe;
     @endphp
@@ -553,6 +561,7 @@
             </button>
         </div>
     @endif
+    @endif
 @endif
 
 @if ($term_LA && $term_LA->names->count() > 0)
@@ -560,6 +569,8 @@
         المصطلح بلهجة دول الشام:
         {{ $term_LA->names[0]->term }}
     </h2>
+    @if($term_LA->sounds->count() > 0)
+
     @php
         $iframeContentla = $term_LA->sounds[0]->iframe;
     @endphp
@@ -584,6 +595,7 @@
                 </svg>
             </button>
         </div>
+    @endif
     @endif
 @endif
 
