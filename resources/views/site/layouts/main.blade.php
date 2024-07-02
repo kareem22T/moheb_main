@@ -143,6 +143,15 @@ box-shadow: 2px 2px 4px 0px #006773;
 -webkit-border-radius:7px 7px 7px 7px ;
 border-radius:7px 7px 7px 7px ;
 }
+header .bottom .categories::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+header .bottom .categories {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
         @keyframes s7 {
         100% {transform: rotate(1turn)}
         }
