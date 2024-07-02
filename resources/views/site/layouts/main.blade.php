@@ -12,6 +12,84 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">    <style>
+        .play_btn.playing .icon-tabler-player-play-filled{
+            display: none
+        }
+        .play_btn.pausing .icon-tabler-player-pause-filled{
+            display: none
+        }
+        .play_btn {
+            padding: 10px;
+            border: none;
+            background-color: #b10a0b;
+            color: white;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+        .audio-player audio{
+            display: none
+        }
+        body {
+  font-family: Arial, sans-serif;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#search-results {
+  list-style-type: none;
+  padding: 0;
+}
+
+#search-results li {
+  padding: 10px;
+  background-color: #f1f1f1;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+}
+
+button.play {
+  background-color: #28a745;
+}
+
+button.pause {
+  background-color: #dc3545;
+}
+
+input[type="range"] {
+  width: 150px;
+}
+
+span {
+  font-size: 14px;
+}
+
     .loader {
         width: 100vw;
         height: 100vh;
@@ -269,6 +347,69 @@ border-radius:7px 7px 7px 7px ;
         // //         }
         // //     });
         // // });
+
+        document.querySelectorAll('.audio_wrapper').forEach((wrapper, index) => {
+  const audio = wrapper.querySelector('audio');
+  const playPauseButton = wrapper.querySelector(`#play-pause-${index + 1}`);
+  const seekSlider = wrapper.querySelector(`#seek-slider-${index + 1}`);
+  const currentTimeElem = wrapper.querySelector(`#current-time-${index + 1}`);
+  const durationElem = wrapper.querySelector(`#duration-${index + 1}`);
+  const volumeSlider = wrapper.querySelector(`#volume-slider-${index + 1}`);
+
+  let isPlaying = false;
+
+  // Play or pause audio
+  playPauseButton.addEventListener('click', () => {
+    if (isPlaying) {
+      audio.pause();
+      playPauseButton.textContent = 'Play';
+      playPauseButton.classList.replace('pause', 'play');
+    } else {
+      audio.play();
+      playPauseButton.textContent = 'Pause';
+      playPauseButton.classList.replace('play', 'pause');
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // Update seek slider as audio plays
+  audio.addEventListener('timeupdate', () => {
+    const currentTime = audio.currentTime;
+    const duration = audio.duration;
+    seekSlider.value = (currentTime / duration) * 100;
+    currentTimeElem.textContent = formatTime(currentTime);
+    durationElem.textContent = formatTime(duration);
+  });
+
+  // Seek audio
+  seekSlider.addEventListener('input', () => {
+    const duration = audio.duration;
+    audio.currentTime = (seekSlider.value / 100) * duration;
+  });
+
+  // Change volume
+  volumeSlider.addEventListener('input', () => {
+    audio.volume = volumeSlider.value;
+  });
+
+  // Format time in minutes and seconds
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+});
+
+$(document).on("click", ".audio-player .play_btn", function () {
+    var audioElement = $(this).prev()[0]; // Get the DOM element
+    if (audioElement.paused) {
+        audioElement.play();
+        $(this).removeClass('pausing').addClass('playing');
+    } else {
+        audioElement.pause();
+        $(this).removeClass('playing').addClass('pausing');
+    }
+});
     </script>
 </body>
 </html>
