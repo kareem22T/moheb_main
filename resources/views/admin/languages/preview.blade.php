@@ -52,8 +52,8 @@
                 </td>
                 <td class="border-bottom-0">
                     <div class="d-flex gap-2">
-                        <button class="btn btn-secondary p-2 edit_lang_btn" @click="this.edit_pop_up = true; getValues(language.id, language.symbol, language.name)"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></button>
-                        <button class="btn btn-danger p-2" @click="this.delete_pop_up = true; getValues(language.id, language.symbol, language.name)"><h4 class="ti ti-trash text-light m-0 fw-semibold"></h4></button>
+                        {{-- <button class="btn btn-secondary p-2 edit_lang_btn" @click="this.edit_pop_up = true; getValues(language.id, language.symbol, language.name)"><h4 class="ti ti-edit text-light m-0 fw-semibold"></h4></button>
+                        <button class="btn btn-danger p-2" @click="this.delete_pop_up = true; getValues(language.id, language.symbol, language.name)"><h4 class="ti ti-trash text-light m-0 fw-semibold"></h4></button> --}}
                     </div>
                 </td>
             </tr>

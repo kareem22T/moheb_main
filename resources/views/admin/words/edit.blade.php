@@ -144,7 +144,7 @@
                     <!-- Swiper -->
                     <div class="mb-3 pb-5">
                         <div>
-                            <div  v-for="(language, index) in languages_data" :key="index">
+                            <div  v-for="(language, index) in languages_data.slice(0, 7)" :key="index">
                                 <div>
                                     <label for="sound_iframe" class="form-label">Sound in @{{language.name}} (iframe)</label>
                                     <input type="file" class="form-control" id="sound_iframe" @change="handleFileChange($event, language.symbol)">
