@@ -632,8 +632,9 @@
         @endif
     @endif
 @endif
-</div>
+</article>
 @include('site.includes.footer')
+</div>
 @endsection
 
 @section('scripts')
