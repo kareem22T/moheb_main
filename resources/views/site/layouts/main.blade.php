@@ -402,13 +402,20 @@ border-radius:7px 7px 7px 7px ;
 
 $(document).on("click", ".audio-player .play_btn", function () {
     var audioElement = $(this).prev()[0]; // Get the DOM element
+    var playButton = $(this); // Store the play button reference
+
     if (audioElement.paused) {
         audioElement.play();
-        $(this).removeClass('pausing').addClass('playing');
+        playButton.removeClass('pausing').addClass('playing');
     } else {
         audioElement.pause();
-        $(this).removeClass('playing').addClass('pausing');
+        playButton.removeClass('playing').addClass('pausing');
     }
+
+    // Add ended event listener
+    audioElement.onended = function () {
+        playButton.removeClass('playing').addClass('pausing');
+    };
 });
     </script>
 </body>
