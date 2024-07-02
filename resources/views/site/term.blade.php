@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="thumbnail" v-if="term_data.thumbnail_path" style="  max-height: 420px;">
-                <img :src="term_data.thumbnail_path" alt="" style="object-fit: cover">
+                <img :src="term_data.thumbnail_path + '?v={{time()}}'" alt="" style="object-fit: cover">
             </div>
             @php
                 $lang_FR = App\Models\Language::where('symbol', 'FR')->first();
@@ -304,7 +304,39 @@
         @endif
     </div>
 </div>
+<div class="content" style="margin-bottom: 0;">
+    <h2>Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
+    {!! $term_PORT->contents->count() > 0 ? $term_PORT->contents[0]->content : '' !!}
+    <div style="margin-top: 10px">
+        @if($term_PORT->sounds->count() > 0)
+            @php
+                $iframeContentport = $term_PORT->sounds[0]->iframe;
+            @endphp
 
+            @if (strpos($iframeContentport, '<iframe') !== false)
+                {!! $iframeContentport !!}
+            @else
+            <div class="audio-player">
+                <audio controls>
+                    <source src="{{ "/dashboard/images/uploads/" . $iframeContentport }}?v={{time()}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <button class="play_btn pausing">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor" />
+                      </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
+                        <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
+                    </svg>
+                </button>
+            </div>
+        @endif
+        @endif
+    </div>
+</div>
 <div class="content" style="margin-bottom: 0;">
     <h2>Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
     {!! $term_ITA->contents->count() > 0 ? $term_ITA->contents[0]->content : '' !!}
@@ -373,39 +405,6 @@
     </div>
 </div>
 
-<div class="content" style="margin-bottom: 0;">
-    <h2>Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
-    {!! $term_PORT->contents->count() > 0 ? $term_PORT->contents[0]->content : '' !!}
-    <div style="margin-top: 10px">
-        @if($term_PORT->sounds->count() > 0)
-            @php
-                $iframeContentport = $term_PORT->sounds[0]->iframe;
-            @endphp
-
-            @if (strpos($iframeContentport, '<iframe') !== false)
-                {!! $iframeContentport !!}
-            @else
-            <div class="audio-player">
-                <audio controls>
-                    <source src="{{ "/dashboard/images/uploads/" . $iframeContentport }}?v={{time()}}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <button class="play_btn pausing">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor" />
-                      </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                        <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                    </svg>
-                </button>
-            </div>
-        @endif
-        @endif
-    </div>
-</div>
 
 <div dir="rtl" class="content content_ar" style="margin-bottom: 0; padding-bottom: 0">
     @php
@@ -493,6 +492,40 @@
     @endif
     @endif
 @endif
+@if ($term_SA && $term_SA->names->count() > 0)
+    <h2 style="margin-top: 0">
+        المصطلح باللهجة الخليجية:
+        {{ $term_SA->names[0]->term }}
+    </h2>
+    @if($term_SA->sounds->count() > 0)
+
+    @php
+        $iframeContentsa = $term_SA->sounds[0]->iframe;
+    @endphp
+
+    @if (strpos($iframeContentsa, '<iframe') !== false)
+        {!! $iframeContentsa !!}
+    @else
+        <div class="audio-player">
+            <audio controls>
+                <source src="{{ "/dashboard/images/uploads/" . $iframeContentsa }}?v={{ time() }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button class="play_btn pausing">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
+                    <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
+                </svg>
+            </button>
+        </div>
+    @endif
+    @endif
+@endif
 
 @if ($term_AL && $term_AL->names->count() > 0)
     <h2 style="margin-top: 0">
@@ -529,40 +562,6 @@
     @endif
 @endif
 
-@if ($term_SA && $term_SA->names->count() > 0)
-    <h2 style="margin-top: 0">
-        المصطلح باللهجة الخليجية:
-        {{ $term_SA->names[0]->term }}
-    </h2>
-    @if($term_SA->sounds->count() > 0)
-
-    @php
-        $iframeContentsa = $term_SA->sounds[0]->iframe;
-    @endphp
-
-    @if (strpos($iframeContentsa, '<iframe') !== false)
-        {!! $iframeContentsa !!}
-    @else
-        <div class="audio-player">
-            <audio controls>
-                <source src="{{ "/dashboard/images/uploads/" . $iframeContentsa }}?v={{ time() }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <button class="play_btn pausing">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                    <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                </svg>
-            </button>
-        </div>
-    @endif
-    @endif
-@endif
 
 @if ($term_LA && $term_LA->names->count() > 0)
     <h2 style="margin-top: 0">
@@ -596,40 +595,6 @@
             </button>
         </div>
     @endif
-    @endif
-@endif
-
-@if ($term_AR && $term_AR->names->count() > 0)
-    <h2 style="margin-top: 0">
-        المصطلح باللغة العربية الفصحى:
-        {{ $term_AR->names[0]->term }}
-    </h2>
-    @if ($term_AR->sounds && $term_AR->sounds->count() > 0)
-        @php
-            $iframeContentar = $term_AR->sounds[0]->iframe;
-        @endphp
-
-        @if (strpos($iframeContentar, '<iframe') !== false)
-            {!! $iframeContentar !!}
-        @else
-            <div class="audio-player">
-                <audio controls>
-                    <source src="{{ "/dashboard/images/uploads/" . $iframeContentar }}?v={{ time() }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <button class="play_btn pausing">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                        <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                    </svg>
-                </button>
-            </div>
-        @endif
     @endif
 @endif
         </article>
