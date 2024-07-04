@@ -204,8 +204,8 @@
                 )->find(request()->id);
             @endphp
 <div class="content" style="margin-bottom: 0;">
-    <div style="display: flex; gap: 16px">
-        <h2 style="margin-top: 0">Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
+    <div style="display: flex; gap: 16px;align-items: center">
+        <h2 style="margin: 0">Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_FR->sounds->count() > 0)
                 @php
@@ -237,8 +237,8 @@
 </div>
 
 <div class="content" style="margin-bottom: 0;">
-    <div style="display: flex; gap: 16px">
-        <h2 style="margin-top: 0">Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
+    <div style="display: flex; gap: 16px;align-items: center">
+        <h2 style="margin: 0">Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_EN->sounds->count() > 0)
                 @php
@@ -270,8 +270,8 @@
 </div>
 
 <div class="content" style="margin-bottom: 0;">
-    <div style="display: flex; gap: 16px">
-    <h2 style="margin-top: 0">Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
+    <div style="display: flex; gap: 16px;align-items: center">
+    <h2 style="margin: 0">Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_ESP->sounds->count() > 0)
                 @php
@@ -302,8 +302,8 @@
     {!! $term_ESP->contents->count() > 0 ? $term_ESP->contents[0]->content : '' !!}
 </div>
 <div class="content" style="margin-bottom: 0;">
-    <div style="display: flex; gap: 16px">
-    <h2 style="margin-top: 0">Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
+    <div style="display: flex; gap: 16px;align-items: center">
+    <h2 style="margin: 0">Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_PORT->sounds->count() > 0)
             @php
@@ -334,8 +334,8 @@
     {!! $term_PORT->contents->count() > 0 ? $term_PORT->contents[0]->content : '' !!}
 </div>
 <div class="content" style="margin-bottom: 0;">
-    <div style="display: flex; gap: 16px">
-    <h2 style="margin-top: 0">Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
+    <div style="display: flex; gap: 16px;align-items: center">
+    <h2 style="margin: 0">Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_ITA->sounds->count() > 0)
             @php
@@ -367,8 +367,8 @@
 </div>
 
 <div class="content" style="margin-bottom: 0;">
-    <div style="display: flex; gap: 16px">
-    <h2 style="margin-top: 0">Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
+    <div style="display: flex; gap: 16px;align-items: center">
+    <h2 style="margin: 0">Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_DEU->sounds->count() > 0)
             @php
@@ -422,7 +422,7 @@
             $q->where("language_id", $lang_LA->id);
         }])->find(request()->id);
     @endphp
-    <div style="display: flex; gap: 16px">
+    <div style="display: flex; gap: 16px;align-items: center">
     <h2 style='font-family: "Cairo", sans-serif !important;'>المصطلح بالعربية الفصحى: {{ $term_AR->names->count() > 0 ? $term_AR->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_AR->sounds->count() > 0)
