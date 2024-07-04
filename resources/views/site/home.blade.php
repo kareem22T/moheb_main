@@ -6,11 +6,8 @@
 <div id="home">
     @include('site.includes.header')
     <div class="content-fluid">
-        <img src="/site/imgs/ad.png" alt="">
+        {{-- <img src="/site/imgs/ad.png" alt=""> --}}
         <div>
-            <div class="container">
-                <img src="/site/imgs/ad-2.png" alt="" class="ad">
-            </div>
             <section class="football" v-if="football">
                 <div class="container">
                     <div class="head">
@@ -89,11 +86,8 @@
                     </div>
                 </div>
             </section>
-            <div class="container">
-                <img src="/site/imgs/ad-2.png" alt="" class="ad">
-            </div>
         </div>
-        <img src="/site/imgs/ad.png" alt="">
+        {{-- <img src="/site/imgs/ad.png" alt=""> --}}
     </div>
     @include('site.includes.footer')
 </div>
