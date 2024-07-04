@@ -1016,9 +1016,11 @@ createApp({
     });
   },
 }).mount('#add_cat')
-$(document).on('click', '.imgs .img', function () {
-    $(this).css('border', '1px solid #13DEB9')
-    $(this).siblings().css('border', 'none')
-})
+setTimeout(() => {
+    $(document).on('click', '.imgs .img', function () {
+        $(this).css('border', '1px solid #13DEB9')
+        $(this).siblings().css('border', 'none')
+    })
+}, 2000)
 </script>
 @endsection
