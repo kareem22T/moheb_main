@@ -100,7 +100,7 @@
                     </button>
                 </div>
             </div>
-            <div class="thumbnail" v-if="term_data.thumbnail_path" style="  max-height: 420px;">
+            <div class="thumbnail" v-if="term_data.thumbnail_path" style="max-height: 300px;max-width: 480px;display: flex;margin: auto;justify-content: center;align-items: center;margin-top: 16px;">
                 <img :src="term_data.thumbnail_path + '?v={{time()}}'" alt="" style="object-fit: cover">
             </div>
             @php
