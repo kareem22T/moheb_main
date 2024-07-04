@@ -351,6 +351,16 @@
   <script src="{{ asset('/libs/axios.js') }}"></script>
 
   @yield('scripts')
+  <script>
+    $(document).ready(function() {
+        setTimeout(() => {
+            $(document).on('click', '.imgs .img', function () {
+                $(this).css('border', '1px solid #13DEB9')
+                $(this).siblings().css('border', 'none')
+            })
+        }, 2000)
+    })
+  </script>
 </body>
 
 </html>

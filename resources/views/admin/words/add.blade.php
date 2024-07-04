@@ -79,16 +79,7 @@
             <div class="pop-up show-images-pop-up card" v-if="showImages" style="z-index: 2147483647; min-width: 90vw; height: 90vh; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;max-width: 100vw;">
                 <input type="text" name="search" id="search" class="form-control w-25 mb-2" placeholder="Search" v-model="search" @input="getSearchImages(this.search)">
                 <div class="imgs p-2 gap-3" v-if="images && images.length" style="display: flex;grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));flex-wrap: wrap;height: 100%;overflow: auto;">
-                    <div class="img"  @click="this.choosed_img = '/dashboard/images/uploads/' + img.path" v-for="(img, index) in images" :key="img.id"
-                    :style="{
-                        width: '260px',
-                        height: '230px',
-                        overflow: 'hidden',
-                        padding: '10px',
-                        borderRadius: '1rem',
-                        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-                        border: choosed_img == (this.choosed_img = '/dashboard/images/uploads/' + img.path) ? '1px solid #13DEB9' : 'none'
-                      }">
+                    <div class="img" @click="this.choosed_img = '/dashboard/images/uploads/' + img.path" v-for="(img, index) in images" :key="img.id" style="width: 260px;height: 230px;overflow: hidden;padding: 10px;border-radius: 1rem;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
                         <img :src="'/dashboard/images/uploads/' + img.path" id="preview" alt="img logo" style="width: 100%;height: 100%;object-fit: contain;">
                     </div>
                 </div>
