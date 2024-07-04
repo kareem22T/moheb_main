@@ -205,7 +205,7 @@
             @endphp
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px">
-        <h2>Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
+        <h2 style="margin-top: 0">Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_FR->sounds->count() > 0)
                 @php
@@ -221,7 +221,7 @@
                         Your browser does not support the audio element.
                     </audio>
                     <button class="play_btn pausing">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#cb0c9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M15 8a5 5 0 0 1 0 8" />
                         <path d="M17.7 5a9 9 0 0 1 0 14" />
@@ -237,42 +237,41 @@
 </div>
 
 <div class="content" style="margin-bottom: 0;">
-    <h2>Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
-    {!! $term_EN->contents->count() > 0 ? $term_EN->contents[0]->content : '' !!}
-    <div >
-        @if($term_EN->sounds->count() > 0)
-            @php
-                $iframeContenten = $term_EN->sounds[0]->iframe;
-            @endphp
+    <div style="display: flex; gap: 16px">
+        <h2 style="margin-top: 0">Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
+        <div >
+            @if($term_EN->sounds->count() > 0)
+                @php
+                    $iframeContenten = $term_EN->sounds[0]->iframe;
+                @endphp
 
-            @if (strpos($iframeContenten, '<iframe') !== false)
-                {!! $iframeContenten !!}
-            @else
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="{{ "/dashboard/images/uploads/" . $iframeContenten }}?v={{time()}}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <button class="play_btn pausing">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor" />
-                          </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                            <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor" />
-                        </svg>
-                    </button>
-                </div>
+                @if (strpos($iframeContenten, '<iframe') !== false)
+                    {!! $iframeContenten !!}
+                @else
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="{{ "/dashboard/images/uploads/" . $iframeContenten }}?v={{time()}}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <button class="play_btn pausing">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M15 8a5 5 0 0 1 0 8" />
+                                <path d="M17.7 5a9 9 0 0 1 0 14" />
+                                <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+                              </svg>
+                        </button>
+                    </div>
+                @endif
             @endif
-        @endif
+        </div>
     </div>
+    {!! $term_EN->contents->count() > 0 ? $term_EN->contents[0]->content : '' !!}
 </div>
 
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px">
-    <h2>Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin-top: 0">Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_ESP->sounds->count() > 0)
                 @php
@@ -288,7 +287,7 @@
                         Your browser does not support the audio element.
                     </audio>
                     <button class="play_btn pausing">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#cb0c9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M15 8a5 5 0 0 1 0 8" />
                         <path d="M17.7 5a9 9 0 0 1 0 14" />
@@ -304,7 +303,7 @@
 </div>
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px">
-    <h2>Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin-top: 0">Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_PORT->sounds->count() > 0)
             @php
@@ -320,7 +319,7 @@
                     Your browser does not support the audio element.
                 </audio>
                 <button class="play_btn pausing">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#cb0c9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M15 8a5 5 0 0 1 0 8" />
                 <path d="M17.7 5a9 9 0 0 1 0 14" />
@@ -336,7 +335,7 @@
 </div>
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px">
-    <h2>Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin-top: 0">Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_ITA->sounds->count() > 0)
             @php
@@ -352,7 +351,7 @@
                     Your browser does not support the audio element.
                 </audio>
                 <button class="play_btn pausing">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#cb0c9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M15 8a5 5 0 0 1 0 8" />
                 <path d="M17.7 5a9 9 0 0 1 0 14" />
@@ -369,7 +368,7 @@
 
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px">
-    <h2>Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin-top: 0">Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_DEU->sounds->count() > 0)
             @php
@@ -385,7 +384,7 @@
                     Your browser does not support the audio element.
                 </audio>
                 <button class="play_btn pausing">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#cb0c9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <path d="M15 8a5 5 0 0 1 0 8" />
                     <path d="M17.7 5a9 9 0 0 1 0 14" />
@@ -440,7 +439,7 @@
                     Your browser does not support the audio element.
                 </audio>
                 <button class="play_btn pausing">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#cb0c9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-volume" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M15 8a5 5 0 0 1 0 8" />
                 <path d="M17.7 5a9 9 0 0 1 0 14" />
