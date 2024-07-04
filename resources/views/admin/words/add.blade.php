@@ -928,14 +928,14 @@ createApp({
 
   },
   mounted() {
-    $(document).on('click', '.imgs .img', function () {
-        $(this).css('border', '1px solid #13DEB9')
-        $(this).siblings().css('border', 'none')
-    })
-  },
+},
 }).mount('#add_cat')
 </script>
 <script>
+$(document).on('click', '.imgs .img', function () {
+    $(this).css('border', '1px solid #13DEB9')
+    $(this).siblings().css('border', 'none')
+})
 window.onload = function() {
     setTimeout(() => {
         var swiper = new Swiper(".mySwiper", {
