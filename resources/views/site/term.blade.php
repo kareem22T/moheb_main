@@ -205,7 +205,7 @@
             @endphp
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-        <h2 style="margin: 0">Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
+        <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/france.png')}}"  width="40px" style="width: 30px;"/> Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_FR->sounds->count() > 0)
                 @php
@@ -238,7 +238,7 @@
 
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-        <h2 style="margin: 0">Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
+        <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/uk.png')}}"  width="40px" style="width: 30px;"/> Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_EN->sounds->count() > 0)
                 @php
@@ -271,7 +271,7 @@
 
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-    <h2 style="margin: 0">Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/sp.png')}}"  width="40px" style="width: 30px;"/> Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
         <div >
             @if($term_ESP->sounds->count() > 0)
                 @php
@@ -303,7 +303,7 @@
 </div>
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-    <h2 style="margin: 0">Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/port.png')}}"  width="40px" style="width: 30px;"/> Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_PORT->sounds->count() > 0)
             @php
@@ -335,7 +335,7 @@
 </div>
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-    <h2 style="margin: 0">Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/italy.png')}}"  width="40px" style="width: 30px;"/> Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_ITA->sounds->count() > 0)
             @php
@@ -368,7 +368,7 @@
 
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-    <h2 style="margin: 0">Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/holand.png')}}"  width="40px" style="width: 30px;"/> Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_DEU->sounds->count() > 0)
             @php
@@ -423,7 +423,7 @@
         }])->find(request()->id);
     @endphp
     <div style="display: flex; gap: 16px;align-items: center">
-    <h2 style='font-family: "Cairo", sans-serif !important;'>المصطلح بالعربية الفصحى: {{ $term_AR->names->count() > 0 ? $term_AR->names[0]->term : 'N/A' }}</h2>
+    <h2 style='font-family: "Cairo", sans-serif !important;display: flex;align-items: center; gap: 8px'> <img src="{{asset('/site/imgs/sa.png')}}"  width="40px" style="width: 30px;"/> المصطلح بالعربية الفصحى: {{ $term_AR->names->count() > 0 ? $term_AR->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_AR->sounds->count() > 0)
             @php
