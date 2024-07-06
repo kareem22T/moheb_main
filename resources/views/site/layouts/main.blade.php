@@ -331,31 +331,31 @@ header .bottom .categories {
                 e.preventDefault();
             });
         });
-        // $(document).bind("contextmenu",function(e) {
-        //     e.preventDefault();
-        //     });
-        //     $(document).keydown(function(e){
-        //     if(e.which === 123){
-        //         return false;
-        //     }
-        // });
-        // // $(document).ready(function() {
-        // //     $('#searchForm').on('submit', function(event) {
-        // //         event.preventDefault();  // Prevent the default action
-        // //         $("#error").fadeOut()
-        // //         window.location.href = `/search/${$('#search').val()}`;
-        // //     });
-        // // });
-        // // $(document).ready(function() {
-        // //     $('#search').on('keydown input', function(event) {
-        // //     $("#error").fadeOut()
-        // //         // Check if the Enter key is pressed
-        // //         if (event.key === 'Enter' || event.keyCode === 13) {
-        // //             event.preventDefault();  // Prevent the default action (if necessary)
-        // //             window.location.href = `/search/${$(this).val()}`;
-        // //         }
-        // //     });
-        // // });
+        $(document).bind("contextmenu",function(e) {
+            e.preventDefault();
+            });
+            $(document).keydown(function(e){
+            if(e.which === 123){
+                return false;
+            }
+        });
+        $(document).ready(function() {
+            $('#searchForm').on('submit', function(event) {
+                event.preventDefault();  // Prevent the default action
+                $("#error").fadeOut()
+                window.location.href = `/search/${$('#search').val()}`;
+            });
+        });
+        $(document).ready(function() {
+            $('#search').on('keydown input', function(event) {
+            $("#error").fadeOut()
+                // Check if the Enter key is pressed
+                if (event.key === 'Enter' || event.keyCode === 13) {
+                    event.preventDefault();  // Prevent the default action (if necessary)
+                    window.location.href = `/search/${$(this).val()}`;
+                }
+            });
+        });
 
         document.querySelectorAll('.audio_wrapper').forEach((wrapper, index) => {
   const audio = wrapper.querySelector('audio');
