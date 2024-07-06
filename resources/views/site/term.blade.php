@@ -368,7 +368,7 @@
 
 <div class="content" style="margin-bottom: 0;">
     <div style="display: flex; gap: 16px;align-items: center">
-    <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/holand.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
+    <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/german.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
     <div >
         @if($term_DEU->sounds->count() > 0)
             @php
