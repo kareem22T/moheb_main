@@ -605,29 +605,27 @@ class HomeController extends Controller
         $lang = $request->lang;
         $search = $request->search_words;
 
-        $preferredLanguageId = Language::where("symbol", $lang)->value('id');
-
-        $terms = Term::join('term_titles', 'terms.id', '=', 'term_titles.term_id')
-            ->where('term_titles.title', 'like', '%' . $search . '%')
-            ->with([
-                'titles' => function ($q) use ($preferredLanguageId) {
-                    $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-                },
-                'names' => function ($q) use ($preferredLanguageId) {
-                    $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-                },
-                'category' => function ($q) use ($preferredLanguageId) {
-                    $q->with(['names' => function ($Q) use ($preferredLanguageId) {
-                        $Q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-                    }]);
-                }
-            ])
-            ->orderByRaw("LOCATE(?, term_titles.title)", [$search])
-            ->select('terms.*')
-            ->paginate(30);
+        $terms = Term::whereHas("titles", function ($q) use ($search) {
+            $q->where('title', 'like', '%' . $search . '%');
+        })
+        ->with(["titles" => function ($q) use ($lang) {
+            $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+            $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
+        }, "names" => function ($q) use ($lang) {
+            $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+            $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
+        }, "category" => function ($q) use ($lang) {
+            $q->with(["names" => function ($Q) use ($lang) {
+                $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+                $Q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
+            }]);
+        }])
+        ->orderByRaw("LOCATE(?, titles.title)", [$search])
+        ->paginate(30);
 
         return $this->jsonData(true, true, '', [], $terms);
     }
+
     public function addToFav(Request $request) {
         $validator = Validator::make($request->all(), [
             'term_id' => ['required'],
