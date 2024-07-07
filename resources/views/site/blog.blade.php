@@ -480,7 +480,7 @@ methods: {
     },
     async handleSearch(lang){
         try {
-            const response = await axios.post( `/search`, {
+            const response = await axios.post( `/search-term`, {
                 lang: this.current_lang,
                 page: this.currentPage,
                 search_words: this.search

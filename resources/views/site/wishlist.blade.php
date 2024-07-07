@@ -455,7 +455,7 @@ methods: {
     },
     async handleSearch(lang){
         try {
-            const response = await axios.post( `/search`, {
+            const response = await axios.post( `/search-term`, {
                 lang: lang,
                 search_words: this.search
             },

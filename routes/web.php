@@ -35,7 +35,7 @@ use App\Http\Controllers\Site\HomeController;
     Route::post('/latest-categories', [HomeController::class, 'getLatestCategories'])->name('categories.getlatest');
     Route::post('/get-categories', [HomeController::class, 'getCategories'])->name('categories.get');
     Route::post('/get_football_cat', [HomeController::class, 'getFootballCat'])->name('categories.football');
-    Route::post('/search', [HomeController::class, 'search'])->name('words.search');
+    Route::post('/search-term', [HomeController::class, 'search'])->name('words.search');
     Route::post('/fav-add-delete', [HomeController::class, 'addToFav'])->name('fav.addordelete');
     Route::get('/contact-us', function () {
         return view("site.contact");

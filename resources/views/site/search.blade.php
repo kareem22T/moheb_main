@@ -52,7 +52,7 @@ computed: {
 methods: {
     async handleSearch(){
         try {
-            const response = await axios.post( `/search`, {
+            const response = await axios.post( `/search-term`, {
                 lang: this.current_lang,
                 search_words: this.search
             },
@@ -276,7 +276,7 @@ methods: {
     async getSearch(){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `/search`, {
+            const response = await axios.post( `/search-term`, {
                 lang: this.current_lang,
                 page: this.currentPage,
                 search_words: "{{request()->word}}"
