@@ -607,16 +607,8 @@ class HomeController extends Controller
 
         $preferredLanguageId = Language::where("symbol", $lang)->value('id');
 
-        $termIds = Term::join('term_titles', 'terms.id', '=', 'term_titles.term_id')
+        $terms = Term::join('term_titles', 'terms.id', '=', 'term_titles.term_id')
             ->where('term_titles.title', 'like', '%' . $search . '%')
-            ->select('terms.id')
-            ->distinct()
-            ->orderByRaw("LOCATE(?, term_titles.title)", [$search])
-            ->pluck('terms.id')
-            ->toArray();
-
-        $terms = Term::whereIn('id', $termIds)
-            ->orderByRaw("FIELD(id, " . implode(',', $termIds) . ")")
             ->with([
                 'titles' => function ($q) use ($preferredLanguageId) {
                     $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
@@ -630,6 +622,8 @@ class HomeController extends Controller
                     }]);
                 }
             ])
+            ->orderByRaw("LOCATE(?, term_titles.title)", [$search])
+            ->select('terms.*')
             ->paginate(30);
 
         return $this->jsonData(true, true, '', [], $terms);
