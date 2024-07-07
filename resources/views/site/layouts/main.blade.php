@@ -15,6 +15,9 @@
         .play_btn.playing .icon-tabler-player-play-filled{
             display: none
         }
+        header {
+            top: 0
+        }
         .play_btn.pausing .icon-tabler-player-pause-filled{
             display: none
         }
@@ -64,22 +67,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-button {
-  padding: 10px;
-  border: none;
-  background-color: #007BFF;
-  color: white;
-  cursor: pointer;
-}
-
-button.play {
-  background-color: #28a745;
-}
-
-button.pause {
-  background-color: #dc3545;
 }
 
 input[type="range"] {
@@ -263,7 +250,15 @@ header .bottom .categories {
             display: flex;
             justify-content: center;
             align-items: start;
-            gap: 16px
+            gap: 16px;
+        }
+        .space-header {
+            height: 120px;
+        }
+        @media(max-width: 767.98px) {
+            .space-header {
+                height: 90px
+            }
         }
         .content-fluid >div >*:not(.container) {
             width: 100%
@@ -293,7 +288,7 @@ header .bottom .categories {
             }
         }
     </style>
-    <script>
+    {{-- <script>
         document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         });
@@ -302,7 +297,7 @@ header .bottom .categories {
             e.clipboardData.setData('text/html', '<b>Please do not copy text</b>');
             e.preventDefault();
         });
-    </script>
+    </script> --}}
     <title>Moheb | @yield('title')</title>
 </head>
 <body>
@@ -326,19 +321,19 @@ header .bottom .categories {
         $(document).on('click', '.close', function () {
             $('.mobile-menu').fadeOut()
         })
-        $(function() {
-            $(this).bind("contextmenu", function(e) {
-                e.preventDefault();
-            });
-        });
-        $(document).bind("contextmenu",function(e) {
-            e.preventDefault();
-            });
-            $(document).keydown(function(e){
-            if(e.which === 123){
-                return false;
-            }
-        });
+        // $(function() {
+        //     $(this).bind("contextmenu", function(e) {
+        //         e.preventDefault();
+        //     });
+        // });
+        // $(document).bind("contextmenu",function(e) {
+        //     e.preventDefault();
+        //     });
+        //     $(document).keydown(function(e){
+        //     if(e.which === 123){
+        //         return false;
+        //     }
+        // });
         $(document).ready(function() {
             $('#searchForm').on('submit', function(event) {
                 event.preventDefault();  // Prevent the default action

@@ -41,24 +41,24 @@
 </style>
 <div id="home">
     @include('site.includes.header')
-    <div class="container" style="margin-top: 2rem; margin-bottom: 5rem">
-
-        <div class="about" style="padding: 1.5rem;width: 100%;margin: auto;position: relative;display: grid;grid-template-columns: 1fr 1fr;gap: 2rem;">
-            <img src="{{asset('/site/imgs/about.jpg')}}" alt="" style="width: 100%;border-radius: 10px">
+    <div class="container" style="margin-top: 2rem; margin-bottom: 5rem;">
+        <div class="about" aria-labelledby="about us content" style="padding: 1.5rem; width: 100%; margin: auto; position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <img src="{{ asset('/site/imgs/about.jpg') }}" alt="About Image" style="width: 100%; border-radius: 10px">
             <div>
-                <h1 style="font-weight: 600;color: #0d0d0d;display: flex;alig-items: center;gap: 10px">
+                <h1 style="font-weight: 600; color: #0d0d0d; display: flex; align-items: center; gap: 10px;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-square" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="#0d0d0d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M12 9h.01" />
-                        <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
-                        <path d="M11 12h1v4h1" />
+                        <path d="M12 9h.01"/>
+                        <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"/>
+                        <path d="M11 12h1v4h1"/>
                     </svg>
-                    @{{ page_content.about.head }}</h1>
-                    <p v-if="descriptions" style="line-height: 25px;margin-bottom: 0;  font-size: 1rem;">
-                        @{{descriptions[current_lang] ? descriptions[current_lang] : descriptions['EN']}}
-                    </p>
-                </div>
+                    @{{ page_content.about.head }}
+                </h1>
+                <p v-if="descriptions" style="line-height: 25px; margin-bottom: 0; font-size: 1rem;">
+                    @{{ descriptions[current_lang] ? descriptions[current_lang] : descriptions['EN'] }}
+                </p>
             </div>
+        </div>
     </div>
     @include('site.includes.footer')
 </div>
