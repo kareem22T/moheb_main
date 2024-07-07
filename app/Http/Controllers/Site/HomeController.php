@@ -605,13 +605,14 @@ class HomeController extends Controller
         $lang = $request->lang;
         $search = $request->search_words;
 
-        $terms = Term::whereHas("titles", function ($q) use ($search) {
+        $terms = Term::
+        whereHas("titles", function ($q) use ($lang, $search) {
             $q->where('title', 'like', '%' . $search . '%');
-        })
-        ->with(["titles" => function ($q) use ($lang) {
-            $preferredLanguageId = Language::where("symbol", $lang)->value('id');
-            $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-        }, "names" => function ($q) use ($lang) {
+        })->
+        with(["titles" => function ($q) use ($lang, $search) {
+        $preferredLanguageId = Language::where("symbol", $lang)->value('id');
+        $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
+        }, "names" => function ($q) use ($lang, $search) {
             $preferredLanguageId = Language::where("symbol", $lang)->value('id');
             $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
         }, "category" => function ($q) use ($lang) {
@@ -620,12 +621,11 @@ class HomeController extends Controller
                 $Q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
             }]);
         }])
-        ->orderByRaw("LOCATE(?, titles.title)", [$search])
         ->paginate(30);
 
         return $this->jsonData(true, true, '', [], $terms);
-    }
 
+    }
     public function addToFav(Request $request) {
         $validator = Validator::make($request->all(), [
             'term_id' => ['required'],
