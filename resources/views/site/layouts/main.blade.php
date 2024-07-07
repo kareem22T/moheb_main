@@ -288,7 +288,7 @@ header .bottom .categories {
             }
         }
     </style>
-    {{-- <script>
+    <script>
         document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         });
@@ -297,7 +297,7 @@ header .bottom .categories {
             e.clipboardData.setData('text/html', '<b>Please do not copy text</b>');
             e.preventDefault();
         });
-    </script> --}}
+    </script>
     <title>Moheb | @yield('title')</title>
 </head>
 <body>
@@ -321,19 +321,19 @@ header .bottom .categories {
         $(document).on('click', '.close', function () {
             $('.mobile-menu').fadeOut()
         })
-        // $(function() {
-        //     $(this).bind("contextmenu", function(e) {
-        //         e.preventDefault();
-        //     });
-        // });
-        // $(document).bind("contextmenu",function(e) {
-        //     e.preventDefault();
-        //     });
-        //     $(document).keydown(function(e){
-        //     if(e.which === 123){
-        //         return false;
-        //     }
-        // });
+        $(function() {
+            $(this).bind("contextmenu", function(e) {
+                e.preventDefault();
+            });
+        });
+        $(document).bind("contextmenu",function(e) {
+            e.preventDefault();
+            });
+            $(document).keydown(function(e){
+            if(e.which === 123){
+                return false;
+            }
+        });
         $(document).ready(function() {
             $('#searchForm').on('submit', function(event) {
                 event.preventDefault();  // Prevent the default action
@@ -342,12 +342,14 @@ header .bottom .categories {
             });
         });
         $(document).ready(function() {
-            $('#search').on('keydown input', function(event) {
+            $(document).on('keydown input', '#search', function(event) {
+                console.log("adfa");
             $("#error").fadeOut()
                 // Check if the Enter key is pressed
                 if (event.key === 'Enter' || event.keyCode === 13) {
                     event.preventDefault();  // Prevent the default action (if necessary)
-                    window.location.href = `/search/${$(this).val()}`;
+                    if ($(this).val())
+                        window.location.href = `/search/${$(this).val()}`;
                 }
             });
         });

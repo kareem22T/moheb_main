@@ -62,14 +62,6 @@ methods: {
                 document.getElementById('errors').innerHTML = ''
                 this.searchArticles = response.data.data.data
             } else {
-                document.getElementById('errors').innerHTML = ''
-                $.each(response.data.errors, function (key, value) {
-                    let error = document.createElement('div')
-                    error.classList = 'error'
-                    error.innerHTML = value
-                    document.getElementById('errors').append(error)
-                });
-                $('#errors').fadeIn('slow')
                 setTimeout(() => {
                     $('input').css('outline', 'none')
                     $('#errors').fadeOut('slow')

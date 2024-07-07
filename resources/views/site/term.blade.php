@@ -752,12 +752,6 @@ methods: {
             }
 
         } catch (error) {
-            document.getElementById('errors').innerHTML = ''
-            let err = document.createElement('div')
-            err.classList = 'error'
-            err.innerHTML = 'server error try again later'
-            document.getElementById('errors').append(err)
-            $('#errors').fadeIn('slow')
             $('.loader').fadeOut()
 
             setTimeout(() => {
