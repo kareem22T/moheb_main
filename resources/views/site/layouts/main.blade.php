@@ -142,7 +142,18 @@ header .bottom .categories {
         @keyframes s7 {
         100% {transform: rotate(1turn)}
         }
-
+        .mobile_icons_header {
+            display: none !important
+        }
+        @media (max-width: 767.98px) {
+            .mobile_icons_header {
+                display: flex !important;
+                margin-top: 16px
+            }
+            .icons_header {
+                display: none !important
+            }
+        }
         #errors {
             position: fixed;
             top: 190px;
