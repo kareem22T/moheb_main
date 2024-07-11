@@ -664,8 +664,10 @@ createApp({
     },
     currprevSubCat() {
         this.currgetSubCategories().then(() => {
-            if (this.currsub_categories_data.length) {
-                this.currshow_sub_categories = true
+            if (this.sub_categories_data.length) {
+                this.show_sub_categories = true
+            }else {
+                this.show_sub_categories = false
             }
         })
     },

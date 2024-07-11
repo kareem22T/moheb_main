@@ -486,7 +486,7 @@ createApp({
                 this.term_data = response.data.data
                 this.main_name = this.term_data.name
                 this.thumbnail_path = this.term_data.thumbnail_path
-                this.cat_id = this.term_data.category.id
+                this.cat_id = this.term_data.category_id
 
                 for (let index = 0; index < this.term_data.tags.length; index++) {
                     const element = this.term_data.tags[index];
@@ -700,6 +700,7 @@ createApp({
             );
             if (response.data.status === true) {
                 $('.loader').fadeOut()
+                this.sub_categories_data = []
                 this.sub_categories_data = response.data.data
             } else {
                 $('.loader').fadeOut()
@@ -743,6 +744,8 @@ createApp({
         this.getSubCategories().then(() => {
             if (this.sub_categories_data.length) {
                 this.show_sub_categories = true
+            }else {
+                this.show_sub_categories = false
             }
         })
     },
