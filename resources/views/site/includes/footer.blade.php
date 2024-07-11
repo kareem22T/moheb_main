@@ -5,6 +5,7 @@
         <a href="/contact-us">@{{ page_content ? page_content.footer.nav.link_3 : "Contact Us" }}</a>
     </div>
     <div class="bottom">
-        Powerd by Centre de paris 2024
+        Powerd by Centre de paris 2024 <br>
+        technology provider  <a href="https://www.linkedin.com/in/omar-ldeeb" target="_blank">@omarldeeb</a>
     </div>
 </footer>
