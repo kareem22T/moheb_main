@@ -6,6 +6,8 @@
     </div>
     <div class="bottom">
         Powerd by Centre de paris 2024 <br>
-        technology provider  <a href="https://www.linkedin.com/in/omar-ldeeb" target="_blank">@omarldeeb</a>
+        <div style="display: flex; gap: 8px">
+            technology provider  <a style="color: #fff;" href="https://www.linkedin.com/in/omar-ldeeb" target="_blank">@omarldeeb</a>
+        </div>
     </div>
 </footer>
