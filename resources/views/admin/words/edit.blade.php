@@ -125,7 +125,7 @@
                     <div class="w-100 mb-3 d-flex gap-3">
                         <div class="w-100" v-if="categories_data">
                             <label for="symbol" class="form-label">Category *</label>
-                            <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id" @change="prevSubCat()">
+                            <select name="cat_type" id="cat_type" class="form-control" v-model="main_cat_id" @change="prevSubCat()">
                                 <option v-for="(category, index) in categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
                                     @{{category.main_name}}
                                 </option>
@@ -134,7 +134,7 @@
 
                         <div class="w-100" v-if="show_sub_categories">
                             <label for="symbol" class="form-label">Sub Category</label>
-                            <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id" @change="prevSubCat()">
+                            <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id">
                                 <option v-for="(category, index) in sub_categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
                                     @{{category.main_name}}
                                 </option>
@@ -245,6 +245,7 @@ createApp({
       sounds_translations: {},
       show_sub_categories: false,
       term_data: null,
+      main_cat_id: null,
       tagInput: '',
       tags: [],
       search_tags: null,
@@ -327,7 +328,7 @@ createApp({
                 content_translations: content_translations,
                 thumbnail: thumbnail,
                 sounds_translations: sounds_translations,
-                cat_id: cat_id,
+                cat_id: this.cat_id ?  this.cat_id : this.main_cat_id,
                 term_id: this.term_id,
                 tags: tags
             },
@@ -486,7 +487,12 @@ createApp({
                 this.term_data = response.data.data
                 this.main_name = this.term_data.name
                 this.thumbnail_path = this.term_data.thumbnail_path
-                this.cat_id = this.term_data.category_id
+                if (!this.term_data.category.main_cat_id) {
+                    this.main_cat_id = this.term_data.category.id
+                } else {
+                    this.cat_id = this.term_data.category.id
+                    this.main_cat_id = this.term_data.category.main_cat_id
+                }
 
                 for (let index = 0; index < this.term_data.tags.length; index++) {
                     const element = this.term_data.tags[index];
@@ -695,7 +701,7 @@ createApp({
         $('.loader').fadeIn().css('display', 'flex')
         try {
             const response = await axios.post(`/admin/categories/sub`, {
-                cat_id: this.cat_id
+                cat_id: this.main_cat_id
             },
             );
             if (response.data.status === true) {
@@ -741,6 +747,8 @@ createApp({
         })
     },
     prevSubCat() {
+        this.cat_id = null
+
         this.getSubCategories().then(() => {
             if (this.sub_categories_data.length) {
                 this.show_sub_categories = true
@@ -976,11 +984,18 @@ createApp({
   },
   mounted() {
     this.term_id = document.getElementById('term_id').value ? document.getElementById('term_id').value : undefined;
-    this.getTerm()
+    this.getTerm().then(() => {
+        this.getSubCategories().then(() => {
+            if (this.sub_categories_data.length) {
+                this.show_sub_categories = true
+            }else {
+                this.show_sub_categories = false
+            }
+        })
+    })
     this.getNameTranslations()
     this.getTermTitles()
     this.getTermContent()
-    this.getTermSounds()
     $("#thumbnail").change(function () {
         // check if file is valid image
         var file = this.files[0];
