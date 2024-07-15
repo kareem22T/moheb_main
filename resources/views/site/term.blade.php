@@ -76,14 +76,6 @@
                 <h1>@{{ term_data.title }}</h1>
                 <div style="display: flex;justify-content: space-between;">
                     <div style="display: flex;gap: 18px;">
-                        <span>By <b>Admin</b></span>
-                        <span class="date" style="margin: 0;">
-                            <i class="fa-regular fa-calendar-days" style="font-size: 18px; margin: 0 7px;"></i> @{{ new Date(term_data.created_at).toLocaleString("en-US", {
-                                                                                    month: "long",
-                                                                                    day: "numeric",
-                                                                                    year: "numeric"
-                                                                                    }) }}
-                        </span>
                         <a v-if="term_data" :href="`/category/${term_data?.category.id}`" style="display: inline-flex; gap: 8px; color: black;align-items: center;" class="cat">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

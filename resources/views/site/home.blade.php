@@ -15,7 +15,7 @@
                         <a :href="`/category/${football.id}`" class="view-more"> @{{ page_content ? page_content.sections.view_all : "View All" }}</a>
                     </div>
                     <div class="sub_categories" v-if="football.terms && football.terms.length">
-                        <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in football.terms" :key="term.id">
+                        <a class="card" :href="`/term/${getSlug(term.name)}/${term.id}`" v-for="term in football.terms" :key="term.id">
                             <img :src="term.thumbnail_path" :alt="term.name">
                             <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                         </a>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="terms">
                             <div class="term" v-for="(term, index) in terms" :key="index">
-                                <a :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\s+|\/+/g, '-').replace(/\//g, '')}/${term.id}`" target="_blank">
+                                <a :href="`/term/${getSlug(term.name)}/${term.id}`" target="_blank">
                                     <h2>@{{ term.name }}</h2>
                                     <h4>@{{ term.category_name }}</h4>
                                 </a>
@@ -113,6 +113,9 @@
         }
     },
     methods: {
+        getSlug(term) {
+            return term.replace(/\s+|\/+|["']/g, '-').replace(/-{2,}/g, '-')
+        },
         async getLanguages() {
             $('.loader').fadeIn().css('display', 'flex')
             try {

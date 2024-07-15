@@ -267,7 +267,11 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::where("is_in_nav", true)->get();
+            $category = Category::with(["sub_categories" => function ($q) use ($lang) {
+                $q->with(["names" => function ($Q) use ($lang) {
+                    $Q->where('language_id', $lang->id)->first();
+                }]);
+            }])->where("is_in_nav", true)->get();
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;
@@ -297,7 +301,11 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::where("is_in_nav", true)->get();
+            $category = Category::with(["sub_categories" => function ($q) use ($lang) {
+                $q->with(["names" => function ($Q) use ($lang) {
+                    $Q->where('language_id', $lang->id)->first();
+                }]);
+            }])->where("is_in_nav", true)->get();
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;

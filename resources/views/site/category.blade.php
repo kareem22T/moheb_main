@@ -12,7 +12,7 @@
             </div>
             <p style="padding: 4px 8px;margin-bottom: 16px;font-weight: 700"> @{{ football.description }}</p>
             <div class="sub_categories" v-if="terms && terms.length">
-                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in terms" :key="term.id">
+                <a class="card" :href="`/term/${getSlug(term.name)}/${term.id}`" v-for="term in terms" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
                     <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                 </a>
@@ -56,6 +56,9 @@ data() {
     }
 },
 computed: {
+    getSlug(term) {
+            return term.replace(/\s+|\/+|["']/g, '-').replace(/-{2,}/g, '-')
+    },
     visiblePages() {
       const range = 8;
       let start = Math.max(this.currentPage - Math.floor(range / 2), 1);
