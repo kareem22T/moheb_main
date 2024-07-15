@@ -55,6 +55,7 @@ use App\Http\Controllers\Site\HomeController;
     Route::get('/category/{id}', [HomeController::class, 'getCategoryIndex'])->name('category.get');
     Route::get('/search/{word}', [HomeController::class, 'searchIndex'])->name('view.search');
     Route::get('/my-wishlist', [HomeController::class, 'favIndex'])->name('view.wishlist');
+    Route::get('/comment/push', [HomeController::class, 'pushComment'])->name('push.comment');
 
     Route::get('/', function () {
         return view('site.home');

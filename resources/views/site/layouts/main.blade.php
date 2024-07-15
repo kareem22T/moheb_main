@@ -264,11 +264,11 @@ header .bottom .categories {
             gap: 16px;
         }
         .space-header {
-            height: 120px;
+            height: 150px;
         }
         @media(max-width: 767.98px) {
             .space-header {
-                height: 90px
+                height: 150px
             }
         }
         .content-fluid >div >*:not(.container) {

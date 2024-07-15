@@ -288,6 +288,12 @@
                   </span>
                   <span class="hide-menu">About Us</span>
                 </a>
+                <a class="sidebar-link @yield('comments_active')" href="{{ route('comments.get') }}" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-address-book"></i>
+                  </span>
+                  <span class="hide-menu">Comment</span>
+                </a>
               </li>
           </ul>
         </nav>

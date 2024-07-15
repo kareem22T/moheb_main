@@ -510,8 +510,49 @@
                 @{{tag.name}}
             </a>
         </div>
+        <form action="/comment/push">
+            <div class="form-group">
+                <input type="text" name="name" id="name" placeholder="Name" style="
+                    width: 100%;
+                    padding: clamp(0.9rem, calc(0.7667rem + 0.5333vw), 1.1rem);
+                    font-size: clamp(0.8rem, calc(0.6667rem + 0.5333vw), 1rem);
+                    border-radius: clamp(0.7rem, calc(0.5rem + 0.8vw), 1rem);
+                    border: 1px solid #d5dfe4;
+                    background-color: #f0f3f8;
+                    color: #0b5177;
+                    " required>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Email"style="
+                width: 100%;
+                padding: clamp(0.9rem, calc(0.7667rem + 0.5333vw), 1.1rem) ;
+                font-size: clamp(0.8rem, calc(0.6667rem + 0.5333vw), 1rem);
+                border-radius: clamp(0.7rem, calc(0.5rem + 0.8vw), 1rem);
+                border: 1px solid #d5dfe4;
+                background-color: #f0f3f8;
+                color: #0b5177;
+                " required>
+            </div>
+            <br>
+            <div class="form-group">
+                <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Comment"style="
+                width: 100%;
+                padding: clamp(0.9rem, calc(0.7667rem + 0.5333vw), 1.1rem);
+                font-size: clamp(0.8rem, calc(0.6667rem + 0.5333vw), 1rem);
+                border-radius: clamp(0.7rem, calc(0.5rem + 0.8vw), 1rem);
+                border: 1px solid #d5dfe4;
+                background-color: #f0f3f8;
+                color: #0b5177;
+                resize: none
+                " required></textarea>
+            </div>
+            <input type="hidden" name="term_id" value="{{$term->id}}">
+            <br>
+            <button class="button">Submit</button>
+        </form>
         </article>
-        </div>
+    </div>
 
 <div>
 @include('site.includes.footer')

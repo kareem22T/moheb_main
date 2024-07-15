@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\WordsController;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\Admin\ImagesController;
 use App\Http\Controllers\Admin\MainController;
@@ -45,6 +46,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/tags/add', [TagsController::class, 'add']);
     Route::get('/tags/content', [TagsController::class, 'contentIndex']);
     Route::post('/tags/content/update', [TagsController::class, 'updateContentFile']);
+
+    //comments
+    Route::get('/comments/show', [CommentController::class, 'index'])->name("comments.get");
+    Route::post('/comments', [CommentController::class, 'comments']);
 
     //categories
     Route::get('/categories', [CategoriesController::class, 'preview']);

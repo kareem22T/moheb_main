@@ -17,6 +17,7 @@ use App\Models\Term_Sound;
 use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\Category_Name;
+use App\Models\Comment;
 use App\Traits\DataFormController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,20 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     use DataFormController;
+
+    public function pushComment(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required',
+            'email' => 'required',
+            'name' => 'required',
+            'term_id' => 'required',
+        ]);
+
+        $comment = Comment::create($request->toArray());
+
+        if ($comment)
+            return redirect()->back()->with(["succes" => "Comment Submited successfuly"]);
+    }
 
     public function favTerms (Request $request) {
         $lang = $request->lang ? Language::where("symbol", $request->lang)->first() : Language::where("symbol", "EN")->first();
