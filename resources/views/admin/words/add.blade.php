@@ -127,14 +127,14 @@
                     <div class="w-100 mb-3 d-flex gap-3 align-items-end">
                         <div class="w-100" v-if="categories_data">
                             <label for="symbol" class="form-label">Category *</label>
-                            <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id" @change="prevSubCat()">
+                            <select name="cat_type" id="cat_type" class="form-control" v-model="main_cat_id" @change="prevSubCat()">
                                 <option v-for="(category, index) in categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
                                     @{{category.main_name}}
                                 </option>
                             </select>
                         </div>
 
-                        <div class="w-100" v-if="show_sub_categories">
+                        <div class="w-100" v-if="show_sub_categories &&  sub_categories_data.length > 0">
                             <label for="symbol" class="form-label">Sub Category</label>
                             <select name="cat_type" id="cat_type" class="form-control" v-model="cat_id">
                                 <option v-for="(category, index) in sub_categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
@@ -151,14 +151,14 @@
                         <div class="d-flex justify-content-center gap-2 align-items-end">
                             <div class="w-100" v-if="categories_data">
                                 <label for="symbol" class="form-label">Category *</label>
-                                <select name="cat_type" id="cat_type" class="form-control" v-model="current_cat_id" @change="currprevSubCat()">
+                                <select name="cat_type" id="cat_type" class="form-control" v-model="main_cat_id" @change="currprevSubCat()">
                                     <option v-for="(category, index) in categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
                                         @{{category.main_name}}
                                     </option>
                                 </select>
                             </div>
 
-                            <div class="w-100" v-if="currshow_sub_categories">
+                            <div class="w-100" v-if="currshow_sub_categories && currsub_categories_data.length > 0">
                                 <label for="symbol" class="form-label">Sub Category</label>
                                 <select name="cat_type" id="cat_type" class="form-control" v-model="current_cat_id">
                                     <option v-for="(category, index) in currsub_categories_data" :key="index" :value="category.id" v-if="categories_data.length > 0">
@@ -292,6 +292,7 @@ createApp({
       preview_img: null,
       search: null,
       current_cat_id: null,
+      main_cat_id: null,
       page: 1,
       total: 0,
       last_page: 0,
@@ -374,7 +375,7 @@ createApp({
                 thumbnail: thumbnail,
                 sounds_translations: sounds_translations,
                 additional_categories: this.additional_cat,
-                cat_id: cat_id,
+                cat_id: this.cat_id || this.main_cat_id,
                 tags: tags
             },
             {
@@ -527,12 +528,13 @@ createApp({
         $('.loader').fadeIn().css('display', 'flex')
         try {
             const response = await axios.post(`/admin/categories/sub`, {
-                cat_id: this.cat_id
+                cat_id: this.main_cat_id
             },
             );
             if (response.data.status === true) {
                 $('.loader').fadeOut()
                 this.sub_categories_data = response.data.data
+                this.cat_id = null
             } else {
                 $('.loader').fadeOut()
                 document.getElementById('errors').innerHTML = ''
@@ -569,7 +571,7 @@ createApp({
         $('.loader').fadeIn().css('display', 'flex')
         try {
             const response = await axios.post(`/admin/categories/sub`, {
-                cat_id: this.current_cat_id
+                cat_id: this.main_cat_id
             },
             );
             if (response.data.status === true) {
