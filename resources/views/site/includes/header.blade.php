@@ -153,11 +153,13 @@
                 <div  v-for="cat in all_categories" :class="cat.main_name == 'Football' ? 'has-drop' : ''" :key="cat.id" style="position: relative">
                     <a :href="`/category/${cat.id}`"  style="display: block !important;">
                         @{{cat.name}}
-                        <div class="drop" v-if="cat.main_name == 'Football'" style="display: none;position: fixed; top: calc(100% + 16px);width: 100vw;z-index: 9999; left: 0px; top: 165px;left: 50%;transform: translateX(-50%);">
-                            <div class="container" style="display: flex; background: rgb(0, 65, 106); z-index: 9999; flex-direction: revert; justify-content: start; gap: 20px; padding: 12px; border-radius: 8px; flex-wrap: wrap;">
-                                <a :href="`/category/${sub_cat.id}`" style="display: block;" v-for="sub_cat in cat?.sub_categories">
-                                    @{{sub_cat.names[0] ? sub_cat.names[0]["name"] : sub_cat.main_name}}
-                                </a>
+                        <div style=" left: 0px; top: 165px;left: 50%;transform: translateX(-50%);position: fixed" dir="ltr">
+                            <div class="container" style="display: block">
+                                <div class="drop" v-if="cat.main_name == 'Football'" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;display: none;width: max-content;z-index: 9999;background: rgb(0, 65, 106); z-index: 9999; flex-direction: revert; justify-content: start; gap: 20px; padding: 12px; border-radius: 8px; flex-wrap: wrap;flex-direction: column;background: white;">
+                                    <a :href="`/category/${sub_cat.id}`" style="display: block;color: #000; padding: 4px; width: 180px" v-for="sub_cat in cat?.sub_categories">
+                                        @{{sub_cat.names[0] ? sub_cat.names[0]["name"] : sub_cat.main_name}}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </a>

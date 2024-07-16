@@ -46,7 +46,7 @@
                 <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@{{term.id}}</h6></td>
                 <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@{{term.name}}</h6></td>
                 <td class="border-bottom-0">
-                    <p class="mb-0 fw-normal">@{{term.category.main_name}}</p>
+                    <p class="mb-0 fw-normal">@{{term.category?.main_name}}</p>
                 </td>
                 <td class="border-bottom-0">
                     <div class="d-flex gap-2">

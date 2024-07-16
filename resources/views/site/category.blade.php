@@ -56,9 +56,6 @@ data() {
     }
 },
 computed: {
-    getSlug(term) {
-            return term.replace(/\s+|\/+|["']/g, '-').replace(/-{2,}/g, '-')
-    },
     visiblePages() {
       const range = 8;
       let start = Math.max(this.currentPage - Math.floor(range / 2), 1);
@@ -78,6 +75,9 @@ computed: {
     }
   },
 methods: {
+    getSlug(term) {
+            return term.replace(/\s+|\/+|["']/g, '-').replace(/-{2,}/g, '-')
+    },
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {

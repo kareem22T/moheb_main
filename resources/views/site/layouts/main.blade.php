@@ -440,6 +440,7 @@ $(document).on("click", ".audio-player .play_btn", function () {
     $(document).on("click", ".has-drop >a", function(e) {
         e.preventDefault()
     })
+
     </script>
 </body>
 </html>
