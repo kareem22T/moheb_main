@@ -40,7 +40,9 @@
         body {
   font-family: Arial, sans-serif;
 }
-
+.AR .has-drop .container {
+    direction: rtl;
+}
 .search-container {
   margin-bottom: 20px;
 }
