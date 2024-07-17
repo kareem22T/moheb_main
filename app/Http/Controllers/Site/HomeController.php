@@ -269,7 +269,7 @@ class HomeController extends Controller
 
             $category = Category::with(["sub_categories" => function ($q) use ($lang) {
                 $q->with(["names" => function ($Q) use ($lang) {
-                    $Q->where('language_id', $lang->id)->first();
+                    $Q->where('language_id', $lang['id'])->first();
                 }]);
             }])->where("is_in_nav", true)->get();
             foreach ($category as $cat) {
