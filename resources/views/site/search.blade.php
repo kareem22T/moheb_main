@@ -11,7 +11,7 @@
                 <h1><i class="fa-solid fa-search"></i> {{ request()->word }}</h1>
             </div>
             <div class="sub_categories" v-if="articles && articles.length">
-                <a class="card" :href="`${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in articles" :key="term.id">
+                <a class="card" :href="`/term/${term.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '')}/${term.id}`" v-for="term in articles" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
                     <h1>@{{ term.names.length > 0 ? term.names[0].term : term.name }}</h1>
                     <span class="cat">@{{ term.category.names[0].name }}</span>
