@@ -43,6 +43,12 @@
 .AR .has-drop .container {
     direction: rtl;
 }
+.has-drop .drop a {
+    transition: all .3s ease-in
+}
+.has-drop .drop a:hover {
+    color: #1a3467 !important
+}
 .search-container {
   margin-bottom: 20px;
 }
