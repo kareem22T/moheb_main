@@ -14,7 +14,7 @@
                         <path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" />
                         <path d="M3 3l18 18" />
                     </svg>
-                    Supports <br> visually <br>impaired
+                    Supports visually impaired
                     </span>
                     <span style="display: flex;align-items: center;gap: 4px;color: #fff; width: max-content">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-article" width="35" height="35" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -39,18 +39,20 @@
                     </span>
                 </div>
             </div>
-            <div class="search">
+            <div class="search" v-if="showSearch" style="position: fixed;top: 0;left: 0;width: 100%;height: 100vh;background: #0000003b;z-index: 999999;padding: 1rem;box-sizing: border-box;">
                 <!-- Added v-model binding and @input event handler for search functionality -->
-                <input type="text" name="search" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
-                <a :href="`/search/${search}`" >
+                <div class="hide-content" @click="showSearch = false" style="position: fixed;width: 100%;height: 100vh;top: 0;left: 0;background: #0003;"></div>
+                <input type="text" name="search"style="width: 100%;z-index: 9999999;position: relative;" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
+                <a :href="`/search/${search}`"style="transform: none;top: 27px;right: 34px;z-index: 99999991;" >
                     <i class="fa fa-search"></i>
                 </a>
                 <!-- Added suggestion box for search results -->
-                <div class="suggestion" v-if="searchArticles.length && search" style="  z-index: 999999;font-size: 17px;position: absolute;top: 100%;display: flex;flex-direction: column;background: white;width: 100%;border-radius: 10px;margin-top: 10px;">
+                <div class="suggestion" v-if="searchArticles.length && search" style="z-index: 999999; font-size: 17px; position: absolute; top: 100%; display: flex; flex-direction: column; background: white; width: 100%; border-radius: 10px; margin-top: 10px;top: 70px;width: 100%;max-width: 90%;left: 50%;transform: translateX(-50%);">
                     <a :href="`/term/${item.name.replace(/\//g, '').replace(/\s+/g, '-')}/${item.id}`"  v-for="item in searchArticles.slice(0, 5)" :key="item.id" style="font-size: 16px;border-bottom: 1px solid #80808052;padding: 5px 1rem;color: #1a3467;">@{{item.titles[0].title}}<span>@{{ item.category.names[0].name }}</span></a>
                     <a :href="`/search/${search}`" style="font-size: 16px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 5px 1rem;color: #1a3467;text-align: center;">Show All</a>
                 </div>
             </div>
+
             <div class="social">
                 @php
                     $contact = App\Models\Contact::first();
@@ -166,6 +168,7 @@
                 </div>
             </div>
             <div class="more">
+                <i class="fa fa-search" style="margin: 0 12px;cursor: pointer" @click="showSearch = true"></i>
                 <i class="fa fa-bars"></i>
             <div class="mobile-menu">
                 <div class="close">

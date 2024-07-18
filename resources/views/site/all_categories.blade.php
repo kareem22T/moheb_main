@@ -28,6 +28,7 @@ const { createApp, ref } = Vue
 createApp({
 data() {
     return {
+        showSearch: false,
         user: null,
         languages_data: null,
         current_lang: "EN",

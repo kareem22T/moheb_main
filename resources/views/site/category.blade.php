@@ -39,6 +39,7 @@ data() {
     return {
         user: null,
         languages_data: null,
+        showSearch: false,
         current_lang: "EN",
         terms: null,
         all_categories: null,

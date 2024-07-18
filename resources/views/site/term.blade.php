@@ -567,6 +567,7 @@ data() {
         all_categories: null,
         search: null,
         searchArticles: [],
+        showSearch: false,
         showProfileMore: false,
         page_translations: null,
         page_content: this.page_translations ? this.page_translations[this.current_lang] : '',

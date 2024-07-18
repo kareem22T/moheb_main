@@ -74,6 +74,7 @@
     data() {
         return {
             user: null,
+            showSearch: false,
             languages_data: null,
             current_lang: "EN",
             terms: null,

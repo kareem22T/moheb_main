@@ -105,6 +105,7 @@ data() {
     return {
         article_id: `{{ request()->id }}`,
         article_data: null,
+        showSearch: false,
         user: null,
         all_categories: null,
         languages_data: null,

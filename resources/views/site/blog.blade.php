@@ -57,6 +57,7 @@ data() {
         user: null,
         languages_data: null,
         current_lang: "EN",
+        showSearch: false,
         terms: null,
         categories: null,
         articles: null,
