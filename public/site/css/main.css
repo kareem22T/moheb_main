@@ -358,10 +358,6 @@ header .bottom .more .fa-bars {
         display: none !important;
     }
 
-    header .top .container .search {
-        display: none !important;
-    }
-
     header .top {
         padding: .5rem 0;
     }
