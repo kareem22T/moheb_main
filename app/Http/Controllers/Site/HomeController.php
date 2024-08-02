@@ -468,7 +468,7 @@ class HomeController extends Controller
         }
      }
 
-    public function getCategoryById(Request $request) {
+     public function getCategoryById(Request $request) {
         try {
             // Fetch language once outside nested queries
             $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
@@ -484,21 +484,10 @@ class HomeController extends Controller
 
             $category = Category::with(['terms' => function ($q) use ($lang) {
                 // No need to fetch $lang here, use the captured $lang
-                $lang = $lang;
                 $q->with(['names' => function ($query) use ($lang) {
                     $query->where("language_id", $lang->id);
                 }])->where('hide', false);
             }, "sub_categories"])->find($request->id);
-
-            $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
-            $category->name = $category_name->name;
-
-            $category_desc = Categories_description::where('category_id', $category->id)->where('language_id', $lang->id)->first();
-            $category->description = $category_desc?->description;
-
-            $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
-                $query->where("language_id", $lang->id);
-            }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
 
             if (!$category) {
                 // Handle category not found error (optional)
@@ -507,6 +496,25 @@ class HomeController extends Controller
                     'message' => 'Category not found'
                 ], 404);
             }
+
+            $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
+            $category->name = $category_name->name;
+
+            $category_desc = Categories_description::where('category_id', $category->id)->where('language_id', $lang->id)->first();
+            $category->description = $category_desc?->description;
+
+            // Add similar logic for subcategories
+            foreach ($category->sub_categories as $subCategory) {
+                $subCategory_name = Category_Name::where('category_id', $subCategory->id)->where('language_id', $lang->id)->first();
+                $subCategory->name = $subCategory_name->name;
+
+                $subCategory_desc = Categories_description::where('category_id', $subCategory->id)->where('language_id', $lang->id)->first();
+                $subCategory->description = $subCategory_desc?->description;
+            }
+
+            $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
+                $query->where("language_id", $lang->id);
+            }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
 
             // Return the data using your preferred method (e.g., JSON)
             return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);
@@ -526,20 +534,10 @@ class HomeController extends Controller
 
             $category = Category::with(['terms' => function ($q) use ($lang) {
                 // No need to fetch $lang here, use the captured $lang
-                $lang = $lang;
                 $q->with(['names' => function ($query) use ($lang) {
                     $query->where("language_id", $lang->id);
                 }])->where('hide', false);
             }, "sub_categories"])->find($request->id);
-
-            $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
-            $category->name = $category_name->name;
-            $category_desc = Categories_description::where('category_id', $category->id)->where('language_id', $lang->id)->first();
-            $category->description = $category_desc?->description;
-
-            $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
-                $query->where("language_id", $lang->id);
-            }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
 
             if (!$category) {
                 // Handle category not found error (optional)
@@ -549,44 +547,28 @@ class HomeController extends Controller
                 ], 404);
             }
 
+            $category_name = Category_Name::where('category_id', $category->id)->where('language_id', $lang->id)->first();
+            $category->name = $category_name->name;
+
+            $category_desc = Categories_description::where('category_id', $category->id)->where('language_id', $lang->id)->first();
+            $category->description = $category_desc?->description;
+
+            // Add similar logic for subcategories
+            foreach ($category->sub_categories as $subCategory) {
+                $subCategory_name = Category_Name::where('category_id', $subCategory->id)->where('language_id', $lang->id)->first();
+                $subCategory->name = $subCategory_name->name;
+
+                $subCategory_desc = Categories_description::where('category_id', $subCategory->id)->where('language_id', $lang->id)->first();
+                $subCategory->description = $subCategory_desc?->description;
+            }
+
+            $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
+                $query->where("language_id", $lang->id);
+            }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
+
             // Return the data using your preferred method (e.g., JSON)
             return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);
         }
-     }
-
-    public function getLatestLatest(Request $request) {
-        try {
-
-            $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
-
-            $articles =  Article::with('category')->latest()->orderby('id', 'desc')->take(12)->get();
-
-            foreach ($articles as $article) {
-                $category_name = Category_Name::where('category_id', $article->category->id)->where('language_id', $lang->id)->first();
-                $article->category_name = $category_name->name;
-                $article_title = Article_Title::where('language_id', $lang->id)->where('article_id', $article->id)->first();
-                $article->title = $article_title->title;
-                $articlecontent = Article_Content::where('language_id', $lang->id)->where('article_id', $article->id)->first();
-                $article->content = $articlecontent->content;
-            }
-            return $this->jsonData(true, true, '', [], $articles);
-        } catch (\Throwable $th) {
-            $lang = Language::where('symbol', 'like', '%' . "EN" . '%')->first();
-
-            $articles =  Article::with('category')->latest()->orderby('id', 'desc')->take(12)->get();
-
-            foreach ($articles as $article) {
-                $category_name = Category_Name::where('category_id', $article->category->id)->where('language_id', $lang->id)->first();
-                $article->category_name = $category_name->name;
-                $article_title = Article_Title::where('language_id', $lang->id)->where('article_id', $article->id)->first();
-                $article->title = $article_title->title;
-                $articlecontent = Article_Content::where('language_id', $lang->id)->where('article_id', $article->id)->first();
-                $article->content = $articlecontent->content;
-            }
-            return $this->jsonData(true, true, '', [], $articles);
-
-        }
-
     }
 
     public function getAllArticels(Request $request) {

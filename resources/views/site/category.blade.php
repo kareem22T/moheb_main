@@ -7,8 +7,12 @@
     @include('site.includes.header')
     <section class="football" v-if="football" style="min-height: 80vh">
         <div class="container">
-            <div class="head" style="margin-bottom: 4px">
+            <div class="head" style="margin-bottom: 4px;justify-content: start;gap: 24px">
                 <h1><i class="fa-solid fa-category"></i> @{{ football.name }}</h1>
+                <select name="" style="padding: 4px;background: white;border: 1px solid #d7d7d7;border-radius: 3px;" id="" v-if="football.sub_categories.length > 0" v-model="sub_category_id" @change="handleChangeSubCat">
+                    <option value="0" selected disabled>Select a sub category</option>
+                    <option :value="cat.id" v-for="cat in football.sub_categories" :key="cat.id">@{{ cat.name }}</option>
+                </select>
             </div>
             <p style="padding: 4px 8px;margin-bottom: 16px;font-weight: 700"> @{{ football.description }}</p>
             <div class="sub_categories" v-if="terms && terms.length">
@@ -37,6 +41,7 @@ const { createApp, ref } = Vue
 createApp({
 data() {
     return {
+        sub_category_id: 0,
         user: null,
         languages_data: null,
         showSearch: false,
@@ -165,7 +170,9 @@ methods: {
             console.error(error);
         }
     },
-
+    handleChangeSubCat(){
+        window.location.href = "/category/" + this.sub_category_id
+    },
     getCookie(cookieName) {
         const name = cookieName + "=";
         const decodedCookie = decodeURIComponent(document.cookie);
