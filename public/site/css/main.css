@@ -1509,3 +1509,29 @@ h2 {
 .has-drop:hover .drop {
     display: block !important;
 }
+
+.cumming_soon_btns a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cumming_soon_btns a svg path, .dark-top svg path {
+    fill: #fff;
+}
+.dark-top svg {
+    width: 22px;
+    height: 22px;
+}
+.cumming_soon_btns a:hover svg path {
+    fill: #00416a;
+}
+
+@media (max-width: 767.98px) {
+    .cumming_soon_btns {
+        display: none !important;
+    }
+    .bottom .categories {
+        overflow-x: auto;
+    }
+}

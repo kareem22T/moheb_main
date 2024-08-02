@@ -60,4 +60,7 @@ use App\Http\Controllers\Site\HomeController;
     Route::get('/', function () {
         return view('site.home');
     })->name('site.home');
+    Route::get('/coming-soon', function () {
+        return view('site.coming');
+    })->name('site.coming');
 

@@ -39,6 +39,7 @@
         "header": {
             "about": "About",
             "blog": "Blog",
+            "translation": "Translation",
             "contact": "Contact"
         },
         "top_word": "Top Words",
@@ -92,6 +93,7 @@
         "header": {
             "about": "Acerca de",
             "blog": "Blog",
+            "translation": "traducción",
             "contact": "Contacto"
         },
         "top_word": "Palabras Principales",
@@ -144,6 +146,7 @@
         },
         "header": {
             "about": "Informazioni",
+            "translation": "traduzione",
             "blog": "Blog",
             "contact": "Contatti"
         },
@@ -198,6 +201,7 @@
         "header": {
             "about": "Über uns",
             "blog": "Blog",
+            "translation": "Übersetzung",
             "contact": "Kontakt"
         },
         "top_word": "Top-Wörter",
@@ -251,6 +255,7 @@
         "header": {
             "about": "Sobre",
             "blog": "Blogue",
+            "translation": "tradução",
             "contact": "Contato"
         },
         "top_word": "Palavras-chave",
@@ -304,6 +309,8 @@
         },
         "header": {
             "about": "À Propos",
+            "translation": "Traduction",
+            "blog": "Blog",
             "contact": "Contact"
         },
         "top_word": "Mots Clés",
@@ -360,6 +367,7 @@
         "header": {
             "about": "من نحن",
             "blog": "المدونة",
+            "translation": "ترجمة",
             "contact": "تواصل معنا"
         },
         "footer": {

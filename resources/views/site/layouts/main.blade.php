@@ -442,6 +442,6 @@ $(document).on("click", ".audio-player .play_btn", function () {
         playButton.removeClass('playing').addClass('pausing');
     };
 });
-    </script>
+        </script>
 </body>
 </html>
