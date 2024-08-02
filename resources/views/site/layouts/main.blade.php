@@ -442,13 +442,6 @@ $(document).on("click", ".audio-player .play_btn", function () {
         playButton.removeClass('playing').addClass('pausing');
     };
 });
-    $(document).on("click", ".has-drop", function() {
-        $(this).find(".drop").fadeToggle();
-    })
-    $(document).on("click", ".has-drop >a", function(e) {
-        e.preventDefault()
-    })
-
     </script>
 </body>
 </html>

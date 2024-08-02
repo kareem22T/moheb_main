@@ -149,15 +149,15 @@
     </div>
     <div class="bottom">
         <div class="container" style="overflow: visible !important">
-            <div class="categories" v-if="all_categories && all_categories.length" style=" max-width: 100%;overflow: auto;">
+            <div class="categories" v-if="all_categories && all_categories.length" style=" max-width: 100%;">
                 <!-- Added dynamic categories rendering -->
                 <a :href="`/all-sports`" >@{{ page_content.sections.other_sports }}</a>
-                <div  v-for="cat in all_categories" :class="cat.main_name == 'Football' ? 'has-drop' : ''" :key="cat.id" style="position: relative">
+                <div  v-for="cat in all_categories" :class="cat?.sub_categories ? 'has-drop' : ''" :key="cat.id" style="position: relative;width: max-content">
                     <a :href="`/category/${cat.id}`"  style="display: block !important;">
                         @{{cat.name}}
-                        <div style=" left: 0px; top: 145px;left: 50%;transform: translateX(-50%);position: fixed" dir="ltr">
-                            <div class="container" style="display: block">
-                                <div class="drop" v-if="cat.main_name == 'Football'" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;display: none;width: max-content;z-index: 9999;background: rgb(0, 65, 106); z-index: 9999; flex-direction: revert; justify-content: start; gap: 20px; padding: 12px; border-radius: 8px; flex-wrap: wrap;flex-direction: column;background: white;">
+                        <div style="position: absolute;top: 0;left: 0;  padding-top: 16px;" dir="ltr">
+                            <div class="container"style="display: block;width: min-content;padding: 0;padding-top: 12px;">
+                                <div class="drop" v-if="cat.sub_categories" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;display: none;width: max-content;z-index: 9999;background: rgb(0, 65, 106); z-index: 9999; flex-direction: revert; justify-content: start; gap: 20px; padding: 12px; border-radius: 8px; flex-wrap: wrap;flex-direction: column;background: white;">
                                     <a :href="`/category/${sub_cat.id}`" style="display: block;color: #000; padding: 4px; min-width: 180px" v-for="sub_cat in cat?.sub_categories">
                                         @{{sub_cat.names[0] ? sub_cat.names[0]["name"] : sub_cat.main_name}}
                                     </a>
