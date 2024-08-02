@@ -155,7 +155,7 @@
                 <div  v-for="cat in all_categories" :class="cat?.sub_categories ? 'has-drop' : ''" :key="cat.id" style="position: relative;width: max-content">
                     <a :href="`/category/${cat.id}`"  style="display: block !important;">
                         @{{cat.name}}
-                        <div style="position: absolute;top: 0;left: 0;  padding-top: 16px;" dir="ltr">
+                        <div style="position: absolute;top: 0;left: 0;  padding-top: 16px;" dir="ltr" v-if="cat?.sub_categories.length > 0">
                             <div class="container"style="display: block;width: min-content;padding: 0;padding-top: 12px;">
                                 <div class="drop" v-if="cat.sub_categories" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;display: none;width: max-content;z-index: 9999;background: rgb(0, 65, 106); z-index: 9999; flex-direction: revert; justify-content: start; gap: 20px; padding: 12px; border-radius: 8px; flex-wrap: wrap;flex-direction: column;background: white;">
                                     <a :href="`/category/${sub_cat.id}`" style="display: block;color: #000; padding: 4px; min-width: 180px" v-for="sub_cat in cat?.sub_categories">
