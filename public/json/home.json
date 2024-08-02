@@ -1,9 +1,9 @@
 {
     "EN": {
         "all_sports": "All Sports",
-        "top_cat": "Top Category",
+        "top_cat": "Most visited categories",
         "contact": {
-            "head": "Send us A message",
+            "head": "SEND US MESSAGE",
             "sub_head": "Waiting your suggestion or question!",
             "name": "Name",
             "address": "Address",
@@ -32,8 +32,8 @@
             "empty_wish": "Your wishlist is empty",
             "my_wishlist": "My Wishlist",
             "football": "Football",
-            "most_popular": "Most Popular Sports",
-            "last_difinations": "Last Updated Difinations",
+            "most_popular": "Most popular sports",
+            "last_difinations": "Last updated difinations",
             "last_news": "Last News"
         },
         "header": {
@@ -42,7 +42,7 @@
             "translation": "Translation",
             "contact": "Contact"
         },
-        "top_word": "Top Words",
+        "top_word": "Most viewed words",
         "login": "Login",
         "register": "Register",
         "footer": {
