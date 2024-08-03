@@ -88,7 +88,7 @@
             <div class="img" style="position: relative;width: 100%;height: 100%;">
                 <img src="{{asset('/assets/img/contact.jpg')}}" alt="" style="width: 100%;height: 100%;object-fit: cover;border-radius: 10px;position: absolute;top: 0;left: 0;">
                 <div class="bg" style="width: 100%;height: 100%;top: 0;left: 0;position: absolute;background: #040486;border-radius: 10px;opacity: 0.7;"></div>
-                <div class="social" style="position: relative;top: 0;left: 0;width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;gap: 10px;padding: 1rem;display: grid;grid-template-columns: 1fr 1fr;">
+                <div class="social" style="  background: #00416a;position: relative;top: 0;left: 0;width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;gap: 10px;padding: 1rem;display: grid;grid-template-columns: 1fr 1fr;">
                 @if($contact->email)
                     <a  href="mailto:{{$contact->email}}" style="grid-column: span 2">
                         {{ $contact->email }}

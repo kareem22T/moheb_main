@@ -1,7 +1,7 @@
 <header>
     <div class="dark-top" style="align-items: center; gap: 4px;background: #212121;width: 100%;padding: 8px;font-size: 13px;display: flex;justify-content: center;font-family: cairo; color: #fff">
         <svg id="fi_4605428" enable-background="new 0 0 110 90" height="512" viewBox="0 0 110 90" width="512" xmlns="http://www.w3.org/2000/svg"><g fill="rgb(0,0,0)"><path d="m80.4 31.5c-.5-5.6-5.1-9.8-10.7-9.8h-12.6c-4.6.3-8.6 3.3-10.1 7.7l-6.5 18.9c-.6 1.5 0 3.3 1.5 4s3.4.1 4.1-1.5c0-.1.1-.1.1-.2l6.9-17.6c.2-.4.5-1.2 1-1.2h.1c.2.1.4.4.4 1.2v50.9c.1 2.1 1.9 3.7 4 3.6 2-.1 3.5-1.7 3.6-3.6v-28.7c.8-.1 1.6-.1 2.5 0v28.7c.1 2.1 1.9 3.7 4 3.6 2-.1 3.5-1.7 3.6-3.6v-50.9c0-1.2.5-1.3.8-1.3.9 0 1.1 1.1 1.2 1.6l1.5 18.7c.1 1.6 1.3 2.9 2.9 3.1 1.7.1 3.3-1.1 3.4-2.9 0-.2 0-.3 0-.5z"></path><path d="m43 55.5-12.3 31.5c-.3.7-1 1.1-1.7.9-.8-.2-1.2-1-1-1.8v-.1l12.3-31.5c.3-.7 1.1-1.1 1.8-.8.8.3 1.2 1.1.9 1.8z"></path><path d="m63.5 2.1c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9 8.9-4 8.9-8.9c-.1-5-4-8.9-8.9-8.9zm-3.7 11.8c-1.7 0-3-1.3-3-3s1.4-2 3-2 3 .4 3 2-1.4 2.9-3 3zm7.3 0c-1.7 0-3-1.3-3-3s1.4-2 3-2 3 .4 3 2-1.4 2.9-3 3z"></path></g></svg>
-        Supports Visually impaired | الموقع يدعم تصفح المكفوفين
+        Supports visually impaired | الموقع يدعم تصفح المكفوفين
     </div>
     <div class="top">
         <div class="container">

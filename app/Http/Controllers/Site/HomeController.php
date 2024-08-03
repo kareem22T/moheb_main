@@ -512,11 +512,19 @@ class HomeController extends Controller
                 $subCategory->description = $subCategory_desc?->description;
             }
 
-            $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
-                $query->where("language_id", $lang->id);
-            }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
+            $subCategoryIds = $category->sub_categories()->pluck('id')->toArray();
 
-            // Return the data using your preferred method (e.g., JSON)
+            // Include the parent category ID in the array of IDs
+            $allCategoryIds = array_merge([$category->id], $subCategoryIds);
+
+            // Fetch the terms for the parent category and its subcategories
+            $terms = Term::orderBy('name')
+                ->with(['names' => function ($query) use ($lang) {
+                    $query->where("language_id", $lang->id);
+                }])
+                ->whereIn("category_id", $allCategoryIds)
+                ->paginate(30); // Adjust the pagination size as needed
+
             return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);
 
         } catch (\Throwable $th) {
@@ -562,9 +570,30 @@ class HomeController extends Controller
                 $subCategory->description = $subCategory_desc?->description;
             }
 
-            $terms = Term::orderBy('name')->with(['names' => function ($query) use ($lang) {
-                $query->where("language_id", $lang->id);
-            }])->where("category_id", $category->id)->paginate(30); // You can adjust the pagination size (e.g., 10 items per page)
+            $subCategoryIds = $category->sub_categories()->pluck('id')->toArray();
+
+            // Include the parent category ID in the array of IDs
+            $allCategoryIds = array_merge([$category->id], $subCategoryIds);
+
+            // Fetch the terms for the parent category and its subcategories
+            $terms = Term::orderBy('name')
+                ->with(['names' => function ($query) use ($lang) {
+                    $query->where("language_id", $lang->id);
+                }])
+                ->whereIn("category_id", $allCategoryIds)
+                ->paginate(30); // Adjust the pagination size as needed
+            $subCategoryIds = $category->sub_categories()->pluck('id')->toArray();
+
+            // Include the parent category ID in the array of IDs
+            $allCategoryIds = array_merge([$category->id], $subCategoryIds);
+
+            // Fetch the terms for the parent category and its subcategories
+            $terms = Term::orderBy('name')
+                ->with(['names' => function ($query) use ($lang) {
+                    $query->where("language_id", $lang->id);
+                }])
+                ->whereIn("category_id", $allCategoryIds)
+                ->paginate(30); // Adjust the pagination size as needed
 
             // Return the data using your preferred method (e.g., JSON)
             return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);
