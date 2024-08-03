@@ -14,6 +14,7 @@
         "nav": {
             "link_1": "About",
             "link_2": "Contact",
+            "link_4": "Copy Rights",
             "link_3": "Contact",
             "welcome": "welcome"
         },
@@ -48,7 +49,7 @@
         "footer": {
             "nav": {
                 "link_1": "Privacy Policy",
-                "link_2": "Cookie Policy",
+                "link_2": "Copyrights",
                 "link_3": "Contact Us"
             },
             "copy": "Powerd by Center de Paris"
@@ -102,7 +103,7 @@
         "footer": {
             "nav": {
                 "link_1": "Política de Privacidad",
-                "link_2": "Política de Cookies",
+                "link_2": "Derechos de autor",
                 "link_3": "Contáctanos"
             },
             "copy": "Potenciado por Centro de París"
@@ -156,7 +157,7 @@
         "footer": {
             "nav": {
                 "link_1": "Informativa sulla Privacy",
-                "link_2": "Informativa sui Cookie",
+                "link_2": "Diritti d'autore",
                 "link_3": "Contattaci"
             },
             "copy": "Powered by Center de Paris"
@@ -210,7 +211,7 @@
         "footer": {
             "nav": {
                 "link_1": "Datenschutzbestimmungen",
-                "link_2": "Cookie-Richtlinie",
+                "link_2": "Urheberrechte",
                 "link_3": "Kontaktieren Sie uns"
             },
             "copy": "Angetrieben von Center de Paris"
@@ -264,7 +265,7 @@
         "footer": {
             "nav": {
                 "link_1": "Política de Privacidade",
-                "link_2": "Política de Cookies",
+                "link_2": "Direitos autorais",
                 "link_3": "Contate-nos"
             },
             "copy": "Desenvolvido por Center de Paris"
@@ -319,7 +320,7 @@
         "footer": {
             "nav": {
                 "link_1": "Politique de Confidentialité",
-                "link_2": "Politique des Cookies",
+                "link_2": "Droits d'auteur",
                 "link_3": "Contactez-Nous"
             },
             "copy": "Propulsé par Centre de Paris"
@@ -373,7 +374,7 @@
         "footer": {
             "nav": {
                 "link_1": "سياسة الخصوصية",
-                "link_2": "سياسة ملفات الارتباط",
+                "link_2": "حقوق الطبع والنشر",
                 "link_3": "تواصل معنا"
             },
             "copy": "مدعوم من مركز باريس"

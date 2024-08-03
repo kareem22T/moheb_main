@@ -14,6 +14,8 @@ class Contact extends Model
         "email",
         "facebook",
         "instagram",
+        "privacy",
+        "copy",
         "youtube",
         "x",
     ];

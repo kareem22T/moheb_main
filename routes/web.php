@@ -64,3 +64,11 @@ use App\Http\Controllers\Site\HomeController;
         return view('site.coming');
     })->name('site.coming');
 
+    Route::get('/copy-rights', function () {
+        return view('site.copy');
+    })->name('site.copy');
+
+    Route::get('/privacy', function () {
+        return view('site.privacy');
+    })->name('site.privacy');
+

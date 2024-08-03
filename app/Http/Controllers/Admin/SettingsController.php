@@ -19,6 +19,8 @@ class SettingsController extends Controller
         $contact = Contact::first();
 
         if ($contact) {
+            $contact->copy = $request->copy ? $request->copy : null;
+            $contact->privacy = $request->privacy ? $request->privacy : null;
             $contact->phone = $request->phone ? $request->phone : null;
             $contact->email = $request->email ? $request->email : null;
             $contact->facebook = $request->facebook ? $request->facebook : null;
@@ -33,6 +35,7 @@ class SettingsController extends Controller
                 "facebook" => $request->facebook ? $request->facebook : null,
                 "instagram" => $request->instagram ? $request->instagram : null,
                 "youtube" => $request->youtube ? $request->youtube : null,
+                "youtube" => $request->privacy ? $request->privacy : null,
                 "x" => $request->x ? $request->x : null,
             ]);
         }
@@ -45,7 +48,7 @@ class SettingsController extends Controller
     public function getAbout() {
         $about = About::first();
 
-        return $this->jsondata(true, 'get Successfuly', [], ["about" => $about]);
+        return $this->jsondata(true,null, 'get Successfuly', [], ["about" => $about]);
     }
     public function getContact() {
         $contact = Contact::first();

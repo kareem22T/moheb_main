@@ -61,6 +61,22 @@ Set Contact data
                     </div>
                 </div>
             </div>
+            <div class="w-100 mb-4 gap-2" style="display: grid; grid-template-columns: 1fr 1fr;">
+                <div class="w-100">
+                    <div>
+                        <label for="copy" class="form-label">copy </label>
+                        <textarea type="text" class="form-control" id="copy" v-model="copy">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div>
+                        <label for="privacy" class="form-label">privacy </label>
+                        <textarea type="text" class="form-control" id="privacy" v-model="privacy">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
 
             <div class="mb-3 w-100">
                 <br>
@@ -93,6 +109,8 @@ createApp({
         x: null,
         spotify: null,
         anghami: null,
+        privacy: null,
+        copy: null,
     }
   },
   methods: {
@@ -122,6 +140,8 @@ createApp({
                 x: this.x,
                 spotify: this.spotify,
                 anghami: this.anghami,
+                privacy: this.privacy,
+                copy: this.copy,
             },
             {
                 headers: {
@@ -187,6 +207,8 @@ createApp({
                 this.x = response.data.data.contact ? response.data.data.contact.x : null
                 this.spotify = response.data.data.contact ? response.data.data.contact.spotify : null
                 this.anghami = response.data.data.contact ? response.data.data.contact.anghami : null
+                this.privacy = response.data.data.contact ? response.data.data.contact.privacy : null
+                this.copy = response.data.data.contact ? response.data.data.contact.copy : null
             } else {
             }
 

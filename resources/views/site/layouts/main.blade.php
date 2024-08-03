@@ -272,7 +272,7 @@ header .bottom .categories {
             gap: 16px;
         }
         .space-header {
-            height: 172px;
+            height: 184px;
         }
         @media(max-width: 767.98px) {
             .space-header {
