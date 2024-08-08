@@ -339,7 +339,7 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::orderBy('main_name')->get();
+            $category = Category::orderBy('main_name')->where("cat_type", 0)->get();
             foreach ($category as $cat) {
                 $category_name = Category_Name::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
                 $cat->name = $category_name->name;
