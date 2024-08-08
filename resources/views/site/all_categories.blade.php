@@ -11,7 +11,7 @@
                 <h1><i class="fa-solid fa-category"></i> @{{ page_content ? page_content.all_sports : "All Sports" }}</h1>
             </div>
             <div class="sub_categories" v-if="terms && terms.length">
-                <a class="card" :href="`/category/${term.id}`" v-for="term in terms" :key="term.id">
+                <a class="card" :href="`/category/${term.id}`" v-for="term in terms" v-if="term.cat_type == 1" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
                     <h1>@{{ term.name > 0 ? term.name : term.name }}</h1>
                 </a>
