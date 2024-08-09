@@ -98,7 +98,7 @@ class HomeController extends Controller
             $term_title = Term_Title::where('language_id', $lang->id)->where('term_id', $term->id)->first();
             $term->title = $term_title->title;
             $term_content = Term_Content::where('language_id', $lang->id)->where('term_id', $term->id)->first();
-            $term->content = $term_content->content;
+            $term->content = $term_content->content ?? "";
             $term_sound = Term_Sound::where('language_id', $lang->id)->where('term_id', $term->id)->first();
             $term->sound = $term_sound ? $term_sound->iframe : '';
 
