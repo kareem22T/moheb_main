@@ -99,7 +99,7 @@
                 gap: 16px;
                 padding: 12px 0 0;
             ">
-                <a :href="`/tag/${tag.id}/${tag.pivot.category_id}`" style="
+                <a :href="tag.pivot.category_id ? `/tag/${tag.id}/${tag.pivot.category_id}` : `/tag/${tag.id}`" style="
                 display: flex;
                 justify-content: center;
                 align-items: center;
