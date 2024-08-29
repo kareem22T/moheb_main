@@ -25,6 +25,12 @@ class Category extends Model
     protected $table = 'categories';
 
     // relationships
+    public function tags()
+    {
+    return $this->belongsToMany('App\Models\Tag', 'term_tag', 'category_id', 'tag_id', 'id', 'id');
+    }
+
+
     public function names()
     {
         return $this->hasMany('App\Models\Category_Name', 'category_id');

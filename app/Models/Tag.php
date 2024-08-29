@@ -16,10 +16,16 @@ class Tag extends Model
 
     public $timestamps = false;
 
-    // relationships 
+    // relationships
     public function terms()
     {
     return $this->belongsToMany('App\Models\Term', 'term_tag', 'term_id', 'tag_id', 'id', 'id');
+    }
+
+    // relationships
+    public function categories()
+    {
+    return $this->belongsToMany('App\Models\Category', 'term_tag', 'category_id', 'tag_id', 'id', 'id');
     }
 
     public function articles()

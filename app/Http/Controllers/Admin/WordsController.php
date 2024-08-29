@@ -132,8 +132,7 @@ class WordsController extends Controller
         if ($request->tags) {
             foreach ($request->tags as $tagName) {
                 $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
-                $createTerm->tags()->attach($tag->id); // Attach the tag to the term
-            }
+                $createTerm->tags()->attach($tag->id, ['category_id' => $request->cat_id]);            }
         }
 
         foreach ($request->term_translations as $lang => $term) {
@@ -193,8 +192,7 @@ class WordsController extends Controller
                 if ($request->tags) {
                     foreach ($request->tags as $tagName) {
                         $tag = Tag::firstOrCreate(['name' => $tagName]); // Check if tag exists or create a new one
-                        $createTerm->tags()->attach($tag->id); // Attach the tag to the term
-                    }
+                        $createTerm->tags()->attach($tag->id, ['category_id' => $cat['id']]);                    }
                 }
 
                 foreach ($request->term_translations as $lang => $term) {
@@ -405,7 +403,7 @@ class WordsController extends Controller
         if ($request->tags)
         foreach ($request->tags as $tagName) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $term->tags()->attach($tag->id);
+            $term->tags()->attach($tag->id, ['category_id' => $request->cat_id]);
         }
 
         foreach ($request->term_translations as $lang => $term) {

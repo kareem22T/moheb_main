@@ -18,6 +18,7 @@ use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\Category_Name;
 use App\Models\Comment;
+use App\Models\Tag;
 use App\Traits\DataFormController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,12 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     use DataFormController;
-
+    public function getTermsTag($tag_id) {
+        return view('site.tag_terms')->with(compact('tag_id'));
+    }
+    public function getTermsTagByCategory($tag_id, $category_id) {
+        return view('site.tag_terms')->with(compact(['tag_id', 'category_id']));
+    }
     public function pushComment(Request $request) {
         $validator = Validator::make($request->all(), [
             'comment' => 'required',
@@ -81,7 +87,10 @@ class HomeController extends Controller
         try {
             $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
 
-            $term = Term::with(["tags", "category" => function ($q) use ($lang){
+            $term = Term::with([    "tags" => function ($q) {
+                $q->select('tags.id', 'tags.name')
+                  ->withPivot('term_id', 'tag_id', 'category_id'); // Add category_id to pivot
+            },"category" => function ($q) use ($lang){
                 $q->with(["names" =>function ($q) use ($lang) {
                     $q->when(isset($lang), function ($q) use($lang){
                         $q->where("language_id", $lang->id);
@@ -482,7 +491,10 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::with(['terms' => function ($q) use ($lang) {
+            $category = Category::with(["tags" => function ($q) {
+                $q->select('tags.id', 'tags.name')
+                  ->withPivot('term_id', 'tag_id', 'category_id'); // Add category_id to pivot
+            },'terms' => function ($q) use ($lang) {
                 // No need to fetch $lang here, use the captured $lang
                 $q->with(['names' => function ($query) use ($lang) {
                     $query->where("language_id", $lang->id);
@@ -540,7 +552,10 @@ class HomeController extends Controller
                 ], 404);
             }
 
-            $category = Category::with(['terms' => function ($q) use ($lang) {
+            $category = Category::with([    "tags" => function ($q) {
+                $q->select('tags.id', 'tags.name')
+                  ->withPivot('term_id', 'tag_id', 'category_id'); // Add category_id to pivot
+            }, 'terms' => function ($q) use ($lang) {
                 // No need to fetch $lang here, use the captured $lang
                 $q->with(['names' => function ($query) use ($lang) {
                     $query->where("language_id", $lang->id);
@@ -597,6 +612,80 @@ class HomeController extends Controller
 
             // Return the data using your preferred method (e.g., JSON)
             return $this->jsonData(true, true, '', [], ["category" => $category, "terms" => $terms]);
+        }
+    }
+
+     public function getTermsByTag(Request $request) {
+        try {
+            // Fetch language once outside nested queries
+            $lang = Language::where('symbol', 'like', '%' . $request->lang . '%')->first();
+
+        // Build the query to fetch terms associated with the tag
+        $termsQuery = Term::whereHas('tags', function ($query) use ($request) {
+            $query->where('tag_id', $request->tag_id);
+
+            // Apply category filter if category_id is provided
+            if ($request->filled('category_id')) {
+                $query->where('category_id', $request->category_id);
+            }
+        })
+        ->with(['names' => function ($query) use ($lang) {
+            $query->where('language_id', $lang->id);
+        }])
+        ->where('hide', false)
+        ->orderBy('name');
+
+        $tag = Tag::find($request->tag_id);
+
+        // Paginate the results
+        $terms = $termsQuery->paginate(30);
+
+        // Check if any terms were found
+        if ($terms->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No terms found'
+            ], 404);
+        }
+
+        // Return the terms with the associated tag
+        return $this->jsonData(true, true, '', [], ["tag" => $tag, "terms" => $terms]);
+
+        } catch (\Throwable $th) {
+            // Fetch language once outside nested queries
+            $lang = Language::where('symbol', 'like', '%' . "EN" . '%')->first();
+
+
+        // Build the query to fetch terms associated with the tag
+        $termsQuery = Term::whereHas('tags', function ($query) use ($request) {
+            $query->where('tag_id', $request->tag_id);
+
+            // Apply category filter if category_id is provided
+            if ($request->filled('category_id')) {
+                $query->where('category_id', $request->category_id);
+            }
+        })
+        ->with(['names' => function ($query) use ($lang) {
+            $query->where('language_id', $lang->id);
+        }])
+        ->where('hide', false)
+        ->orderBy('name');
+
+        $tag = Tag::find($request->tag_id);
+
+        // Paginate the results
+        $terms = $termsQuery->paginate(30);
+
+        // Check if any terms were found
+        if ($terms->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No terms found'
+            ], 404);
+        }
+
+            // Return the data using your preferred method (e.g., JSON)
+            return $this->jsonData(true, true, '', [], ["tag" => $tag, "terms" => $terms]);
         }
     }
 

@@ -7,41 +7,10 @@
     @include('site.includes.header')
     <section class="football" v-if="football" style="min-height: 80vh">
         <div class="container">
-            <div class="head" style="margin-bottom: 4px;justify-content: start;gap: 24px">
+            <div class="head" style="margin-bottom: 16px;justify-content: start;gap: 24px">
                 <h1><i class="fa-solid fa-category"></i> @{{ football.name }}</h1>
-                <select name="" style="padding: 4px;background: white;border: 1px solid #d7d7d7;border-radius: 3px;" id="" v-if="football.sub_categories.length > 0" v-model="sub_category_id" @change="handleChangeSubCat">
-                    <option value="0" selected disabled>Select a sub category</option>
-                    <option :value="cat.id" v-for="cat in football.sub_categories" :key="cat.id">@{{ cat.name }}</option>
-                </select>
             </div>
-            <div class="tags_wrapper" style="
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            padding: 12px 0 0;
-        ">
-            <a :href="`/tag/${tag.id}/${tag.pivot.category_id}`" style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            background: transparent;
-            color: #1a3467;
-            border: 1px solid #1a3467;
-            padding: 4px 8px;
-            border-radius: 5px;" class="tag" v-for="tag in football.tags" :key="tag.id">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#1a3467" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M7.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                    <path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3z" />
-                </svg>
-                @{{tag.name}}
-            </a>
-        </div>
-            <p style="padding: 4px 8px;margin-bottom: 16px;font-weight: 700"> @{{ football.description }}</p>
+            {{-- <p style="padding: 4px 8px;margin-bottom: 16px;font-weight: 700"> @{{ football.description }}</p> --}}
             <div class="sub_categories" v-if="terms && terms.length">
                 <a class="card" :href="`/term/${getSlug(term.name)}/${term.id}`" v-for="term in terms" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
@@ -296,16 +265,17 @@ methods: {
     async getCategory(){
         $('.loader').fadeIn().css('display', 'flex')
         try {
-            const response = await axios.post( `/category`, {
+            const response = await axios.post( `/get-by-tag`, {
                 page: this.currentPage,
                 lang: this.current_lang,
-                id: "{{request()->id}}"
+                tag_id: "{{request()->tag_id}}",
+                category_id: "{{request()->category_id}}",
             },
             );
             $('.loader').fadeOut()
             if (response.data.status === true) {
                 document.getElementById('errors').innerHTML = ''
-                this.football = response.data.data.category
+                this.football = response.data.data.tag
                 this.terms = response.data.data.terms.data
                 this.currentPage = response.data.data.terms.current_page
                 this.lastPage = response.data.data.terms.last_page
