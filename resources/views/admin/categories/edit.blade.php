@@ -158,7 +158,7 @@ createApp({
       category_data: null,
       category_names: null,
       category_translations: {},
-      descriptions: {},
+      descriptions: [],
       show_main_categories: false,
       category_id: undefined,
       thumbnail_path: null,
@@ -463,10 +463,7 @@ createApp({
             );
             if (response.data.status === true) {
                 $('.loader').fadeOut()
-                this.descriptions = response.data.data.length > 0 ? response.data.data : {}
-                Object.entries(this.descriptions).forEach(([key, value]) => {
-                    this.descriptions[key] = value
-                });
+                this.descriptions =  response.data.data
             } else {
                 $('.loader').fadeOut()
                 document.getElementById('errors').innerHTML = ''
