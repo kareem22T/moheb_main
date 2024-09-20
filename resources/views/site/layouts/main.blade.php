@@ -188,9 +188,16 @@ header .bottom .categories {
             #errors .success {
             background: #12c99b;
             }
-
+            .AR .drop-dd {
+                left: auto !important;
+                right: 0 !important;
+            }
     </style>
     <style>
+        .AR .search_icon_i {
+            right: auto !important;
+            left: 35px !important;
+        }
         .pagination label {
             width: 40px;
             height: 40px;
@@ -442,6 +449,43 @@ $(document).on("click", ".audio-player .play_btn", function () {
         playButton.removeClass('playing').addClass('pausing');
     };
 });
+  // Function to handle the search input addition
+  function handleNewSearchInput(input) {
+    if (document.body.classList.contains('AR')) {
+      input.setAttribute('placeholder', 'ابحث عن مصطلح');
+    } else {
+      input.setAttribute('placeholder', 'Search for Term');
+    }
+  }
+
+  // Create a MutationObserver to listen for added elements
+  const observer = new MutationObserver((mutationsList) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        // Loop through added nodes
+        mutation.addedNodes.forEach(node => {
+          if (node.tagName === 'INPUT' && node.getAttribute('name') === 'search') {
+            handleNewSearchInput(node); // Handle new search input
+          }
+        });
+      }
+    }
+  });
+
+  // Start observing the container where the input might be added
+  const searchContainer = document.getElementById('search-container');
+  observer.observe(searchContainer, { childList: true });
+
+  // Example of dynamically adding a new search input
+  setTimeout(() => {
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.name = 'search';
+    newInput.id = 'search';
+    newInput.style.paddingLeft = '3rem';
+    searchContainer.appendChild(newInput);
+  }, 2000); // Adds a new input after 2 seconds
         </script>
+
 </body>
 </html>

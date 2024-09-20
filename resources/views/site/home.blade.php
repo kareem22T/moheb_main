@@ -12,7 +12,7 @@
                 <div class="container">
                     <div class="head">
                         <h1 id="football-heading"><i class="fa-solid fa-futbol" aria-hidden="true"></i> @{{ page_content ? page_content.sections.football : "Football" }}</h1>
-                        <a :href="`/category/${football.id}`" class="view-more"> @{{ page_content ? page_content.sections.view_all : "View All" }}</a>
+                        <a :href="`/category/${football.id}/${createSlug(football.main_name)}`" class="view-more"> @{{ page_content ? page_content.sections.view_all : "View All" }}</a>
                     </div>
                     <div class="sub_categories" v-if="football.terms && football.terms.length">
                         <a class="card" :href="`/term/${getSlug(term.name)}/${term.id}`" v-for="term in football.terms" :key="term.id">
@@ -29,7 +29,7 @@
                         {{-- <a href="" class="view-more">@{{ page_content ? page_content.sections.view_all : "View All" }}</a> --}}
                     </div>
                     <div class="sub_categories">
-                        <a :href="`/category/${cat.id}`" class="card" v-for="cat in categories" :key="cat.id">
+                        <a :href="`/category/${cat.id}/${createSlug(cat.main_name)}`" class="card" v-for="cat in categories" :key="cat.id">
                             <img :src="cat.thumbnail_path" :alt="cat.name">
                             <h1>@{{ cat.name }}</h1>
                         </a>
@@ -114,6 +114,12 @@
         }
     },
     methods: {
+        createSlug(name) {
+        // Convert to lowercase, replace spaces with dashes, and remove special characters
+        return name.toLowerCase()
+                    .replace(/ /g, '-')
+                    .replace(/[^\w-]+/g, '');
+        },
         getSlug(term) {
             return term.replace(/\s+|\/+|["']/g, '-').replace(/-{2,}/g, '-')
         },

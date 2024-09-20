@@ -40,7 +40,7 @@
                 <div class="categories">
                     @if ($top_categories->count() > 0)
                         @foreach ($top_categories as $cat)
-                            <a href="/category/{{$cat->id}}" class="cat" style="position: relative">
+                            <a href="/category/{{$cat->id}}/{{ Str::slug($cat->main_name) }}" class="cat" style="position: relative">
                                 <div class="after" style="  width: 100%;
                                 height: 100%;
                                 position: absolute;
@@ -76,7 +76,7 @@
                 <h1>@{{ term_data.title }}</h1>
                 <div style="display: flex;justify-content: space-between;">
                     <div style="display: flex;gap: 18px;">
-                        <a v-if="term_data" :href="`/category/${term_data?.category.id}`" style="display: inline-flex; gap: 8px; color: black;align-items: center;" class="cat">
+                        <a v-if="term_data" :href="`/category/${term_data?.category.id}/${term_data?.category.main_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')}`" style="display: inline-flex; gap: 8px; color: black;align-items: center;" class="cat">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M4 4h6v6h-6z" />
@@ -222,7 +222,7 @@
                     ]
                 )->find(request()->id);
             @endphp
-<div class="content" style="margin-bottom: 0;">
+<div class="content" style="margin-bottom: 0;  direction: ltr;">
     <div style="display: flex; gap: 16px;align-items: center">
         <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/france.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Terme en Français: {{ $term_FR->names->count() > 0 ? $term_FR->names[0]->term : 'N/A' }}</h2>
         <div >
@@ -255,7 +255,7 @@
     {!! $term_FR->contents->count() > 0 ? $term_FR->contents[0]->content : '' !!}
 </div>
 
-<div class="content" style="margin-bottom: 0;">
+<div class="content" style="margin-bottom: 0;  direction: ltr;">
     <div style="display: flex; gap: 16px;align-items: center">
         <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/uk.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Term in English: {{ $term_EN->names->count() > 0 ? $term_EN->names[0]->term : 'N/A' }}</h2>
         <div >
@@ -288,7 +288,7 @@
     {!! $term_EN->contents->count() > 0 ? $term_EN->contents[0]->content : '' !!}
 </div>
 
-<div class="content" style="margin-bottom: 0;">
+<div class="content" style="margin-bottom: 0;  direction: ltr;">
     <div style="display: flex; gap: 16px;align-items: center">
     <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/sp.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Termino en Español: {{ $term_ESP->names->count() > 0 ? $term_ESP->names[0]->term : 'N/A' }}</h2>
         <div >
@@ -320,7 +320,7 @@
     </div>
     {!! $term_ESP->contents->count() > 0 ? $term_ESP->contents[0]->content : '' !!}
 </div>
-<div class="content" style="margin-bottom: 0;">
+<div class="content" style="margin-bottom: 0;  direction: ltr;">
     <div style="display: flex; gap: 16px;align-items: center">
     <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/port.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Termo em Português: {{ $term_PORT->names->count() > 0 ? $term_PORT->names[0]->term : 'N/A' }}</h2>
     <div >
@@ -352,7 +352,7 @@
     </div>
     {!! $term_PORT->contents->count() > 0 ? $term_PORT->contents[0]->content : '' !!}
 </div>
-<div class="content" style="margin-bottom: 0;">
+<div class="content" style="margin-bottom: 0;  direction: ltr;">
     <div style="display: flex; gap: 16px;align-items: center">
     <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/italy.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Termine in Italiano: {{ $term_ITA->names->count() > 0 ? $term_ITA->names[0]->term : 'N/A' }}</h2>
     <div >
@@ -385,7 +385,7 @@
     {!! $term_ITA->contents->count() > 0 ? $term_ITA->contents[0]->content : '' !!}
 </div>
 
-<div class="content" style="margin-bottom: 0;">
+<div class="content" style="margin-bottom: 0;  direction: ltr;;">
     <div style="display: flex; gap: 16px;align-items: center">
     <h2 style="margin: 0;display: flex;align-items: center; gap: 8px"><img src="{{asset('/site/imgs/german.png')}}"  width="40px" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%"/> Begriff auf Deutsch: {{ $term_DEU->names->count() > 0 ? $term_DEU->names[0]->term : 'N/A' }}</h2>
     <div >

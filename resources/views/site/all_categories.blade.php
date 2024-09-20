@@ -11,11 +11,11 @@
                 <h1><i class="fa-solid fa-category"></i> @{{ page_content ? page_content.all_sports : "All Sports" }}</h1>
             </div>
             <div class="sub_categories" v-if="terms && terms.length">
-                <a class="card" :href="`/category/${term.id}`" v-for="term in terms":key="term.id">
+                <a class="card" :href="`/category/${term.id}/${createSlug(term.main_name)}`" v-for="term in terms" :key="term.id">
                     <img :src="term.thumbnail_path" alt="">
-                    <h1>@{{ term.name > 0 ? term.name : term.name }}</h1>
+                    <h1>@{{ term.name }}</h1>
                 </a>
-            </div>
+        </div>
         </div>
     </section>
     @include('site.includes.footer')
@@ -47,6 +47,12 @@ data() {
     }
 },
 methods: {
+    createSlug(name) {
+      // Convert to lowercase, replace spaces with dashes, and remove special characters
+      return name.toLowerCase()
+                 .replace(/ /g, '-')
+                 .replace(/[^\w-]+/g, '');
+    },
     async getLanguages() {
         $('.loader').fadeIn().css('display', 'flex')
         try {

@@ -40,7 +40,7 @@
                 <div class="categories">
                     @if ($top_categories->count() > 0)
                         @foreach ($top_categories as $cat)
-                            <a href="/category/{{$cat->id}}" class="cat" style="position: relative">
+                            <a href="/category/{{$cat->id}}/{{ Str::slug($cat->main_name) }}" class="cat" style="position: relative">
                                 <div class="after" style="  width: 100%;
                                 height: 100%;
                                 position: absolute;

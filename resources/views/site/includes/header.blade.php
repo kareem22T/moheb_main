@@ -10,7 +10,7 @@
                     <img src="{{ asset('/site/imgs/logo-new.png') }}?V={{time()}}" alt="">
                 </a>
             </div>
-            <div style="display: flex;align-items: center;gap:16px">
+            <div style="display: flex;align-items: center;gap:16px" id="search-container">
                 <div class="profile cumming_soon_btns">
                     <a href="/coming-soon">
                         <svg id="fi_9693534" style="width: 20px;color: #fff;height: 20px" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m15.7 17c-.4 0-.8-.2-.9-.6l-.8-1.9h-3.5l-.8 1.9c-.2.5-.8.7-1.3.5-.4-.2-.6-.5-.6-.9 0-.1 0-.3.1-.4l1.1-2.5 2.4-5.5c0-.4.4-.6.8-.6s.8.2.9.6l2.4 5.5 1.1 2.5c.1.1.1.3.1.4 0 .4-.2.8-.6.9-.1.1-.3.1-.4.1zm-4.4-4.5h1.8l-.9-2z" fill="rgb(0,0,0)"></path></g><g><path d="m21.8 11c-.5 0-.9-.3-1-.8-.8-4.2-4.5-7.2-8.8-7.2-3.6 0-6.9 2.2-8.3 5.4l1.1-.4c.6-.1 1.2.2 1.3.7.2.5-.1 1.1-.6 1.2l-3 1c-.3.1-.7 0-1-.2s-.4-.6-.3-.9c1.1-5.1 5.6-8.8 10.8-8.8s9.7 3.7 10.8 8.8c.1.5-.2 1.1-.8 1.2-.1 0-.1 0-.2 0z" fill="rgb(0,0,0)"></path></g><g><path d="m12 23c-5.2 0-9.7-3.7-10.8-8.8-.1-.5.3-1.1.8-1.2s1.1.2 1.2.8c.8 4.2 4.5 7.2 8.8 7.2 3.6 0 6.8-2.1 8.2-5.3l-.7.3c-.5.2-1.1-.1-1.3-.6s.1-1.1.6-1.3l2.6-1c.3-.1.7-.1 1 .2.3.2.4.6.3 1-1 5-5.5 8.7-10.7 8.7z" fill="rgb(0,0,0)"></path></g></g></svg>
@@ -26,7 +26,7 @@
                     <!-- Added v-model binding and @input event handler for search functionality -->
                     <div class="hide-content" @click="showSearch = false" style="position: fixed;width: 100%;height: 100vh;top: 0;left: 0;background: #0003;"></div>
                     <input type="text" name="search"style="width: 100%;z-index: 9999999;position: relative;" id="search" placeholder="Search for Term" v-model="search" @input="handleSearch">
-                    <a :href="`/search/${search}`"style="transform: none;top: 27px;right: 34px;z-index: 99999991;" >
+                    <a :href="`/search/${search}`" class="search_icon_i" style="transform: none;top: 27px;right: 34px;z-index: 99999991;" >
                         <i class="fa fa-search"></i>
                     </a>
                     <!-- Added suggestion box for search results -->
@@ -103,12 +103,12 @@
             <div class="categories" v-if="all_categories && all_categories.length" style=" max-width: 100%;">
                 <!-- Added dynamic categories rendering -->
                 <div  v-for="cat in all_categories" :class="cat?.sub_categories ? 'has-drop' : ''" :key="cat.id" style="position: relative;width: max-content">
-                    <a :href="`/category/${cat.id}`"  style="display: block !important;">
+                    <a :href="`/category/${cat.id}/${cat.main_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')}`"  style="display: block !important;">
                         @{{cat.name}}
-                        <div style="position: absolute;top: 16px;left: 0;" dir="ltr" v-if="cat?.sub_categories.length > 0">
+                        <div class="drop-dd" style="position: absolute;top: 16px;left: 0;" dir="ltr" v-if="cat?.sub_categories.length > 0">
                             <div class="container"style="display: block;width: min-content;padding: 0;padding-top: 12px;">
                                 <div class="drop" v-if="cat.sub_categories" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;display: none;width: max-content;z-index: 9999;background: rgb(0, 65, 106); z-index: 9999; flex-direction: revert; justify-content: start; gap: 20px; padding: 12px; border-radius: 8px; flex-wrap: wrap;flex-direction: column;background: white;">
-                                    <a :href="`/category/${sub_cat.id}`" style="display: block;color: #000; padding: 4px; min-width: 180px" v-for="sub_cat in cat?.sub_categories">
+                                    <a :href="`/category/${sub_cat.id}/${sub_cat.main_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')}`" style="display: block;color: #000; padding: 4px; min-width: 180px" v-for="sub_cat in cat?.sub_categories">
                                         @{{sub_cat.names[0] ? sub_cat.names[0]["name"] : sub_cat.main_name}}
                                     </a>
                                 </div>
