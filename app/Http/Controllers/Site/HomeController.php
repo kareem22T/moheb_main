@@ -754,7 +754,7 @@ class HomeController extends Controller
 
         // Now sort the terms as needed
         $sortedTerms = $terms->getCollection()->sortBy(function ($term) {
-            return strtolower(optional($term->names->first())->name ?? '');
+            return strtolower(optional($term->names->first())->term ?? '');
         });
 
         // Replace the current collection with the sorted one
