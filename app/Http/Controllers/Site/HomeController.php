@@ -724,31 +724,45 @@ class HomeController extends Controller
 
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $lang = $request->lang;
         $search = $request->search_words;
 
-        $terms = Term::
-        whereHas("titles", function ($q) use ($lang, $search) {
+        // Get the preferred language ID once to avoid duplicate queries
+        $preferredLanguageId = Language::where('symbol', $lang)->value('id');
+
+        $terms = Term::whereHas('titles', function ($q) use ($lang, $search) {
             $q->where('title', 'like', '%' . $search . '%');
-        })->
-        with(["titles" => function ($q) use ($lang, $search) {
-        $preferredLanguageId = Language::where("symbol", $lang)->value('id');
-        $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-        }, "names" => function ($q) use ($lang, $search) {
-            $preferredLanguageId = Language::where("symbol", $lang)->value('id');
-            $q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-        }, "category" => function ($q) use ($lang) {
-            $q->with(["names" => function ($Q) use ($lang) {
-                $preferredLanguageId = Language::where("symbol", $lang)->value('id');
-                $Q->orderByRaw("language_id = ? DESC", [$preferredLanguageId]);
-            }]);
-        }])
-        ->paginate(30);
+        })
+        ->with([
+            'titles' => function ($q) use ($preferredLanguageId) {
+                $q->orderByRaw('language_id = ? DESC', [$preferredLanguageId]);
+            },
+            'names' => function ($q) use ($preferredLanguageId) {
+                $q->orderByRaw('language_id = ? DESC', [$preferredLanguageId]);
+            },
+            'category' => function ($q) use ($preferredLanguageId) {
+                $q->with([
+                    'names' => function ($q) use ($preferredLanguageId) {
+                        $q->orderByRaw('language_id = ? DESC', [$preferredLanguageId]);
+                    }
+                ]);
+            }
+        ])
+        ->paginate(30); // Apply pagination directly on the query
+
+        // Now sort the terms as needed
+        $sortedTerms = $terms->getCollection()->sortBy(function ($term) {
+            return strtolower(optional($term->titles->first())->title ?? '');
+        });
+
+        // Replace the current collection with the sorted one
+        $terms->setCollection($sortedTerms->values());
 
         return $this->jsonData(true, true, '', [], $terms);
-
     }
+
     public function addToFav(Request $request) {
         $validator = Validator::make($request->all(), [
             'term_id' => ['required'],
