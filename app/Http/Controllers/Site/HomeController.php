@@ -753,8 +753,16 @@ class HomeController extends Controller
         ->paginate(30); // Apply pagination directly on the query
 
         // Now sort the terms as needed
-        $sortedTerms = $terms->getCollection()->sortBy(function ($term) {
-            return strtolower(optional($term->names->first())->term ?? '');
+        $sortedTerms = $terms->getCollection()->sortBy(function ($term) use ($search) {
+            $title = strtolower(optional($term->titles->first())->title ?? '');
+            $search = strtolower($search);
+
+            // Prioritize titles that start with the search word
+            if (strpos($title, $search) === 0) {
+                return '0_' . $title; // Prefix with '0_' for higher priority
+            }
+
+            return '1_' . $title; // Prefix with '1_' for lower priority
         });
 
         // Replace the current collection with the sorted one
