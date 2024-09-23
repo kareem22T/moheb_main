@@ -750,7 +750,7 @@ class HomeController extends Controller
                 ]);
             }
         ])
-        ->get(); // Apply pagination directly on the query
+        ->paginate(1000); // Apply pagination directly on the query
 
         // Now sort the terms as needed
         $sortedTerms = $terms->getCollection()->sortBy(function ($term) use ($search) {
