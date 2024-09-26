@@ -754,7 +754,7 @@ class HomeController extends Controller
 
         // Now sort the terms as needed
         $sortedTerms = $terms->getCollection()->sortBy(function ($term) use ($search) {
-            $title = strtolower(optional($term->titles->first())->title ?? '');
+            $title = strtolower(optional($term->names->first())->term ?? '');
             $search = strtolower($search);
 
             // Prioritize titles that start with the search word
