@@ -732,8 +732,8 @@ class HomeController extends Controller
         // Get the preferred language ID once to avoid duplicate queries
         $preferredLanguageId = Language::where('symbol', $lang)->value('id');
 
-        $terms = Term::whereHas('titles', function ($q) use ($lang, $search) {
-            $q->where('title', 'like', '%' . $search . '%');
+        $terms = Term::whereHas('names', function ($q) use ($lang, $search) {
+            $q->where('name', 'like', '%' . $search . '%');
         })
         ->with([
             'titles' => function ($q) use ($preferredLanguageId) {
