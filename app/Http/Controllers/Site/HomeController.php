@@ -22,6 +22,9 @@ use App\Models\Tag;
 use App\Traits\DataFormController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use \DetectLanguage\DetectLanguage;
+
+DetectLanguage::setApiKey("9ea2a9c2131b08d35a3dba874349c9c6");
 
 class HomeController extends Controller
 {
@@ -724,13 +727,51 @@ class HomeController extends Controller
 
     }
 
+    public function returnLanguageKey($lang) {
+        switch ($lang) {
+            case 'ar':
+                return "AR";
+                break;
+
+            case 'fr':
+                return "FR";
+                break;
+
+            case 'es':
+                return "ESP";
+                break;
+
+            case 'es':
+                return "ESP";
+                break;
+
+            case 'pt':
+                return "(PORT)";
+                break;
+
+            case 'it':
+                return "ITA";
+                break;
+
+            case 'de':
+                return "DEU";
+                break;
+
+            default:
+                return false;
+                break;
+        }
+    }
+
     public function search(Request $request)
     {
-        $lang = $request->lang;
+        $lang = $request->get('lang', 'en');
         $search = $request->search_words;
 
+        $textLanguage = isset(DetectLanguage::detect($search)[0]) ? ($this->returnLanguageKey(DetectLanguage::detect($search)[0]->language) ? $this->returnLanguageKey(DetectLanguage::detect($search)[0]->language) : $lang) : $lang;
+
         // Get the preferred language ID once to avoid duplicate queries
-        $preferredLanguageId = Language::where('symbol', $lang)->value('id');
+        $preferredLanguageId = Language::where('symbol', $textLanguage)->value('id');
 
         $terms = Term::whereHas('titles', function ($q) use ($lang, $search) {
             $q->where('title', 'like', '%' . $search . '%');
