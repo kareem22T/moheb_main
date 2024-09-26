@@ -779,7 +779,7 @@ class HomeController extends Controller
         $preferredLanguageId = Language::where('symbol', $textLanguage)->value('id');
 
         $terms = Term::whereHas('titles', function ($q) use ($lang, $search) {
-            $q->where('title', 'like', '%' . $search . '%');
+            $q->where('title', 'like', '%' . $search . '%')->where("language_id", $preferredLanguageId);
         })
         ->with([
             'titles' => function ($q) use ($preferredLanguageId) {
