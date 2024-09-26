@@ -768,8 +768,12 @@ class HomeController extends Controller
         $lang = $request->get('lang', 'en');
         $search = $request->search_words;
 
-
-        $textLanguage = isset(DetectLanguage::detect($search)[0]) ? ($this->returnLanguageKey(DetectLanguage::detect($search)[0]->language) ? $this->returnLanguageKey(DetectLanguage::detect($search)[0]->language) : $lang) : $lang;
+        $textLanguage = $lang;
+        try {
+            $textLanguage = isset(DetectLanguage::detect($search)[0]) ? ($this->returnLanguageKey(DetectLanguage::detect($search)[0]->language) ? $this->returnLanguageKey(DetectLanguage::detect($search)[0]->language) : $lang) : $lang;
+        } catch (\Throwable $th) {
+            $textLanguage = $lang;
+        }
 
         // Get the preferred language ID once to avoid duplicate queries
         $preferredLanguageId = Language::where('symbol', $textLanguage)->value('id');
