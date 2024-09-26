@@ -732,8 +732,8 @@ class HomeController extends Controller
         // Get the preferred language ID once to avoid duplicate queries
         $preferredLanguageId = Language::where('symbol', $lang)->value('id');
 
-        $terms = Term::whereHas('names', function ($q) use ($lang, $search) {
-            $q->where('name', 'like', '%' . $search . '%');
+        $terms = Term::whereHas('titles', function ($q) use ($lang, $search) {
+            $q->where('title', 'like', '%' . $search . '%');
         })
         ->with([
             'titles' => function ($q) use ($preferredLanguageId) {
@@ -754,7 +754,7 @@ class HomeController extends Controller
 
         // Now sort the terms as needed
         $sortedTerms = $terms->getCollection()->sortBy(function ($term) use ($search) {
-            $title = strtolower(optional($term->names->first())->term ?? '');
+            $title = strtolower(optional($term->titles->first())->title ?? '');
             $search = strtolower($search);
 
             // Prioritize titles that start with the search word
